@@ -5,13 +5,17 @@ import reactLogo from '../assets/react.svg'
 import viteLogo from '../assets/vite.svg'
 import '../App.css'
 import { ProductApi } from '../Context/ProductControlApi'
+import { DataProductApi } from '../Context/DataBaseProductApi'
 
 const Eg = () => {
     const [count, setCount] = useState(0)
     const { test } = useContext(ProductApi)
+    const { desdeDB, getAllProductsFromDB } = useContext(DataProductApi)
 
     useEffect(() => {
         test()
+        getAllProductsFromDB()
+
     }, [])
 
     return (
