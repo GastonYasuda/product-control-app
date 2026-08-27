@@ -13,9 +13,20 @@ const Home = () => {
     }, [getAllProducts])
 
     return (
-        <div>
-
-        </div>
+        <>
+            {getAllProducts.length > 0 &&
+                getAllProducts.map((product, i) => {
+                    return (
+                        <div key={i}>
+                            <h6>{product.name}</h6>
+                            <img src={product.image} alt={`${product.name} image`} />
+                            <p>{product.supplier}</p>
+                            <p>${product.price}</p>
+                        </div>
+                    )
+                })
+            }
+        </>
     )
 }
 
