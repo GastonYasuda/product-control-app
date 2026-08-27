@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useEffect, useState } from 'react'
 
 export const DataProductApi = createContext()
 
@@ -7,6 +7,10 @@ const DataBaseProductApi = ({ children }) => {
     // const urlAllProducts = 'https://6a8cdd7663f113bab0b8788d.mockapi.io/product
 
     const [getAllProducts, setGetAllProducts] = useState([])
+
+    useEffect(() => {
+        getAllProductsFromDB()
+    }, [])
 
     const desdeDB = () => {
         console.log('probando desde desdeDB');
@@ -20,9 +24,7 @@ const DataBaseProductApi = ({ children }) => {
             const response = await fetch('https://6a8cdd7663f113bab0b8788d.mockapi.io/product')
             if (response.ok) {
                 const data = await response.json()
-                console.log(data);
-
-                //aca va el setState
+                setGetAllProducts([...getAllProducts, ...data])
             } else {
                 throw new Error("Error al intentar obtener productos");
 
@@ -44,7 +46,7 @@ const DataBaseProductApi = ({ children }) => {
     const deleteOneElementFromDB = () => { }
 
     return (
-        <DataProductApi.Provider value={{ desdeDB, getAllProductsFromDB }}>
+        <DataProductApi.Provider value={{ desdeDB, getAllProducts }}>
             {children}
         </DataProductApi.Provider>
     )

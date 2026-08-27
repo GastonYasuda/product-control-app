@@ -10,13 +10,17 @@ import { DataProductApi } from '../Context/DataBaseProductApi'
 const Eg = () => {
     const [count, setCount] = useState(0)
     const { test } = useContext(ProductApi)
-    const { desdeDB, getAllProductsFromDB } = useContext(DataProductApi)
+    const { desdeDB, getAllProducts } = useContext(DataProductApi)
 
     useEffect(() => {
         test()
-        getAllProductsFromDB()
+        getAllProducts
+        if (getAllProducts.length > 0) {
+            console.log(getAllProducts);
 
-    }, [])
+        }
+
+    }, [getAllProducts])
 
     return (
         <>
