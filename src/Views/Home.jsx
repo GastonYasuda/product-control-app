@@ -22,7 +22,7 @@ const Home = () => {
 
     return (
 
-        <Row xs={2} md={2} className="g-4">
+        <Row xs={2} md={2} className="g-4" style={{ marginRight: '0px', marginLeft: "0px" }}>
             {getAllProducts.map((product, i) => (
                 <Col key={i}>
                     <Card className="h-100">
