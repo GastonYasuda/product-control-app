@@ -1,6 +1,8 @@
 import React from 'react'
 import './navbar.css'
 import { Link } from 'react-router-dom'
+import Dropdown from 'react-bootstrap/Dropdown';
+
 
 const NavBar = () => {
     return (
@@ -26,16 +28,27 @@ const NavBar = () => {
                 <span className='navbar_txt'>Repo</span>
             </Link>
 
-            <span className='d-flex flex-column' onClick={() => {
-                console.log('tiene que salir un sider para hacer logout');
-            }}>
-                <span className="material-symbols-outlined navbar_icon">
-                    account_circle
-                </span>
-                <span className='navbar_txt'>Login</span>
-            </span>
 
-        </div>
+            <Dropdown>
+                <Dropdown.Toggle className='pt-0 d-flex flex-column border-0 bg-transparent' id="dropdown-basic">
+                    <span className="material-symbols-outlined navbar_icon">
+                        account_circle
+                    </span>
+                    <span className='navbar_txt'>Login</span>
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                    <Dropdown.Item href="#/action-1" className='dropdown-menu-txt d-flex justify-content-evenly'>
+                        <span class="material-symbols-outlined">
+                            no_accounts
+                        </span>
+                        <span>LogOut</span>
+                    </Dropdown.Item>
+                </Dropdown.Menu>
+            </Dropdown>
+
+
+        </div >
     )
 }
 

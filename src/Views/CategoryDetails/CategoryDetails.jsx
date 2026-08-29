@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { Button, Card, Col, Row, Form } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
 import SearchBar from '../../Components/SearchBar/SearchBar'
+import NavBar from '../../Components/NavBar/NavBar'
 
 const CategoryDetails = () => {
     const { idCategory } = useParams()
@@ -136,6 +137,8 @@ const CategoryDetails = () => {
                     </Card>
                 </Col>
             </Row>
+
+            <NavBar />
 
         </div >
     )

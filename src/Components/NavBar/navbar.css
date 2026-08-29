@@ -17,3 +17,19 @@
     color: #FCFCFC;
     filter: drop-shadow(1px 1px 2px #00000091)
 }
+
+.dropdown-toggle::after {
+    border: 0 !important;
+}
+
+.dropdown-menu {
+    transform: translate3d(18px, -85px, 0px) !important;
+    text-align: end !important;
+    background: rgba(15, 15, 15, 0.9) !important;
+    -webkit-backdrop-filter: blur(5px) !important;
+    backdrop-filter: blur(6px) !important;
+}
+
+.dropdown-menu-txt {
+    color: #FCFCFC !important;
+}

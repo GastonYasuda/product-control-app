@@ -35,12 +35,12 @@ const Order = () => {
                             placeholder="0"
                         />
                         <Button type="submit" variant='danger' className='ms-2'>
-                            <span class="material-symbols-outlined">
+                            <span className="material-symbols-outlined">
                                 delete
                             </span>
                         </Button>
                         <Button type="submit" variant='dark' className='ms-2'>
-                            <span class="material-symbols-outlined">
+                            <span className="material-symbols-outlined">
                                 format_list_bulleted_add
                             </span>
                         </Button>
@@ -72,12 +72,12 @@ const Order = () => {
                             placeholder="0"
                         />
                         <Button type="submit" variant='danger' className='ms-2'>
-                            <span class="material-symbols-outlined">
+                            <span className="material-symbols-outlined">
                                 delete
                             </span>
                         </Button>
                         <Button type="submit" variant='dark' className='ms-2'>
-                            <span class="material-symbols-outlined">
+                            <span className="material-symbols-outlined">
                                 format_list_bulleted_add
                             </span>
                         </Button>
@@ -109,12 +109,12 @@ const Order = () => {
                             placeholder="0"
                         />
                         <Button type="submit" variant='danger' className='ms-2'>
-                            <span class="material-symbols-outlined">
+                            <span className="material-symbols-outlined">
                                 delete
                             </span>
                         </Button>
                         <Button type="submit" variant='dark' className='ms-2'>
-                            <span class="material-symbols-outlined">
+                            <span className="material-symbols-outlined">
                                 format_list_bulleted_add
                             </span>
                         </Button>
