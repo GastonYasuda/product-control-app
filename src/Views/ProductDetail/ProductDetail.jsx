@@ -3,6 +3,7 @@ import { Button, Form } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import './productDetail.css'
 import SearchBar from '../../Components/SearchBar/SearchBar';
+import NavBar from '../../Components/NavBar/NavBar';
 
 const ProductDetail = () => {
     const { idProduct } = useParams()
@@ -34,20 +35,25 @@ const ProductDetail = () => {
                         </div>
                     </div>
 
-                    <Form className='w-100 d-flex justify-content-between'>
+                    <Form className='w-100 mt-3 d-flex justify-content-between'>
                         <Form.Control
                             type="number"
                             placeholder="0"
                         />
                         <Button type="submit" variant='danger' className='ms-2'>
-                            Quitar
+                            <span class="material-symbols-outlined">
+                                delete
+                            </span>
                         </Button>
                         <Button type="submit" variant='dark' className='ms-2'>
-                            Agregar
+                            <span class="material-symbols-outlined">
+                                format_list_bulleted_add
+                            </span>
                         </Button>
                     </Form>
                 </div>
             </div>
+            <NavBar />
         </div>
     )
 }
