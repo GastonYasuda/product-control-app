@@ -5,6 +5,8 @@ import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
+import './home.css'
+import { Link } from 'react-router-dom';
 
 
 
@@ -22,33 +24,39 @@ const Home = () => {
 
     return (
 
-        <Row xs={2} md={2} className="g-4" style={{ marginRight: '0px', marginLeft: "0px" }}>
+        <Row xs={2} md={2} className="g-4 home" style={{ marginRight: '0px', marginLeft: "0px" }}>
             {getAllProducts.map((product, i) => (
                 <Col key={i}>
                     <Card className="h-100">
-                        <Card.Img
-                            variant="top"
-                            src={product.image}
-                            style={{
-                                height: '200px',
-                                objectFit: 'contain'
-                            }}
-                        />
+                        <Link to={`/${product.name}`}>
+                            <Card.Img
+                                variant="top"
+                                src={product.image}
+                                className='homeCardImage'
+                            />
+                        </Link>
 
                         <Card.Body>
-                            <Card.Title>{product.name}</Card.Title>
-                            <Card.Text>{product.supplier}</Card.Text>
-                            <Card.Subtitle>${product.price}</Card.Subtitle>
-                            <Card.Text>Stock: {product.stock}</Card.Text>
+                            <div className='homeProductsBody'>
+                                <Card.Title>{product.name}</Card.Title>
+                                <Card.Text>{product.supplier}</Card.Text>
+                                <Card.Subtitle>${product.price}</Card.Subtitle>
+                                <Card.Text>Stock: {product.stock}</Card.Text>
 
-                            <Form style={{ display: 'flex' }}>
+                            </div>
+                            <Form className='homeProductsForm'>
                                 <Form.Control
                                     type="number"
                                     placeholder="0"
                                 />
-                                <Button type="submit">
-                                    Agregar
-                                </Button>
+                                <div className='homeProductsFormButton'>
+                                    <Button type="submit" variant='danger'>
+                                        Quitar
+                                    </Button>
+                                    <Button type="submit" variant='dark'>
+                                        Agregar
+                                    </Button>
+                                </div>
                             </Form>
                         </Card.Body>
                     </Card>

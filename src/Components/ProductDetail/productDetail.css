@@ -1,0 +1,24 @@
+.productDetailComponent {
+    width: 80%;
+    margin: auto;
+    margin-top: 80px;
+    background-color: #FCFCFC;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.productDetailComponent_img {
+    width: 100%;
+    height: 70%;
+    object-fit: cover
+}
+
+.productDetailComponent_body {
+    margin: auto;
+    padding: 30px 20px;
+}
+
+.productDetailComponent_body_form {
+    display: flex;
+    gap: 8px;
+}
