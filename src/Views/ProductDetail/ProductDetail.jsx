@@ -5,6 +5,8 @@ import './productDetail.css'
 
 const ProductDetail = () => {
     const { idProduct } = useParams()
+    //si idProduct no existe en el array de ptroductos, tiene que tirar error, producto no encontrado
+
 
     useEffect(() => {
         console.log(`yo soy ${idProduct}`);
