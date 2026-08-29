@@ -64,6 +64,8 @@ body {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  background-color: #16171d
+    /*AGREGADO*/
 }
 
 h1,

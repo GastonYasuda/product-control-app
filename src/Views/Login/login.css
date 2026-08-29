@@ -1,0 +1,30 @@
+.loginContainer {
+    background-color: rgba(244, 243, 236, 0.2);
+    color: #ffff;
+    text-align: center;
+    padding: 30px;
+    margin: 40% 10%;
+    border-radius: 4%;
+    border: 1.2px solid #f9f9f9;
+}
+
+.loginForm {
+    margin-top: 50px;
+}
+
+.form-control {
+    background-color: rgba(248, 248, 248, 0.4) !important;
+}
+
+
+
+.loginFormCheckBox {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.loginFormButton {
+    margin-top: 20px;
+    padding: 10px 70px;
+}
