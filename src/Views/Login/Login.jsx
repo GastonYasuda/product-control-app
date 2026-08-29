@@ -15,6 +15,8 @@ const Login = () => {
                         type="text"
                         placeholder="usuario"
                         className='loginFormInput'
+                        autoComplete='username'
+
                     />
                     <label htmlFor="floatingInputCustom">Usuario</label>
                 </Form.Floating>
@@ -25,6 +27,7 @@ const Login = () => {
                         type="password"
                         placeholder="Password"
                         className='loginFormInput'
+                        autoComplete='current-password'
                     />
                     <label htmlFor="floatingPasswordCustom">Contraseña</label>
                 </Form.Floating>
