@@ -28,6 +28,8 @@ const ProductsCards = () => {
 
     return (
         <>
+            <h1 className='my-3'>Todos los Productos</h1>
+
             {loading ?
                 <Spinner animation="grow" variant="success" className='loadingSpinner' />
                 :

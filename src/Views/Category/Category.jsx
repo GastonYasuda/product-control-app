@@ -9,6 +9,8 @@ const Category = () => {
         <div className='mt-5'>
             <SearchBar />
 
+            <h1 className='my-3'>Categorias</h1>
+
             <Row xs={2} md={2} className="g-4 mt-3 mx-0" >
                 <Col>
                     <Card className="d-flex justify-content-space-between">
@@ -21,7 +23,7 @@ const Category = () => {
                             />
 
                             <Card.Body>
-                                <div className='text-center mb-2'>
+                                <div className='text-center mb-2 text-black'>
                                     <Card.Title>Libreria</Card.Title>
                                 </div>
 
@@ -41,7 +43,7 @@ const Category = () => {
                             />
 
                             <Card.Body>
-                                <div className='text-center mb-2'>
+                                <div className='text-center mb-2 text-black'>
                                     <Card.Title>Jugueteria</Card.Title>
                                 </div>
 
@@ -61,7 +63,7 @@ const Category = () => {
                             />
 
                             <Card.Body>
-                                <div className='text-center mb-2'>
+                                <div className='text-center mb-2 text-black'>
                                     <Card.Title>Bazar</Card.Title>
                                 </div>
 
