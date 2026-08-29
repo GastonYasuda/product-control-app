@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { Button, Form } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import './productDetail.css'
+import SearchBar from '../../Components/SearchBar/SearchBar';
 
 const ProductDetail = () => {
     const { idProduct } = useParams()
@@ -15,27 +16,37 @@ const ProductDetail = () => {
 
 
     return (
-        <div className='productDetailComponent'>
-            <img src="https://www.oscarbarbieri.com/media/catalog/product/cache/09bfecd8b17db51cfea360c7940343e7/v/a/vaso7_1.jpg" className='productDetailComponent_img' alt="Vaso de vidrio img" />
+        <div className='mt-5'>
+            <SearchBar />
 
-            <div className="productDetailComponent_body">
+            <h1 className='my-3'> {idProduct}</h1>
 
-                <h2>{idProduct}</h2>
-                <p>Rigolleau</p>
-                <p>$ 55555</p>
-                <p>Stock: 53u.</p>
-                <Form className='productDetailComponent_body_form'>
-                    <Form.Control
-                        type="number"
-                        placeholder="0"
-                    />
-                    <Button type="submit" variant='danger'>
-                        Quitar
-                    </Button>
-                    <Button type="submit" variant='dark'>
-                        Agregar
-                    </Button>
-                </Form>
+            <div className='productDetailComponent mt-3 mx-auto'>
+                <img src="https://www.oscarbarbieri.com/media/catalog/product/cache/09bfecd8b17db51cfea360c7940343e7/v/a/vaso7_1.jpg" className='w-100' alt="Vaso de vidrio img" />
+
+                <div className=" m-auto p-3">
+                    <div className="w-100 d-flex flex-column align-items-start">
+
+                        <span>Rigolleau</span>
+                        <div className='w-100 d-flex justify-content-between'>
+                            <p>$ 55555</p>
+                            <p>Stock: 53u.</p>
+                        </div>
+                    </div>
+
+                    <Form className='w-100 d-flex justify-content-between'>
+                        <Form.Control
+                            type="number"
+                            placeholder="0"
+                        />
+                        <Button type="submit" variant='danger' className='ms-2'>
+                            Quitar
+                        </Button>
+                        <Button type="submit" variant='dark' className='ms-2'>
+                            Agregar
+                        </Button>
+                    </Form>
+                </div>
             </div>
         </div>
     )

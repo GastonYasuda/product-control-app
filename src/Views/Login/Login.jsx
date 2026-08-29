@@ -8,11 +8,7 @@ const Login = () => {
         <div className='loginContainer'>
             <h1>Login</h1>
 
-
             <Form className='loginForm'>
-
-
-
                 <Form.Floating className="mb-3">
                     <Form.Control
                         id="floatingInputCustom"
@@ -22,6 +18,7 @@ const Login = () => {
                     />
                     <label htmlFor="floatingInputCustom">Usuario</label>
                 </Form.Floating>
+
                 <Form.Floating>
                     <Form.Control
                         id="floatingPasswordCustom"
@@ -31,7 +28,8 @@ const Login = () => {
                     />
                     <label htmlFor="floatingPasswordCustom">Contraseña</label>
                 </Form.Floating>
-                <Form.Group className="mb-3 loginFormCheckBox" controlId="formBasicCheckbox">
+
+                <Form.Group className="mt-4 loginFormCheckBox" controlId="formBasicCheckbox">
                     <Form.Check type="checkbox" label="Recordar Login" />
                 </Form.Group>
 

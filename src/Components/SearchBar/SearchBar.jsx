@@ -5,7 +5,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 
 const SearchBar = () => {
     return (
-        <InputGroup className="mb-3">
+        <InputGroup className="mt-3 ps-3 pe-3">
             <Form.Control
                 placeholder="Buscador"
                 aria-label="Recipient's username"
