@@ -21,6 +21,13 @@ const NavBar = () => {
                 <span className='navbar_txt'>Categoria</span>
             </Link>
 
+            <Link to={'/supplier'} className='d-flex flex-column'>
+                <span className="material-symbols-outlined navbar_icon">
+                    store
+                </span>
+                <span className='navbar_txt'>Proveedor</span>
+            </Link>
+
             <Link to={'/order'} className='d-flex flex-column'>
                 <span className="material-symbols-outlined navbar_icon">
                     order_approve
@@ -38,8 +45,8 @@ const NavBar = () => {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1" className='dropdown-menu-txt d-flex justify-content-evenly'>
-                        <span class="material-symbols-outlined">
+                    <Dropdown.Item href="/login" className='dropdown-menu-txt d-flex justify-content-evenly'>
+                        <span className="material-symbols-outlined">
                             no_accounts
                         </span>
                         <span>LogOut</span>

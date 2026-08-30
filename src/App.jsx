@@ -5,6 +5,8 @@ import ProductDetail from './Views/ProductDetail/ProductDetail'
 import Order from './Views/Order/Order'
 import Category from './Views/Category/Category'
 import CategoryDetails from './Views/CategoryDetails/CategoryDetails'
+import Suppier from './Views/Suppier/Suppier'
+import SuppierDetail from './Views/SuppierDetail/SuppierDetail'
 
 function App() {
 
@@ -15,6 +17,8 @@ function App() {
         <Route path='/product/:idProduct' element={<ProductDetail />} />
         <Route path='/category' element={<Category />} />
         <Route path='/category/:idCategory' element={<CategoryDetails />} />
+        <Route path='/supplier' element={<Suppier />} />
+        <Route path='/supplier/:idSupplier' element={<SuppierDetail />} />
         <Route path='/order' element={<Order />} />
         <Route path='/login' element={<Login />} />
 
