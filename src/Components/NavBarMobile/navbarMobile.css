@@ -36,4 +36,12 @@
     .dropdown-menu-txt {
         color: #FCFCFC !important;
     }
+
+    .dropdown-menu:hover {
+        background-color: #000000 !important;
+    }
+
+    .dropdown-item:hover {
+        background-color: #000000 !important;
+    }
 }
