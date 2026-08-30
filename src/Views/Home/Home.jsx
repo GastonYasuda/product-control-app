@@ -12,8 +12,9 @@ const Home = () => {
 
     return (
         <div className='mt-5'>
-            <SearchBar />
-
+            <div className='d-block d-lg-none'>
+                <SearchBar />
+            </div>
             <ProductsCards />
 
             <NavBar />

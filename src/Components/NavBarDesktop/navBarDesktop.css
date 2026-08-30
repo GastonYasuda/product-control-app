@@ -1,0 +1,45 @@
+.navBar_container {
+    border-radius: 0 0 15px 15px !important;
+}
+
+.navBar_container_searchbar {
+    width: 50%;
+    flex: 5;
+    justify-items: end;
+}
+
+.navBar_container_icons {
+    flex: 2;
+}
+
+
+.dropdown-toggle::after {
+    border: 0 !important;
+}
+
+@media (min-width: 1024px) {
+    .dropdown-menu {
+        transform: translate3d(4px, 76px, 0px) !important;
+        transition: all 0.3;
+        text-align: end !important;
+        background: rgba(15, 15, 15, 0.7) !important;
+        -webkit-backdrop-filter: blur(5px) !important;
+        backdrop-filter: blur(6px) !important;
+    }
+
+    .dropdown-menu-txt {
+        color: #FCFCFC !important;
+    }
+
+    .dropdown-menu:hover {
+        background-color: #000000 !important;
+    }
+
+    .dropdown-item:hover {
+        background-color: #000000 !important;
+    }
+
+    .dropdown-menu-txt:hover {
+        color: #FCFCFC !important;
+    }
+}

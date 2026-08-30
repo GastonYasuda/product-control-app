@@ -11,9 +11,10 @@ const SuppierDetail = () => {
 
     return (
         <div className='mt-5'>
-            <SearchBar />
-
-            <h1 className='my-3'>{idSupplier}</h1>
+            <div className='d-block d-lg-none'>
+                <SearchBar />
+            </div>
+            <h1 className='mt-5'>{idSupplier}</h1>
 
             <Row xs={2} md={2} className="g-4 mx-0" >
                 <Col>

@@ -15,9 +15,10 @@ const CategoryDetails = () => {
     }, [])
     return (
         <div className='mt-5'>
-            <SearchBar />
-
-            <h1 className='my-3'>{idCategory}</h1>
+            <div className='d-block d-lg-none'>
+                <SearchBar />
+            </div>
+            <h1 className='mt-5'>{idCategory}</h1>
 
             <Row xs={2} md={2} className="g-4 mx-0" >
                 <Col>

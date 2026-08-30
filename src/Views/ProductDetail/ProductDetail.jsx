@@ -18,9 +18,10 @@ const ProductDetail = () => {
 
     return (
         <div className='mt-5'>
-            <SearchBar />
-
-            <h1 className='my-3'> {idProduct}</h1>
+            <div className='d-block d-lg-none'>
+                <SearchBar />
+            </div>
+            <h1 className='mt-5'> {idProduct}</h1>
 
             <div className='productDetailComponent mt-3 mx-auto'>
                 <img src="https://www.oscarbarbieri.com/media/catalog/product/cache/09bfecd8b17db51cfea360c7940343e7/v/a/vaso7_1.jpg" className='w-100' alt="Vaso de vidrio img" />

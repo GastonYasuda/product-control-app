@@ -7,9 +7,12 @@ import { Link } from 'react-router-dom'
 const Category = () => {
     return (
         <div className='mt-5'>
-            <SearchBar />
 
-            <h1 className='my-3'>Categorias</h1>
+            <div className='d-block d-lg-none'>
+                <SearchBar />
+            </div>
+
+            <h1 className='mt-5'>Categorias</h1>
 
             <Row xs={2} md={2} className="g-4 mt-3 mx-0" >
                 <Col>

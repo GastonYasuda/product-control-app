@@ -1,5 +1,6 @@
 .searchBarContainer {
-    filter: drop-shadow(1px 3px 7px rgba(61, 37, 37, 0.2))
+    width: 75%;
+    margin: auto;
 }
 
 .searchBarButton {
@@ -14,4 +15,15 @@
 .searchBarButton_icon {
     color: rgb(252, 252, 252);
     filter: drop-shadow(1px 1px 2px #0000003f)
+}
+
+@media (min-width: 1024px) {
+    .searchBarContainer {
+        margin: 0;
+        display: flex;
+    }
+
+    .searchBarContainer_input {
+        margin: 1rem;
+    }
 }
