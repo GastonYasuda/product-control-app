@@ -1,10 +1,4 @@
 .productDetailComponent {
-    width: 80%;
     background-color: #FCFCFC;
     overflow: hidden;
-}
-
-.productDetailComponent_img {
-    height: 70%;
-    object-fit: cover
 }
