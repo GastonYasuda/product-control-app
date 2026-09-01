@@ -1,15 +1,25 @@
-.loadingSpinner {
-    width: 4rem !important;
-    height: 4rem !important;
-    margin-top: 30%;
-}
+    .productsCardContainer {
+        width: 100%;
+    }
 
-.card {
-    background-color: #FCFCFC;
-    box-shadow: 0 6px 15px rgba(61, 37, 37, 0.2);
-}
+    .loadingSpinner {
+        width: 4rem !important;
+        height: 4rem !important;
+        margin-top: 30%;
+    }
 
-.homeCardImage {
-    height: 200px !important;
-    object-fit: cover !important;
-}
+    .card {
+        background-color: #FCFCFC;
+        box-shadow: 0 6px 15px rgba(61, 37, 37, 0.2);
+    }
+
+    .homeCardImage {
+        height: 200px !important;
+        object-fit: cover !important;
+    }
+
+    @media (min-width: 1024px) {
+        .productsCardContainer {
+            width: 75%;
+        }
+    }

@@ -34,26 +34,33 @@ const ProductsCards = () => {
                 loading ?
                     <Spinner animation="grow" variant="success" className='loadingSpinner' />
                     :
-                    <Row xs={2} md={4} className="w-75 g-4 mt-3 mx-auto justify-content-center" >
+                    <Row xs={2} md={4} className="productsCardContainer g-4 mt-3 mx-auto justify-content-center" >
 
                         {getAllProducts.map((product, i) => (
                             <Col key={i}>
                                 <Card className="h-100 d-flex justify-content-space-between">
                                     <Link to={`/product/${product.name}`}>
-                                        <Card.Img
-                                            variant="top"
-                                            src={product.image}
-                                            className='homeCardImage'
-                                            alt={`${product.name} img`}
-                                        />
+                                        <div className='w-100'>
+                                            <img src={product.image} className='w-100 homeCardImage' alt={`${product.name} img`} />
+                                        </div>
                                     </Link>
 
+
+
+
+
+
                                     <Card.Body className='d-flex flex-column justify-content-between'>
-                                        <div className='text-start'>
-                                            <Card.Title>{product.name}</Card.Title>
-                                            <Card.Text>{product.supplier}</Card.Text>
-                                            <Card.Subtitle>${product.price}</Card.Subtitle>
-                                            <Card.Text>Stock: {product.stock}</Card.Text>
+                                        <div className='text-start d-flex flex-column'>
+                                            <div>
+                                                <h5>{product.name}</h5>
+                                                <h6>{product.supplier}</h6>
+                                                <span>{product.code}</span>
+                                            </div>
+                                            <div className='w-100 mt-4 mb-1 mb-lg-0  d-flex justify-content-between'>
+                                                <span>${product.price}</span>
+                                                <span>Stock: {product.stock}</span>
+                                            </div>
                                         </div>
 
                                         <Form className='d-flex flex-row'>

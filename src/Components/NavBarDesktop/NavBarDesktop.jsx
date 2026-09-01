@@ -11,45 +11,45 @@ const NavBarDesktop = () => {
 
             <div className='d-flex w-100 '>
 
-                <div className='navBar_container_searchbar  d-none d-lg-block'>
+                <div className='navBar_container_searchbar d-none d-lg-block'>
                     <SearchBar />
                 </div>
 
-                <div className='navBar_container_icons d-flex justify-content-evenly '>
-                    <Link to={'/'} className='d-flex flex-column'>
-                        <span className="material-symbols-outlined navbar_icon">
+                <div className='navBar_container_icons d-flex align-items-center'>
+                    <Link to={'/'} className='ms-4 d-flex flex-row align-items-center text-light'>
+                        <span className="material-symbols-outlined">
                             splitscreen
                         </span>
-                        <span className='navbar_txt'>Productos</span>
+                        <span className='ms-1 '>Productos</span>
                     </Link>
 
-                    <Link to={'/category'} className='d-flex flex-column'>
-                        <span className="material-symbols-outlined navbar_icon">
+                    <Link to={'/category'} className='ms-4 d-flex flex-row align-items-center text-light'>
+                        <span className="material-symbols-outlined">
                             category
                         </span>
-                        <span className='navbar_txt'>Categoria</span>
+                        <span className='ms-1'>Categoria</span>
                     </Link>
 
-                    <Link to={'/supplier'} className='d-flex flex-column'>
-                        <span className="material-symbols-outlined navbar_icon">
+                    <Link to={'/supplier'} className='ms-4 d-flex flex-row align-items-center text-light'>
+                        <span className="material-symbols-outlined">
                             store
                         </span>
-                        <span className='navbar_txt'>Proveedor</span>
+                        <span className='ms-1'>Proveedor</span>
                     </Link>
 
-                    <Link to={'/order'} className='d-flex flex-column'>
-                        <span className="material-symbols-outlined navbar_icon">
+                    <Link to={'/order'} className='ms-4 d-flex flex-row align-items-center text-light'>
+                        <span className="material-symbols-outlined">
                             order_approve
                         </span>
-                        <span className='navbar_txt'>Repo</span>
+                        <span className='ms-1'>Repo</span>
                     </Link>
 
                     <Dropdown>
-                        <Dropdown.Toggle className='pt-0 d-flex flex-column border-0 bg-transparent' id="dropdown-basic">
-                            <span className="material-symbols-outlined navbar_icon">
+                        <Dropdown.Toggle className='ms-2 d-flex flex-row align-items-center border-0 bg-transparent' id="dropdown-basic">
+                            <span className="material-symbols-outlined">
                                 account_circle
                             </span>
-                            <span className='navbar_txt'>Login</span>
+                            <span className='ms-1'>Login</span>
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>
