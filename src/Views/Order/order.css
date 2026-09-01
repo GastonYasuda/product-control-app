@@ -1,14 +1,6 @@
 .orderContainer_card {
     background-color: #FCFCFC;
     box-shadow: 0 6px 15px rgba(61, 37, 37, 0.2);
-    border-radius: 15px;
-    width: 90%;
-    height: 160px;
+    height: 10rem;
     overflow: hidden;
-}
-
-.orderContainer_card_img {
-    width: 6em;
-    height: auto;
-    border-radius: 15px;
 }

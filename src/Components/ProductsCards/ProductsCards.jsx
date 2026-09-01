@@ -34,7 +34,7 @@ const ProductsCards = () => {
                 loading ?
                     <Spinner animation="grow" variant="success" className='loadingSpinner' />
                     :
-                    <Row xs={2} md={6} className="g-4 mt-3 mx-0" >
+                    <Row xs={2} md={4} className="w-75 g-4 mt-3 mx-auto justify-content-center" >
 
                         {getAllProducts.map((product, i) => (
                             <Col key={i}>
@@ -49,14 +49,14 @@ const ProductsCards = () => {
                                     </Link>
 
                                     <Card.Body className='d-flex flex-column justify-content-between'>
-                                        <div className='text-start mb-2'>
+                                        <div className='text-start'>
                                             <Card.Title>{product.name}</Card.Title>
                                             <Card.Text>{product.supplier}</Card.Text>
                                             <Card.Subtitle>${product.price}</Card.Subtitle>
                                             <Card.Text>Stock: {product.stock}</Card.Text>
                                         </div>
 
-                                        <Form className='d-flex flex-row mt-3'>
+                                        <Form className='d-flex flex-row'>
                                             <Form.Control
                                                 type="number"
                                                 placeholder="0"

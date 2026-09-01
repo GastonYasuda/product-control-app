@@ -5,7 +5,7 @@ import './login.css'
 
 const Login = () => {
     return (
-        <div className='loginContainer m-auto'>
+        <div className='loginContainer m-auto rounded'>
             <h1>Login</h1>
 
             <Form className='loginForm'>

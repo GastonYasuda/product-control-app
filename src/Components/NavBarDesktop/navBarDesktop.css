@@ -1,7 +1,3 @@
-.navBar_container {
-    border-radius: 0 0 15px 15px !important;
-}
-
 .navBar_container_searchbar {
     width: 50%;
     flex: 5;

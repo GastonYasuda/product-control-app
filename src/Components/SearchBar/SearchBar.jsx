@@ -15,7 +15,7 @@ const SearchBar = () => {
                     className="bg-light"
 
                 />
-                <button className='searchBarButton' id="button-addon2">
+                <button className='searchBarButton rounded-end' id="button-addon2">
                     <span className="material-symbols-outlined searchBarButton_icon">
                         search
                     </span>

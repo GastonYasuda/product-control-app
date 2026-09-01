@@ -16,7 +16,7 @@ const SuppierDetail = () => {
             </div>
             <h1 className='mt-5'>{idSupplier}</h1>
 
-            <Row xs={2} md={2} className="g-4 mx-0" >
+            <Row xs={2} md={4} className="w-75 g-4 mt-3 mx-auto justify-content-center" >
                 <Col>
                     <Card className="h-100 d-flex justify-content-space-between">
                         {/* <Link to={`/product/${product.name}`}> */}

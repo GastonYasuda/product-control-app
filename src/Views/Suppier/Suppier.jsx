@@ -12,7 +12,7 @@ const Suppier = () => {
             </div>
             <h1 className='mt-5'>Provedores</h1>
 
-            <Row xs={2} md={2} className="g-4 mt-3 mx-0" >
+            <Row xs={2} md={4} className="w-75 g-4 mt-3 mx-auto justify-content-center" >
                 <Col>
                     <Card className="d-flex justify-content-space-between">
                         <Link to={`/supplier/bariloche`}>
