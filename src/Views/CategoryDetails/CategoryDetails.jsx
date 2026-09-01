@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Button, Card, Col, Row, Form } from 'react-bootstrap'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import SearchBar from '../../Components/SearchBar/SearchBar'
 import NavBar from '../../Components/NavBar/NavBar'
 
@@ -23,14 +23,14 @@ const CategoryDetails = () => {
             <Row xs={2} md={4} className="w-75 g-4 mt-3 mx-auto justify-content-center" >
                 <Col>
                     <Card className="h-100 d-flex justify-content-space-between">
-                        {/* <Link to={`/product/${product.name}`}> */}
-                        <Card.Img
-                            variant="top"
-                            src='https://www.papelerabariloche.com.ar/img/p/141682/9d5975535a014bb888b3be0eb0eeea32.jpeg?quality=95&width=800&height=800&mode=max&upscale=false'
-                            className='homeCardImage'
-                            alt='lapiz'
-                        />
-                        {/* </Link> */}
+                        <Link to={`/product/ejemplo-lapiz-bic`}>
+                            <Card.Img
+                                variant="top"
+                                src='https://www.papelerabariloche.com.ar/img/p/141682/9d5975535a014bb888b3be0eb0eeea32.jpeg?quality=95&width=800&height=800&mode=max&upscale=false'
+                                className='homeCardImage'
+                                alt='lapiz'
+                            />
+                        </Link>
 
                         <Card.Body>
                             <div className='text-start mb-2'>
@@ -62,14 +62,14 @@ const CategoryDetails = () => {
 
                 <Col>
                     <Card className="h-100 d-flex justify-content-space-between">
-                        {/* <Link to={`/product/${product.name}`}> */}
-                        <Card.Img
-                            variant="top"
-                            src='https://www.papelerabariloche.com.ar/img/p/141682/9d5975535a014bb888b3be0eb0eeea32.jpeg?quality=95&width=800&height=800&mode=max&upscale=false'
-                            className='homeCardImage'
-                            alt='lapiz'
-                        />
-                        {/* </Link> */}
+                        <Link to={`/product/ejemplo-lapiz-bic`}>
+                            <Card.Img
+                                variant="top"
+                                src='https://www.papelerabariloche.com.ar/img/p/141682/9d5975535a014bb888b3be0eb0eeea32.jpeg?quality=95&width=800&height=800&mode=max&upscale=false'
+                                className='homeCardImage'
+                                alt='lapiz'
+                            />
+                        </Link>
 
                         <Card.Body>
                             <div className='text-start mb-2'>
@@ -101,14 +101,14 @@ const CategoryDetails = () => {
 
                 <Col>
                     <Card className="h-100 d-flex justify-content-space-between">
-                        {/* <Link to={`/product/${product.name}`}> */}
-                        <Card.Img
-                            variant="top"
-                            src='https://www.papelerabariloche.com.ar/img/p/141682/9d5975535a014bb888b3be0eb0eeea32.jpeg?quality=95&width=800&height=800&mode=max&upscale=false'
-                            className='homeCardImage'
-                            alt='lapiz'
-                        />
-                        {/* </Link> */}
+                        <Link to={`/product/ejemplo-lapiz-bic`}>
+                            <Card.Img
+                                variant="top"
+                                src='https://www.papelerabariloche.com.ar/img/p/141682/9d5975535a014bb888b3be0eb0eeea32.jpeg?quality=95&width=800&height=800&mode=max&upscale=false'
+                                className='homeCardImage'
+                                alt='lapiz'
+                            />
+                        </Link>
 
                         <Card.Body>
                             <div className='text-start mb-2'>

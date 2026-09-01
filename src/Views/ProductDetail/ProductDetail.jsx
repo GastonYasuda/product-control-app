@@ -23,7 +23,7 @@ const ProductDetail = () => {
             </div>
             <h1 className='mt-5'> {idProduct}</h1>
 
-            <div className='w-75 productDetailComponent rounded mt-3 mx-auto d-flex'>
+            <div className='w-75 productDetailComponent rounded mt-5 mx-auto d-flex'>
                 <div className='w-50'>
                     <img src="https://www.oscarbarbieri.com/media/catalog/product/cache/09bfecd8b17db51cfea360c7940343e7/v/a/vaso7_1.jpg" className='w-75' alt="Vaso de vidrio img" />
                 </div>

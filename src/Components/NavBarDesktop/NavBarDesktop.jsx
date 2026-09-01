@@ -9,7 +9,7 @@ const NavBarDesktop = () => {
     return (
         <div className='navBar_container fixed-top pt-3 pe-2 '>
 
-            <div className='d-flex w-100 '>
+            <div className='d-flex w-100 px-3 '>
 
                 <div className='navBar_container_searchbar d-none d-lg-block'>
                     <SearchBar />
