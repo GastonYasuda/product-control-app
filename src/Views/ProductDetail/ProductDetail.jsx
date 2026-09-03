@@ -23,23 +23,22 @@ const ProductDetail = () => {
             </div>
             <h1 className='mt-5'> {idProduct}</h1>
 
-            <div className='w-75 productDetailComponent rounded mt-5 mx-auto d-flex'>
-                <div className='w-50'>
-                    <img src="https://www.oscarbarbieri.com/media/catalog/product/cache/09bfecd8b17db51cfea360c7940343e7/v/a/vaso7_1.jpg" className='w-75' alt="Vaso de vidrio img" />
-                </div>
+            <div className='productDetailComponent mt-3 mx-auto d-flex'>
+                <img src="https://www.oscarbarbieri.com/media/catalog/product/cache/09bfecd8b17db51cfea360c7940343e7/v/a/vaso7_1.jpg" alt="Vaso de vidrio img" />
                 <div className="m-auto p-3">
+
                     <div className="w-100 d-flex flex-column align-items-start">
 
                         <h4> {idProduct}</h4>
                         <h6>Rigolleau</h6>
                         <p>Codigo: FS008693</p>
                         <div className='w-100 d-flex justify-content-between'>
-                            <p>$ 55555</p>
+                            <p>$55555</p>
                             <p>Stock: 53u.</p>
                         </div>
                     </div>
 
-                    <Form className='w-100 mt-4 d-flex justify-content-between'>
+                    <Form className='w-100 mt-2 d-flex justify-content-between'>
                         <Form.Control
                             type="number"
                             placeholder="0"
@@ -56,9 +55,9 @@ const ProductDetail = () => {
                         </Button>
                     </Form>
                 </div>
-            </div>
+            </div >
             <NavBar />
-        </div>
+        </div >
     )
 }
 

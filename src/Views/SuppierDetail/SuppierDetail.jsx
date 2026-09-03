@@ -16,16 +16,15 @@ const SuppierDetail = () => {
             </div>
             <h1 className='mt-5'>{idSupplier}</h1>
 
-            <Row xs={2} md={4} className="w-75 g-4 mt-3 mx-auto justify-content-center" >
+            <Row xs={2} md={4} className="w-100 g-4 mt-3 mx-auto justify-content-center" >
                 <Col>
-                    <Card className="h-100 d-flex justify-content-space-between">
+                    <Card className="h-100 d-flex justify-content-between">
                         <Link to={`/product/ejemplo-lapiz-bic`}>
-                            <Card.Img
-                                variant="top"
-                                src='https://www.papelerabariloche.com.ar/img/p/141682/9d5975535a014bb888b3be0eb0eeea32.jpeg?quality=95&width=800&height=800&mode=max&upscale=false'
-                                className='homeCardImage'
-                                alt='lapiz'
-                            />
+                            <div className='w-100 homeCardImage'>
+                                <img src='https://www.papelerabariloche.com.ar/img/p/141682/9d5975535a014bb888b3be0eb0eeea32.jpeg?quality=95&width=800&height=800&mode=max&upscale=false'
+                                    className='homeCardImage'
+                                    alt='lapiz' />
+                            </div>
                         </Link>
 
                         <Card.Body>
@@ -59,12 +58,11 @@ const SuppierDetail = () => {
                 <Col>
                     <Card className="h-100 d-flex justify-content-space-between">
                         <Link to={`/product/ejemplo-lapiz-bic`}>
-                            <Card.Img
-                                variant="top"
-                                src='https://www.papelerabariloche.com.ar/img/p/141682/9d5975535a014bb888b3be0eb0eeea32.jpeg?quality=95&width=800&height=800&mode=max&upscale=false'
-                                className='homeCardImage'
-                                alt='lapiz'
-                            />
+                            <div className='w-100 homeCardImage'>
+                                <img src='https://www.papelerabariloche.com.ar/img/p/141682/9d5975535a014bb888b3be0eb0eeea32.jpeg?quality=95&width=800&height=800&mode=max&upscale=false'
+                                    className='homeCardImage'
+                                    alt='lapiz' />
+                            </div>
                         </Link>
 
                         <Card.Body>
@@ -98,12 +96,11 @@ const SuppierDetail = () => {
                 <Col>
                     <Card className="h-100 d-flex justify-content-space-between">
                         <Link to={`/product/ejemplo-lapiz-bic`}>
-                            <Card.Img
-                                variant="top"
-                                src='https://www.papelerabariloche.com.ar/img/p/141682/9d5975535a014bb888b3be0eb0eeea32.jpeg?quality=95&width=800&height=800&mode=max&upscale=false'
-                                className='homeCardImage'
-                                alt='lapiz'
-                            />
+                            <div className='w-100 homeCardImage'>
+                                <img src='https://www.papelerabariloche.com.ar/img/p/141682/9d5975535a014bb888b3be0eb0eeea32.jpeg?quality=95&width=800&height=800&mode=max&upscale=false'
+                                    className='homeCardImage'
+                                    alt='lapiz' />
+                            </div>
                         </Link>
 
                         <Card.Body>

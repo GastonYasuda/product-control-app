@@ -34,21 +34,16 @@ const ProductsCards = () => {
                 loading ?
                     <Spinner animation="grow" variant="success" className='loadingSpinner' />
                     :
-                    <Row xs={2} md={4} className="productsCardContainer g-4 mt-3 mx-auto justify-content-center" >
+                    <Row xs={2} md={4} className="productsCardContainer g-4 mt-0 mt-lg-3 mx-auto justify-content-center" >
 
                         {getAllProducts.map((product, i) => (
                             <Col key={i}>
                                 <Card className="h-100 d-flex justify-content-space-between">
                                     <Link to={`/product/${product.name}`}>
-                                        <div className='w-100'>
-                                            <img src={product.image} className='w-100 homeCardImage' alt={`${product.name} img`} />
+                                        <div className='w-100 homeCardImage'>
+                                            <img src={product.image} className='w-100 h-100 object-fit-cover' alt={`${product.name} img`} />
                                         </div>
                                     </Link>
-
-
-
-
-
 
                                     <Card.Body className='d-flex flex-column justify-content-between'>
                                         <div className='text-start d-flex flex-column'>

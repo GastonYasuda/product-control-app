@@ -1,4 +1,22 @@
 .productDetailComponent {
     background-color: #FCFCFC;
     overflow: hidden;
+    width: 90%;
+    flex-direction: column;
+}
+
+.productDetailComponent img {
+    width: 75%;
+    margin: auto;
+}
+
+@media (min-width: 1024px) {
+    .productDetailComponent {
+        width: 50%;
+        flex-direction: row;
+    }
+
+    .productDetailComponent img {
+        width: 50%;
+    }
 }

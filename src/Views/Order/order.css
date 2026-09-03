@@ -1,6 +1,16 @@
+.orderContainer {
+    width: 90%;
+}
+
 .orderContainer_card {
     background-color: #FCFCFC;
     box-shadow: 0 6px 15px rgba(61, 37, 37, 0.2);
     height: 10rem;
     overflow: hidden;
+}
+
+@media (min-width: 1024px) {
+    .orderContainer {
+        width: 40%;
+    }
 }
