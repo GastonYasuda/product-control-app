@@ -38,10 +38,10 @@ const ProductsCards = () => {
 
                         {getAllProducts.map((product, i) => (
                             <Col key={i}>
-                                <Card className="h-100 d-flex justify-content-space-between">
+                                <Card className="w-100 h-100 d-flex justify-content-space-between">
                                     <Link to={`/product/${product.name}`}>
-                                        <div className='w-100 homeCardImage'>
-                                            <img src={product.image} className='w-100 h-100 object-fit-cover' alt={`${product.name} img`} />
+                                        <div className='w-100 m-auto homeCardImage'>
+                                            <img src={product.image} className='w-100 h-100 object-fit-contain' alt={`${product.name} img`} />
                                         </div>
                                     </Link>
 

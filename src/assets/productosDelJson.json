@@ -1,0 +1,202 @@
+[
+    {
+        "id": "1",
+        "name": "Vaso Pampa",
+        "category": "Bazar",
+        "image": "https://grisellbazar.com.ar/wp-content/uploads/2025/11/VASO-PAMPA.jpg",
+        "supplier": "Durax",
+        "code": 1234,
+        "price": 958,
+        "stock": 54
+    },
+    {
+        "id": "2",
+        "name": "Plato Forjado",
+        "category": "Bazar",
+        "image": "https://arcordiezb2c.vtexassets.com/arquivos/ids/183587-1600-auto?v=638496777691070000&width=1600&height=auto&aspect=true",
+        "supplier": "Durax",
+        "code": 2314,
+        "price": 4338,
+        "stock": 14
+    },
+    {
+        "id": "3",
+        "name": "Taza Armonia Negra",
+        "category": "Bazar",
+        "image": "https://i0.wp.com/miliffi.com.ar/wp-content/uploads/2024/07/182-TAZA-VIDRIO-DURAX-ARMONIA-NEGRO-360CC-43968-TYL.webp?resize=990%2C990&ssl=1",
+        "supplier": "Durax",
+        "code": 443,
+        "price": 3900,
+        "stock": 50
+    },
+    {
+        "id": "4",
+        "name": "Coraline Bajo",
+        "category": "Bazar",
+        "image": "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcRUgm4rt8q_DM5AcjavMG5vXs3jvW-E0K9qljnAQFAkPgt0PtwVVXD1uIDmz5VbdUlalNjh06dfZ3RjiEJmtnegtkTQtLV6",
+        "supplier": "Durax",
+        "code": 443,
+        "price": 640,
+        "stock": 75
+    },
+    {
+        "id": "5",
+        "name": "Percha Triangulo x4",
+        "category": "Bazar",
+        "image": "https://bazarmafersa.com.ar/wp-content/uploads/2020/10/PERCHA-TRIANGULO-PACK-X4-DESES-P.jpg",
+        "supplier": "Deses Plast",
+        "code": 443,
+        "price": 640,
+        "stock": 75
+    },
+    {
+        "id": "6",
+        "name": "Centrifugadora de Verduras",
+        "category": "Bazar",
+        "image": "https://bazarmafersa.com.ar/wp-content/uploads/2020/10/CENTRIFUGADOR-PARA-VERDURAS-DESES-PLAST-2.jpg",
+        "supplier": "Deses Plast",
+        "code": 443,
+        "price": 640,
+        "stock": 75
+    },
+    {
+        "id": "7",
+        "name": "Colapasta Redondo 30cm",
+        "category": "Bazar",
+        "image": "https://bazarmafersa.com.ar/wp-content/uploads/2020/10/COLAPASTA-REDONDO-GRANDE-DESES-3.jpg",
+        "supplier": "Deses Plast",
+        "code": 443,
+        "price": 640,
+        "stock": 75
+    },
+    {
+        "id": "8",
+        "name": "Lapices de colores FIlgo Pinto x12 Largos",
+        "category": "Librería",
+        "image": "https://www.papelerabariloche.com.ar/img/p/034142/ff47ee1b38ec4d29addc0849a700c1c4.jpeg?quality=95&width=800&height=800&mode=max&upscale=false",
+        "supplier": "Atril",
+        "code": 443,
+        "price": 640,
+        "stock": 75
+    },
+    {
+        "id": "9",
+        "name": "Lápiz grafito Filgo",
+        "category": "Librería",
+        "image": "https://www.papelerabariloche.com.ar/img/p/034142/ff47ee1b38ec4d29addc0849a700c1c4.jpeg?quality=95&width=800&height=800&mode=max&upscale=false",
+        "supplier": "Atril",
+        "code": 443,
+        "price": 640,
+        "stock": 75
+    },
+    {
+        "id": "10",
+        "name": "Roller borrable FIlgo Borrax SE azul",
+        "category": "Librería",
+        "image": "https://www.papelerabariloche.com.ar/img/p/034430/4e3e781577234bad8c71b33071ec25d4.jpeg?quality=95&width=800&height=800&mode=max&upscale=false",
+        "supplier": "Atril",
+        "code": 443,
+        "price": 640,
+        "stock": 75
+    },
+    {
+        "id": "11",
+        "name": "Papel Madera",
+        "category": "Librería",
+        "image": "https://www.casapaso.com.ar/slir/w800/files/product_image/image/63/262744/1112_116-0009.jpg",
+        "supplier": "LP Libreria",
+        "code": 443,
+        "price": 640,
+        "stock": 75
+    },
+    {
+        "id": "12",
+        "name": "Cinta Correctora Filgo 6mts",
+        "category": "Librería",
+        "image": "https://www.casapaso.com.ar/slir/w800/files/product_image/image/63/263538/thumb_0742_319_0112.jpg",
+        "supplier": "LP Libreria",
+        "code": 443,
+        "price": 640,
+        "stock": 75
+    },
+    {
+        "id": "13",
+        "name": "Auto Escarabajo",
+        "category": "Juguetería",
+        "image": "https://jugueteriaeltrebol.com.ar/wp-content/uploads/2026/08/7798138273221.jpg",
+        "supplier": "Toys-R",
+        "code": 443,
+        "price": 640,
+        "stock": 75
+    },
+    {
+        "id": "14",
+        "name": "Esfera Dron",
+        "category": "Juguetería",
+        "image": "https://jugueteriaeltrebol.com.ar/wp-content/uploads/2026/08/6926251588842-1.jpg",
+        "supplier": "Toys-R",
+        "code": 443,
+        "price": 640,
+        "stock": 75
+    },
+    {
+        "id": "15",
+        "name": "Barbie Playa",
+        "category": "Juguetería",
+        "image": "https://jugueteriaeltrebol.com.ar/wp-content/uploads/2026/08/194735240982-600x600.jpg",
+        "supplier": "Toys-R",
+        "code": 443,
+        "price": 640,
+        "stock": 75
+    },
+    {
+        "id": "16",
+        "name": "Pelota Marvel",
+        "category": "Juguetería",
+        "image": "https://jugueteriaeltrebol.com.ar/wp-content/uploads/2026/08/7450077072845-600x600.jpg",
+        "supplier": "Toys-R",
+        "code": 443,
+        "price": 640,
+        "stock": 75
+    },
+    {
+        "id": "17",
+        "name": "Luminox Malvinas",
+        "category": "Bazar",
+        "image": "https://www.lumilagro.com.ar/wp-content/uploads/2026/09/malvinas-negro1-e1788356937841.jpg",
+        "supplier": "Lumilagro",
+        "code": 443,
+        "price": 640,
+        "stock": 75
+    },
+    {
+        "id": "18",
+        "name": "Luminox Selección",
+        "category": "Bazar",
+        "image": "https://www.lumilagro.com.ar/wp-content/uploads/2026/05/afa-pampa-1.jpg",
+        "supplier": "Lumilagro",
+        "code": 443,
+        "price": 640,
+        "stock": 75
+    },
+    {
+        "id": "19",
+        "name": "Luminox Pampa Disney",
+        "category": "Bazar",
+        "image": "https://www.lumilagro.com.ar/wp-content/uploads/2026/03/termo-mickey-1-800x800.jpg",
+        "supplier": "Lumilagro",
+        "code": 443,
+        "price": 640,
+        "stock": 75
+    },
+    {
+        "id": "20",
+        "name": "Luminox Impreso Fangio",
+        "category": "Bazar",
+        "image": "https://www.lumilagro.com.ar/wp-content/uploads/2025/01/Fangio-1-.webp",
+        "supplier": "Lumilagro",
+        "code": 443,
+        "price": 640,
+        "stock": 75
+    }
+]
