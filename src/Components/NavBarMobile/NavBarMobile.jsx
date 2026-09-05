@@ -32,7 +32,7 @@ const NavBarMobile = () => {
                 <span className="material-symbols-outlined navbar_icon">
                     order_approve
                 </span>
-                <span className='navbar_txt'>Repo</span>
+                <span className='navbar_txt'>Pendientes</span>
             </Link>
 
             <Dropdown>

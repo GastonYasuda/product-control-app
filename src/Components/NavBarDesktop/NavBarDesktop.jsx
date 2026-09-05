@@ -41,7 +41,7 @@ const NavBarDesktop = () => {
                         <span className="material-symbols-outlined">
                             order_approve
                         </span>
-                        <span className='ms-1'>Repo</span>
+                        <span className='ms-1'>Pendientes</span>
                     </Link>
 
                     <Dropdown>

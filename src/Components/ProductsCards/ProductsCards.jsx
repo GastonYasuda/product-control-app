@@ -28,7 +28,7 @@ const ProductsCards = () => {
 
     return (
         <div className='mt-5'>
-            <h1 className='mt-5'>Todos los Productos</h1>
+            <h1 className='mt-5'>Productos</h1>
 
             {
                 loading ?
@@ -39,6 +39,8 @@ const ProductsCards = () => {
                         {getAllProducts.map((product, i) => (
                             <Col key={i}>
                                 <Card className="w-100 h-100 d-flex justify-content-space-between">
+                                    {product.pending && <span>Pendiente</span>}
+
                                     <Link to={`/product/${product.name}`}>
                                         <div className='w-100 m-auto homeCardImage'>
                                             <img src={product.image} className='w-100 h-100 object-fit-contain' alt={`${product.name} img`} />
@@ -63,16 +65,21 @@ const ProductsCards = () => {
                                                 type="number"
                                                 placeholder="0"
                                             />
-                                            <Button type="submit" variant='danger' className='ms-2'>
-                                                <span className="material-symbols-outlined">
-                                                    delete
-                                                </span>
-                                            </Button>
-                                            <Button type="submit" variant='dark' className='ms-2'>
-                                                <span className="material-symbols-outlined">
-                                                    format_list_bulleted_add
-                                                </span>
-                                            </Button>
+                                            {product.pending ?
+                                                <Button type="submit" variant='danger' className='ms-2'>
+                                                    <span className="material-symbols-outlined">
+                                                        delete
+                                                    </span>
+                                                </Button>
+                                                :
+                                                <Button type="submit" variant='dark' className='ms-2'>
+                                                    <span className="material-symbols-outlined">
+                                                        format_list_bulleted_add
+                                                    </span>
+                                                </Button>
+                                            }
+
+
                                         </Form>
                                     </Card.Body>
                                 </Card>

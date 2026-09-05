@@ -2,19 +2,37 @@
     background-color: #FCFCFC;
     overflow: hidden;
     width: 90%;
+    margin-top: 5rem;
+}
+
+.productDetailComponent_body {
     flex-direction: column;
 }
 
+.productDetailComponent_body_image {
+    height: 200px;
+}
+
 .productDetailComponent img {
-    width: 75%;
+    width: 100%;
     margin: auto;
 }
 
 @media (min-width: 1024px) {
     .productDetailComponent {
         width: 50%;
+        margin-top: 80px !important;
         flex-direction: row;
     }
+
+    .productDetailComponent_body {
+        flex-direction: row;
+    }
+
+    .productDetailComponent_body_image {
+        height: 75%;
+    }
+
 
     .productDetailComponent img {
         width: 50%;

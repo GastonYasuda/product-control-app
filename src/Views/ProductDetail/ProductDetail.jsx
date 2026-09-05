@@ -1,61 +1,82 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Button, Form } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import './productDetail.css'
 import SearchBar from '../../Components/SearchBar/SearchBar';
 import NavBar from '../../Components/NavBar/NavBar';
+import { DataProductApi } from '../../Context/DataBaseProductApi';
 
 const ProductDetail = () => {
+    const { getAllProducts } = useContext(DataProductApi)
+
     const { idProduct } = useParams()
-    //si idProduct no existe en el array de ptroductos, tiene que tirar error, producto no encontrado
+    const [product, setProduct] = useState({})
 
 
     useEffect(() => {
-        console.log(`yo soy ${idProduct}`);
+        const selectedProduct = getAllProducts.find(product => product.name === idProduct)
+        setProduct(selectedProduct)
 
-    }, [])
+    }, [getAllProducts])
 
 
     return (
-        <div className='mt-5'>
+        <div className='mainCardComponent mt-5'>
             <div className='d-block d-lg-none'>
                 <SearchBar />
             </div>
-            <h1 className='mt-5'> {idProduct}</h1>
 
-            <div className='productDetailComponent mt-3 mx-auto d-flex'>
-                <img src="https://www.oscarbarbieri.com/media/catalog/product/cache/09bfecd8b17db51cfea360c7940343e7/v/a/vaso7_1.jpg" alt="Vaso de vidrio img" />
-                <div className="m-auto p-3">
+            {product &&
+                <div className='productDetailComponent mx-auto d-flex flex-column'>
+                    <h4 className='pt-3'> {product.name}</h4>
 
-                    <div className="w-100 d-flex flex-column align-items-start">
+                    <div className='d-flex productDetailComponent_body my-5'>
 
-                        <h4> {idProduct}</h4>
-                        <h6>Rigolleau</h6>
-                        <p>Codigo: FS008693</p>
-                        <div className='w-100 d-flex justify-content-between'>
-                            <p>$55555</p>
-                            <p>Stock: 53u.</p>
+
+                        <div className='productDetailComponent_body_image m-auto'>
+                            <img src={product.image} className='h-100 object-fit-contain' alt={`${product.name} img`} />
+                        </div>
+
+                        {product.pending && <span>Pendiente</span>}
+
+                        <div className="m-auto p-3">
+
+                            <div className="w-100 d-flex flex-column align-items-start">
+
+                                <h6>{product.supplier}</h6>
+                                <p>Codigo: {product.code}</p>
+                                <div className='w-100 d-flex justify-content-between'>
+                                    <p>$ {product.price}</p>
+                                    <p>Stock: {product.stock}</p>
+                                </div>
+                            </div>
+
+                            <Form className='w-100 mt-2 d-flex justify-content-between'>
+                                <Form.Control
+                                    type="number"
+                                    placeholder="0"
+                                />
+                                {product.pending ?
+                                    <Button type="submit" variant='danger' className='ms-2'>
+                                        <span className="material-symbols-outlined">
+                                            delete
+                                        </span>
+                                    </Button>
+                                    :
+                                    <Button type="submit" variant='dark' className='ms-2'>
+                                        <span className="material-symbols-outlined">
+                                            format_list_bulleted_add
+                                        </span>
+                                    </Button>
+                                }
+                            </Form>
                         </div>
                     </div>
 
-                    <Form className='w-100 mt-2 d-flex justify-content-between'>
-                        <Form.Control
-                            type="number"
-                            placeholder="0"
-                        />
-                        <Button type="submit" variant='danger' className='ms-2'>
-                            <span className="material-symbols-outlined">
-                                delete
-                            </span>
-                        </Button>
-                        <Button type="submit" variant='dark' className='ms-2'>
-                            <span className="material-symbols-outlined">
-                                format_list_bulleted_add
-                            </span>
-                        </Button>
-                    </Form>
-                </div>
-            </div >
+                </div >
+            }
+
+
             <NavBar />
         </div >
     )
