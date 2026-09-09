@@ -23,7 +23,8 @@ de manera centralizada.
 
 ## 🔄 Flujo de un pedido
 
-    A[🛒 Crear pedido] --> B[⏳ Pendiente]
-    B --> C[📦 En preparación]
-    C --> D[✅ Preparado]
-    D --> E[🚚 Entregado]
+    A - [🛒 Crear pedido]
+    B - [⏳ Pendiente]   
+    C - [📦 En preparación]
+    D - [✅ Preparado]
+    E - [🚚 Entregado]
