@@ -24,7 +24,6 @@ de manera centralizada.
 ## 🔄 Flujo de un pedido
 
 ```mermaid
-flowchart LR
     A[🛒 Crear pedido] --> B[⏳ Pendiente]
     B --> C[📦 En preparación]
     C --> D[✅ Preparado]
