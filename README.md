@@ -23,7 +23,6 @@ de manera centralizada.
 
 ## 🔄 Flujo de un pedido
 
-```mermaid
     A[🛒 Crear pedido] --> B[⏳ Pendiente]
     B --> C[📦 En preparación]
     C --> D[✅ Preparado]
