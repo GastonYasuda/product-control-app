@@ -1,19 +1,31 @@
-# React + Vite
+# 📦 Sistema de Pedidos Internos
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> Aplicación web para gestionar pedidos de mercadería entre el salón y el depósito.
 
-Currently, two official plugins are available:
+![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![CSS](https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🎯 Objetivo
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+El proyecto busca mejorar la comunicación entre los empleados del salón
+y el encargado del depósito, permitiendo gestionar pedidos de mercadería
+de manera centralizada.
 
-Note: This will impact Vite dev & build performances.
-You can also try [the experimental native React Compiler support in plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md#rust-react-compiler) by using `compiler: true` in the plugin options instead of using the Babel plugin.
+## 👥 Usuarios
 
-## Expanding the ESLint configuration
+| 👤 Rol | Funciones |
+|---|---|
+| 🧑‍💼 Empleado | Buscar productos, consultar stock y crear pedidos |
+| 📦 Depósito | Recibir, preparar y entregar pedidos |
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🔄 Flujo de un pedido
+
+```mermaid
+flowchart LR
+    A[🛒 Crear pedido] --> B[⏳ Pendiente]
+    B --> C[📦 En preparación]
+    C --> D[✅ Preparado]
+    D --> E[🚚 Entregado]
