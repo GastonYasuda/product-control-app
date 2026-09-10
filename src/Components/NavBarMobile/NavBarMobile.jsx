@@ -7,35 +7,36 @@ import Dropdown from 'react-bootstrap/Dropdown';
 const NavBarMobile = () => {
     return (
         <div className='navBar_container m-auto fixed-bottom p-2 d-flex justify-content-around'>
-            <Link to={'/'} className='d-flex flex-column'>
+
+            <Link to={'/'} className='navBar_container_item'>
                 <span className="material-symbols-outlined navbar_icon">
                     splitscreen
                 </span>
                 <span className='navbar_txt'>Productos</span>
             </Link>
 
-            <Link to={'/category'} className='d-flex flex-column'>
+            <Link to={'/category'} className='navBar_container_item'>
                 <span className="material-symbols-outlined navbar_icon">
                     category
                 </span>
                 <span className='navbar_txt'>Categoria</span>
             </Link>
 
-            <Link to={'/supplier'} className='d-flex flex-column'>
+            <Link to={'/supplier'} className='navBar_container_item'>
                 <span className="material-symbols-outlined navbar_icon">
                     store
                 </span>
                 <span className='navbar_txt'>Proveedor</span>
             </Link>
 
-            <Link to={'/order'} className='d-flex flex-column'>
+            <Link to={'/order'} className='navBar_container_item'>
                 <span className="material-symbols-outlined navbar_icon">
                     order_approve
                 </span>
                 <span className='navbar_txt'>Pendientes</span>
             </Link>
 
-            <Dropdown>
+            <Dropdown className='navBar_container_item'>
                 <Dropdown.Toggle className='pt-0 d-flex flex-column border-0 bg-transparent' id="dropdown-basic">
                     <span className="material-symbols-outlined navbar_icon">
                         account_circle

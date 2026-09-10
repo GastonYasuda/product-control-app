@@ -3,6 +3,7 @@ import { DataProductApi } from '../../Context/DataBaseProductApi'
 import SearchBar from '../../Components/SearchBar/SearchBar';
 import NavBar from '../../Components/NavBar/NavBar';
 import ProductsCards from '../../Components/ProductsCards/ProductsCards';
+import InfoCards from '../../Components/InfoCards/InfoCards';
 
 
 
@@ -15,6 +16,11 @@ const Home = () => {
             <div className='d-block d-lg-none'>
                 <SearchBar />
             </div>
+
+            <InfoCards />
+
+
+
             <ProductsCards />
 
             <NavBar />

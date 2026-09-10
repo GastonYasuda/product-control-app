@@ -4,17 +4,32 @@
     -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(6px);
     border: 1.5px solid rgba(209, 213, 219, 0.3);
+    padding-bottom: env(safe-area-inset-bottom);
+
 }
 
-
+.navBar_container_item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    height: 100%;
+    text-decoration: none;
+    color: #757575;
+}
 
 .navbar_icon {
-    font-size: 40px;
+    height: 24px;
+    margin-bottom: 4px;
+    font-size: 30px;
     color: #FCFCFC;
     filter: drop-shadow(1px 1px 2px #00000091)
 }
 
 .navbar_txt {
+    font-size: 11px;
+    line-height: 1;
     color: #FCFCFC;
     filter: drop-shadow(1px 1px 2px #00000091)
 }
