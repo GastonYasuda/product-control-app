@@ -8,9 +8,7 @@ import NavBar from '../../Components/NavBar/NavBar'
 const Order = () => {
     return (
         <div className='mt-5'>
-            <div className='d-block d-lg-none'>
-                <SearchBar />
-            </div>
+
             <h1 className='mt-5'>Carrito de Pedidos</h1>
 
             <div className='orderContainer g-4 mt-3 mx-auto justify-content-center'>

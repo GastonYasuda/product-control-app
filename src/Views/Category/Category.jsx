@@ -11,10 +11,6 @@ const Category = () => {
     return (
         <div className='mt-5'>
 
-            <div className='d-block d-lg-none'>
-                <SearchBar />
-            </div>
-
             <h1 className='mt-5'>Categorias</h1>
 
             <MainCard cardName="category" />

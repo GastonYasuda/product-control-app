@@ -4,8 +4,6 @@
     -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(6px);
     border: 1.5px solid rgba(209, 213, 219, 0.3);
-    padding-bottom: env(safe-area-inset-bottom);
-
 }
 
 .navBar_container_item {
@@ -31,7 +29,8 @@
     font-size: 11px;
     line-height: 1;
     color: #FCFCFC;
-    filter: drop-shadow(1px 1px 2px #00000091)
+    filter: drop-shadow(1px 1px 2px #00000091);
+    padding-top: 6px;
 }
 
 .dropdown-toggle::after {

@@ -4,39 +4,46 @@ import { Link } from 'react-router-dom'
 import Dropdown from 'react-bootstrap/Dropdown';
 
 
-const NavBarMobile = () => {
+const NavBarMobile = ({ setNavBarSelect }) => {
     return (
         <div className='navBar_container m-auto fixed-bottom p-2 d-flex justify-content-around'>
 
-            <Link to={'/'} className='navBar_container_item'>
+            <div className='navBar_container_item' onClick={() => { setNavBarSelect('home') }}>
+                <span className="material-symbols-outlined navbar_icon">
+                    home
+                </span>
+                <span className='navbar_txt'>Home</span>
+            </div>
+
+            <div className='navBar_container_item' onClick={() => { setNavBarSelect('products') }}>
                 <span className="material-symbols-outlined navbar_icon">
                     splitscreen
                 </span>
                 <span className='navbar_txt'>Productos</span>
-            </Link>
+            </div>
 
-            <Link to={'/category'} className='navBar_container_item'>
+            <div className='navBar_container_item' onClick={() => { setNavBarSelect('category') }}>
                 <span className="material-symbols-outlined navbar_icon">
                     category
                 </span>
                 <span className='navbar_txt'>Categoria</span>
-            </Link>
+            </div>
 
-            <Link to={'/supplier'} className='navBar_container_item'>
+            <div className='navBar_container_item' onClick={() => { setNavBarSelect('supplier') }}>
                 <span className="material-symbols-outlined navbar_icon">
                     store
                 </span>
                 <span className='navbar_txt'>Proveedor</span>
-            </Link>
+            </div>
 
-            <Link to={'/order'} className='navBar_container_item'>
+            <div className='navBar_container_item' onClick={() => { setNavBarSelect('order') }}>
                 <span className="material-symbols-outlined navbar_icon">
                     order_approve
                 </span>
                 <span className='navbar_txt'>Pendientes</span>
-            </Link>
+            </div>
 
-            <Dropdown className='navBar_container_item'>
+            <Dropdown className='navBar_container_item' >
                 <Dropdown.Toggle className='pt-0 d-flex flex-column border-0 bg-transparent' id="dropdown-basic">
                     <span className="material-symbols-outlined navbar_icon">
                         account_circle
@@ -44,7 +51,7 @@ const NavBarMobile = () => {
                     <span className='navbar_txt'>Login</span>
                 </Dropdown.Toggle>
 
-                <Dropdown.Menu>
+                <Dropdown.Menu >
                     <Dropdown.Item href="/login" className='dropdown-menu-txt d-flex justify-content-evenly'>
                         <span className="material-symbols-outlined">
                             no_accounts

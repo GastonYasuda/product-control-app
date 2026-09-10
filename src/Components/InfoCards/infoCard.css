@@ -1,0 +1,17 @@
+.infoCard_component {
+    margin: auto;
+    display: flex;
+}
+
+.infoCard_body {
+    width: 208px;
+    flex-grow: 1;
+}
+
+.infoCard_body_item {
+    height: 175px;
+
+    .material-symbols-outlined {
+        font-size: 50px;
+    }
+}

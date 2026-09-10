@@ -7,6 +7,7 @@ import Category from './Views/Category/Category'
 import CategoryDetails from './Views/CategoryDetails/CategoryDetails'
 import Suppier from './Views/Suppier/Suppier'
 import SuppierDetail from './Views/SuppierDetail/SuppierDetail'
+import ProductsCards from './Components/ProductsCards/ProductsCards'
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />} />
 
+        <Route path='/products' element={<ProductsCards />} />
         <Route path='/product/:idProduct' element={<ProductDetail />} />
         <Route path='/category' element={<Category />} />
         <Route path='/category/:idCategory' element={<CategoryDetails />} />

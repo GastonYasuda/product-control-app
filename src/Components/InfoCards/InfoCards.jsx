@@ -1,28 +1,40 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import './infoCard.css';
 
 const InfoCards = () => {
     return (
-        <>
-            <Card style={{ width: '18rem' }}>
-                <Card.Img variant="top" src="holder.js/100px180" />
-                <Card.Body>
-                    <Card.Title>Card Title</Card.Title>
-                    <Card.Text>
-                        Some quick example text to build on the card title and make up the
-                        bulk of the card's content.
-                    </Card.Text>
-                    <Button variant="primary">Go somewhere</Button>
-                </Card.Body>
-            </Card>
+        <div className='infoCard_component mt-3'>
 
-            <div className='w-100 h-100 p-3'>
-                <div className='bg-light rounded w-50 h-50 p-3'>
-                    <span>ICONO</span>
-                    <h6>Mis pedidos realizados</h6>
+            <div className='infoCard_body p-3'>
+                <div className='infoCard_body_item bg-light rounded p-3 d-flex flex-column'>
+
+                    <section className='d-flex flex-row justify-content-around align-items-center'>
+                        <span className="material-symbols-outlined infoCard_body_item-icons" >
+                            deployed_code_history
+                        </span>
+                        <h2>3</h2>
+                    </section>
+
+                    <span className='pt-4'>Pedidos Pendientes</span>
                 </div>
             </div>
-        </>
+
+            <div className='infoCard_body p-3'>
+                <div className='infoCard_body_item bg-light rounded p-3 d-flex flex-column '>
+
+                    <section className='d-flex flex-row justify-content-around align-items-center'>
+                        <span className="material-symbols-outlined infoCard_body_item-icons" >
+                            history
+                        </span>
+
+                        <h2>5</h2>
+                    </section>
+
+                    <span className='pt-4'>Mis pedidos realizados</span>
+                </div>
+            </div>
+        </div>
 
     )
 }

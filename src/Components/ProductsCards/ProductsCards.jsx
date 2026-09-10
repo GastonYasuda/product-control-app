@@ -27,8 +27,8 @@ const ProductsCards = () => {
     }, [getAllProducts])
 
     return (
-        <div className='mt-5'>
-            <h1 className='mt-5'>Productos</h1>
+        <div className='mt-4'>
+            <h1 className='mt-3 text-start ps-3'>Productos</h1>
 
             {
                 loading ?
