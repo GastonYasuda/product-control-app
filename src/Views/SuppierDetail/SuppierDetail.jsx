@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react'
-import { Button, Card, Col, Row, Form } from 'react-bootstrap'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import SearchBar from '../../Components/SearchBar/SearchBar'
 import NavBar from '../../Components/NavBar/NavBar'
 import DetailElementComponent from '../../Components/DetailElementComponent/DetailElementComponent'
+import Greeting from '../../Components/Greeting/Greeting'
 
 
 const SuppierDetail = () => {
@@ -12,10 +11,14 @@ const SuppierDetail = () => {
 
     return (
         <div className='mt-5'>
+
+            <Greeting userName={'Gaston'} userRol={'Salon'} />
+
             <div className='d-block d-lg-none'>
                 <SearchBar />
             </div>
-            <h1 className='mt-5'>{idSupplier}</h1>
+
+            <h1 className='mt-4 text-start ps-3'>{idSupplier}</h1>
 
             <DetailElementComponent detailElementName={idSupplier} from={'supplier'} />
 

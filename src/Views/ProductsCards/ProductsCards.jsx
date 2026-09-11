@@ -8,6 +8,9 @@ import { Link } from 'react-router-dom';
 import './productsCards.css'
 import { DataProductApi } from '../../Context/DataBaseProductApi';
 import Spinner from 'react-bootstrap/Spinner';
+import Greeting from '../../Components/Greeting/Greeting';
+import SearchBar from '../../Components/SearchBar/SearchBar';
+import NavBar from '../../Components/NavBar/NavBar';
 
 
 const ProductsCards = () => {
@@ -27,14 +30,21 @@ const ProductsCards = () => {
     }, [getAllProducts])
 
     return (
-        <div className='mt-4'>
-            <h1 className='mt-3 text-start ps-3'>Productos</h1>
+        <div className='mt-5'>
+
+            <Greeting userName={'Gaston'} userRol={'Salon'} />
+
+            <div className='d-block d-lg-none'>
+                <SearchBar />
+            </div>
+
+            <h1 className='mt-4 text-start ps-3'>Productos</h1>
 
             {
                 loading ?
                     <Spinner animation="grow" variant="success" className='loadingSpinner' />
                     :
-                    <Row xs={2} md={4} className="productsCardContainer g-4 mt-0 mt-lg-3 mx-auto justify-content-center" >
+                    <Row xs={2} md={4} className="productsCardContainer g-4  mx-auto justify-content-center" >
 
                         {getAllProducts.map((product, i) => (
                             <Col key={i}>
@@ -88,6 +98,9 @@ const ProductsCards = () => {
                         }
                     </Row>
             }
+
+            <NavBar />
+
         </div >
 
     )

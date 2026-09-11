@@ -28,7 +28,7 @@ const MainCard = ({ cardName }) => {
 
 
     return (
-        <Row xs={2} md={4} className="mainCardComponent w-100 g-4 mt-3 mx-auto justify-content-center" >
+        <Row xs={2} md={4} className="mainCardComponent w-100 g-4  mx-auto justify-content-center" >
 
             {elementsArray.length > 0 ?
                 elementsArray.map((selectElement, i) => (

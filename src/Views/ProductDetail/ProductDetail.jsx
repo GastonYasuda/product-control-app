@@ -5,6 +5,7 @@ import './productDetail.css'
 import SearchBar from '../../Components/SearchBar/SearchBar';
 import NavBar from '../../Components/NavBar/NavBar';
 import { DataProductApi } from '../../Context/DataBaseProductApi';
+import Greeting from '../../Components/Greeting/Greeting';
 
 const ProductDetail = () => {
     const { getAllProducts } = useContext(DataProductApi)
@@ -22,6 +23,9 @@ const ProductDetail = () => {
 
     return (
         <div className='mainCardComponent mt-5'>
+
+            <Greeting userName={'Gaston'} userRol={'Salon'} />
+
             <div className='d-block d-lg-none'>
                 <SearchBar />
             </div>

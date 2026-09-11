@@ -7,7 +7,7 @@ import Category from './Views/Category/Category'
 import CategoryDetails from './Views/CategoryDetails/CategoryDetails'
 import Suppier from './Views/Suppier/Suppier'
 import SuppierDetail from './Views/SuppierDetail/SuppierDetail'
-import ProductsCards from './Components/ProductsCards/ProductsCards'
+import ProductsCards from './Views/ProductsCards/ProductsCards'
 
 function App() {
 

@@ -4,14 +4,61 @@ import { Link } from 'react-router-dom'
 import { Button, Col, Form, Row } from 'react-bootstrap'
 import SearchBar from '../../Components/SearchBar/SearchBar'
 import NavBar from '../../Components/NavBar/NavBar'
+import Greeting from '../../Components/Greeting/Greeting'
 
 const Order = () => {
     return (
         <div className='mt-5'>
 
-            <h1 className='mt-5'>Carrito de Pedidos</h1>
+            <Greeting userName={'Gaston'} userRol={'Salon'} />
 
-            <div className='orderContainer g-4 mt-3 mx-auto justify-content-center'>
+            <div className='d-block d-lg-none'>
+                <SearchBar />
+            </div>
+
+            <h1 className='mt-4 text-start ps-3'>Pendientes</h1>
+
+            <div className='orderContainer g-4 mx-auto justify-content-center'>
+                <div>
+                    <div className="orderContainer_card mx-auto d-flex flex-row justify-content-evenly rounded">
+                        <div>
+                            {/* <Link to={`/product/${product.name}`}> */}
+                            <img src="https://www.oscarbarbieri.com/media/catalog/product/cache/09bfecd8b17db51cfea360c7940343e7/v/a/vaso7_1.jpg" className='w-100 h-100 object-fit-contain m-auto' alt="Vaso de vidrio img" />
+                            {/* </Link> */}
+                        </div>
+                        <div className="p-3 d-flex flex-column justify-content-between">
+
+                            <div className="d-flex flex-column align-items-start">
+                                <h5>NOMBRE PRODUCTO</h5>
+                                <span>Rigolleau</span>
+                                <div className='w-100 d-flex justify-content-between'>
+                                    <span>$551.555</span>
+                                    <span>Stock: 53u.</span>
+                                </div>
+                            </div>
+
+                            <Form className='mt-2 d-flex justify-content-between'>
+                                <Form.Control
+                                    type="number"
+                                    placeholder="0"
+                                />
+                                <Button type="submit" variant='danger' className='ms-3'>
+                                    <span className="material-symbols-outlined">
+                                        delete
+                                    </span>
+                                </Button>
+                                <Button type="submit" variant='dark' className='ms-2'>
+                                    <span className="material-symbols-outlined">
+                                        format_list_bulleted_add
+                                    </span>
+                                </Button>
+                            </Form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className='orderContainer g-4 mx-auto justify-content-center'>
                 <div>
                     <div className="orderContainer_card mt-3 mx-auto d-flex flex-row justify-content-evenly rounded">
                         <div>
@@ -50,47 +97,7 @@ const Order = () => {
                     </div>
                 </div>
             </div>
-
-            <div className='orderContainer g-4 mt-3 mx-auto justify-content-center'>
-                <div>
-                    <div className="orderContainer_card mt-3 mx-auto d-flex flex-row justify-content-evenly rounded">
-                        <div>
-                            {/* <Link to={`/product/${product.name}`}> */}
-                            <img src="https://www.oscarbarbieri.com/media/catalog/product/cache/09bfecd8b17db51cfea360c7940343e7/v/a/vaso7_1.jpg" className='w-100 h-100 object-fit-contain m-auto' alt="Vaso de vidrio img" />
-                            {/* </Link> */}
-                        </div>
-                        <div className="p-3 d-flex flex-column justify-content-between">
-
-                            <div className="d-flex flex-column align-items-start">
-                                <h5>NOMBRE PRODUCTO</h5>
-                                <span>Rigolleau</span>
-                                <div className='w-100 d-flex justify-content-between'>
-                                    <span>$551.555</span>
-                                    <span>Stock: 53u.</span>
-                                </div>
-                            </div>
-
-                            <Form className='mt-2 d-flex justify-content-between'>
-                                <Form.Control
-                                    type="number"
-                                    placeholder="0"
-                                />
-                                <Button type="submit" variant='danger' className='ms-3'>
-                                    <span className="material-symbols-outlined">
-                                        delete
-                                    </span>
-                                </Button>
-                                <Button type="submit" variant='dark' className='ms-2'>
-                                    <span className="material-symbols-outlined">
-                                        format_list_bulleted_add
-                                    </span>
-                                </Button>
-                            </Form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className='orderContainer g-4 mt-3 mx-auto justify-content-center'>
+            <div className='orderContainer g-4 mx-auto justify-content-center'>
                 <div>
                     <div className="orderContainer_card mt-3 mx-auto d-flex flex-row justify-content-evenly rounded">
                         <div>

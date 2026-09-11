@@ -13,7 +13,7 @@ const InfoCards = () => {
                         <span className="material-symbols-outlined infoCard_body_item-icons" >
                             deployed_code_history
                         </span>
-                        <h2>3</h2>
+                        <h2>1</h2>
                     </section>
 
                     <span className='pt-4'>Pedidos Pendientes</span>
@@ -28,7 +28,7 @@ const InfoCards = () => {
                             history
                         </span>
 
-                        <h2>5</h2>
+                        <h2>2</h2>
                     </section>
 
                     <span className='pt-4'>Mis pedidos realizados</span>
