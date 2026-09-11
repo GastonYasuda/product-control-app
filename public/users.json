@@ -1,0 +1,14 @@
+[
+    {
+        "id": 1,
+        "name": "gaston",
+        "pass": "gaston",
+        "rol": "deposito"
+    },
+    {
+        "id": 2,
+        "name": "daiana",
+        "pass": "daiana",
+        "rol": "salon"
+    }
+]

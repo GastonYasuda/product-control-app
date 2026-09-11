@@ -1,10 +1,19 @@
 import React from 'react'
 import './navbarMobile.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Dropdown from 'react-bootstrap/Dropdown';
 
 
 const NavBarMobile = () => {
+
+    const navigate = useNavigate()
+
+    const cleanLoginStorage = () => {
+
+        localStorage.setItem('userPass', JSON.stringify([]))
+        navigate('/login');
+    }
+
     return (
         <div className='navBar_container m-auto fixed-bottom p-2 d-flex justify-content-around'>
 
@@ -52,7 +61,7 @@ const NavBarMobile = () => {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu >
-                    <Dropdown.Item href="/login" className='dropdown-menu-txt d-flex justify-content-evenly'>
+                    <Dropdown.Item onClick={cleanLoginStorage} className='dropdown-menu-txt d-flex justify-content-evenly' >
                         <span className="material-symbols-outlined">
                             no_accounts
                         </span>

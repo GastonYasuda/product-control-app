@@ -3,18 +3,30 @@ import Greeting from '../../Components/Greeting/Greeting';
 import NavBarDesktop from '../../Components/NavBarDesktop/NavBarDesktop';
 import NavBarMobile from '../../Components/NavBarMobile/NavBarMobile';
 import MainInfo from '../../Components/MainInfo/MainInfo';
+import { useEffect, useState } from 'react';
 
 const Home = () => {
 
+    const [loginUser, setLoginUser] = useState([])
+
+    useEffect(() => {
+
+        setLoginUser(JSON.parse(localStorage.getItem("userPass")))
+
+
+    }, [])
+
     return (
         <div className='mt-5'>
-            <Greeting userName={'Gaston'} userRol={'Salon'} />
+            {loginUser &&
+                <Greeting userName={loginUser.name} userRol={loginUser.rol} />
+            }
 
             <div className='d-block d-lg-none'>
                 <SearchBar />
             </div>
 
-            <MainInfo />
+            {loginUser.rol === 'salon' ? <MainInfo /> : <h1>tiene que ir a depo</h1>}
 
 
 
