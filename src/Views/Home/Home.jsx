@@ -2,9 +2,10 @@ import SearchBar from '../../Components/SearchBar/SearchBar';
 import Greeting from '../../Components/Greeting/Greeting';
 import NavBarDesktop from '../../Components/NavBarDesktop/NavBarDesktop';
 import NavBarMobile from '../../Components/NavBarMobile/NavBarMobile';
-import MainInfo from '../../Components/MainInfo/MainInfo';
+import SalonMainInfo from '../../Components/SalonMainInfo/SalonMainInfo';
 import { useContext, useEffect, useState } from 'react';
 import { ProductApi } from '../../Context/ProductControlApi';
+import DepoMainInfo from '../../Components/DepoMainInfo/DepoMainInfo';
 
 const Home = () => {
 
@@ -27,7 +28,7 @@ const Home = () => {
                 <SearchBar />
             </div>
 
-            {loginUser.rol === 'salon' ? <MainInfo /> : <h1>tiene que ir a depo</h1>}
+            {loginUser.rol === 'salon' ? <SalonMainInfo /> : <DepoMainInfo />}
 
 
 

@@ -27,7 +27,7 @@ const Login = () => {
 
         if (validateUserPass) {
             localStorage.setItem('userPass', JSON.stringify(validateUserPass))
-            navigate('/home')
+            navigate('/')
         }
 
     }
