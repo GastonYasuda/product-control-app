@@ -2,13 +2,13 @@
     {
         "id": 1,
         "name": "gaston",
-        "pass": "gaston",
+        "pass": "gas",
         "rol": "deposito"
     },
     {
         "id": 2,
         "name": "daiana",
-        "pass": "daiana",
+        "pass": "dai",
         "rol": "salon"
     }
 ]

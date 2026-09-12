@@ -1,19 +1,23 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import './login.css'
 import users from '../../../public/users.json'
 import { useNavigate } from 'react-router-dom';
+import { ProductApi } from '../../Context/ProductControlApi';
 
 const Login = () => {
+
 
     const [user, setUser] = useState('')
     const navigate = useNavigate()
     const [password, setPassword] = useState('')
 
 
+
+
     const handleSubmit = (e) => {
-        e.preventDefault() // Evita que se recargue la página
+        e.preventDefault()
 
         console.log('Usuario:', user)
         console.log('Password:', password)
@@ -23,12 +27,10 @@ const Login = () => {
 
         if (validateUserPass) {
             localStorage.setItem('userPass', JSON.stringify(validateUserPass))
-            navigate('/')
+            navigate('/home')
         }
 
-
     }
-
 
     return (
         <div className='loginContainer m-auto rounded'>

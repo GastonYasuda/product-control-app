@@ -7,6 +7,8 @@ const ProductControlApi = ({ children }) => {
     const [loginUser, setLoginUser] = useState([])
 
     useEffect(() => {
+
+
         setLoginUser(JSON.parse(localStorage.getItem("userPass")))
 
     }, [])
@@ -17,7 +19,7 @@ const ProductControlApi = ({ children }) => {
     }
 
     return (
-        <ProductApi.Provider value={{ test, loginUser }}>
+        <ProductApi.Provider value={{ test, loginUser, setLoginUser }}>
             {children}
         </ProductApi.Provider>
     )

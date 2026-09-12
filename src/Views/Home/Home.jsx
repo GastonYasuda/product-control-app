@@ -8,8 +8,12 @@ import { ProductApi } from '../../Context/ProductControlApi';
 
 const Home = () => {
 
-    const { loginUser } = useContext(ProductApi)
+    const { loginUser, setLoginUser } = useContext(ProductApi)
 
+    useEffect(() => {
+        setLoginUser(JSON.parse(localStorage.getItem("userPass")))
+
+    }, [])
 
 
 
