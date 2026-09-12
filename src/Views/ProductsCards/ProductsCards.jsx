@@ -18,8 +18,10 @@ const ProductsCards = () => {
     const { desdeDB, getAllProducts } = useContext(DataProductApi)
     const { loginUser } = useContext(ProductApi)
 
-
+    const [productCount, setProductCount] = useState()
     const [loading, setLoading] = useState(false)
+    const [pendingProducts, setPendingProducts] = useState([])
+
 
     useEffect(() => {
 
@@ -29,8 +31,51 @@ const ProductsCards = () => {
             setLoading(false)
         }
 
+        pendingProducts.length === 0 &&
+            setPendingProducts(JSON.parse(localStorage.getItem("pendingProductsArray")))
+
 
     }, [getAllProducts])
+
+
+
+
+    const addCountSubmit = (e) => {
+        e.preventDefault()
+    }
+
+
+
+    const addToOrder = (id) => {
+
+        const searchProductToUpdate = getAllProducts.find((product) => product.id === id)
+        // console.log('searchProductToUpdate', searchProductToUpdate);
+
+        const repeatProduct = pendingProducts.some((product) => product.id === id)
+        // console.log(repeatProduct);
+
+        if (repeatProduct) {
+
+            const changeOnlyProductCount = pendingProducts.map((product) => product.id === id ?
+                { ...product, count: productCount }
+                : product
+            )
+
+            setPendingProducts(changeOnlyProductCount);
+            localStorage.setItem('pendingProductsArray', JSON.stringify(changeOnlyProductCount))
+
+
+        } else {
+
+            const addProductCount = [...pendingProducts,
+            { ...searchProductToUpdate, count: productCount }]
+
+            setPendingProducts(addProductCount);
+            localStorage.setItem('pendingProductsArray', JSON.stringify(addProductCount))
+
+        }
+    }
+
 
     return (
         <div className='mt-5'>
@@ -75,10 +120,11 @@ const ProductsCards = () => {
                                             </div>
                                         </div>
 
-                                        <Form className='d-flex flex-row'>
+                                        <Form className='d-flex flex-row' onSubmit={addCountSubmit} >
                                             <Form.Control
                                                 type="number"
                                                 placeholder="0"
+                                                onChange={(e) => setProductCount(e.target.value)}
                                             />
                                             {product.pending ?
                                                 <Button type="submit" variant='danger' className='ms-2'>
@@ -87,7 +133,7 @@ const ProductsCards = () => {
                                                     </span>
                                                 </Button>
                                                 :
-                                                <Button type="submit" variant='dark' className='ms-2'>
+                                                <Button type="submit" variant='dark' className='ms-2' onClick={() => { addToOrder(product.id) }} >
                                                     <span className="material-symbols-outlined">
                                                         format_list_bulleted_add
                                                     </span>

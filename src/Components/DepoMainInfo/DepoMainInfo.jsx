@@ -1,6 +1,7 @@
 import React from 'react'
 import InfoCards from '../InfoCards/InfoCards'
 import RecentOrders from '../RecentOrders/RecentOrders'
+import PendingOrders from '../PendingOrders/PendingOrders'
 
 const DepoMainInfo = () => {
 
@@ -26,9 +27,8 @@ const DepoMainInfo = () => {
         <div>
             <InfoCards cardParams={depoCards} />
 
-            {/* tengo que crear uno nuevo componente de pedidos pendientes */}
-
-            <RecentOrders />
+            <PendingOrders />
+            {/* <RecentOrders /> */}
 
         </div>
     )

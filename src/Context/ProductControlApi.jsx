@@ -6,10 +6,13 @@ const ProductControlApi = ({ children }) => {
 
     const [loginUser, setLoginUser] = useState([])
 
+
     useEffect(() => {
 
 
         setLoginUser(JSON.parse(localStorage.getItem("userPass")))
+
+
 
     }, [])
 
