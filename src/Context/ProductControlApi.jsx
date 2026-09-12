@@ -1,8 +1,15 @@
-import React, { createContext, useContext } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 
 export const ProductApi = createContext()
 
 const ProductControlApi = ({ children }) => {
+
+    const [loginUser, setLoginUser] = useState([])
+
+    useEffect(() => {
+        setLoginUser(JSON.parse(localStorage.getItem("userPass")))
+
+    }, [])
 
     const test = () => {
         console.log('Probando si anda');
@@ -10,7 +17,7 @@ const ProductControlApi = ({ children }) => {
     }
 
     return (
-        <ProductApi.Provider value={{ test }}>
+        <ProductApi.Provider value={{ test, loginUser }}>
             {children}
         </ProductApi.Provider>
     )

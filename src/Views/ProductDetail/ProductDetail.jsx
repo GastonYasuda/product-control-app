@@ -6,9 +6,12 @@ import SearchBar from '../../Components/SearchBar/SearchBar';
 import NavBar from '../../Components/NavBar/NavBar';
 import { DataProductApi } from '../../Context/DataBaseProductApi';
 import Greeting from '../../Components/Greeting/Greeting';
+import { ProductApi } from '../../Context/ProductControlApi';
 
 const ProductDetail = () => {
     const { getAllProducts } = useContext(DataProductApi)
+    const { loginUser } = useContext(ProductApi)
+
 
     const { idProduct } = useParams()
     const [product, setProduct] = useState({})
@@ -24,7 +27,9 @@ const ProductDetail = () => {
     return (
         <div className='mainCardComponent mt-5'>
 
-            <Greeting userName={'Gaston'} userRol={'Salon'} />
+            {loginUser &&
+                <Greeting userName={loginUser.name} userRol={loginUser.rol} />
+            }
 
             <div className='d-block d-lg-none'>
                 <SearchBar />

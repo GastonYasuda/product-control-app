@@ -3,18 +3,15 @@ import Greeting from '../../Components/Greeting/Greeting';
 import NavBarDesktop from '../../Components/NavBarDesktop/NavBarDesktop';
 import NavBarMobile from '../../Components/NavBarMobile/NavBarMobile';
 import MainInfo from '../../Components/MainInfo/MainInfo';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { ProductApi } from '../../Context/ProductControlApi';
 
 const Home = () => {
 
-    const [loginUser, setLoginUser] = useState([])
-
-    useEffect(() => {
-
-        setLoginUser(JSON.parse(localStorage.getItem("userPass")))
+    const { loginUser } = useContext(ProductApi)
 
 
-    }, [])
+
 
     return (
         <div className='mt-5'>

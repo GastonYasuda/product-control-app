@@ -1,17 +1,22 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import SearchBar from '../../Components/SearchBar/SearchBar'
 import NavBar from '../../Components/NavBar/NavBar'
 import { Card, Col, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import MainCard from '../../Components/MainCard/MainCard'
 import Greeting from '../../Components/Greeting/Greeting'
+import { ProductApi } from '../../Context/ProductControlApi'
 
 const Suppier = () => {
+
+    const { loginUser } = useContext(ProductApi)
+
     return (
         <div className='mt-5'>
 
-
-            <Greeting userName={'Gaston'} userRol={'Salon'} />
+            {loginUser &&
+                <Greeting userName={loginUser.name} userRol={loginUser.rol} />
+            }
 
             <div className='d-block d-lg-none'>
                 <SearchBar />

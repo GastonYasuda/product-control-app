@@ -11,10 +11,13 @@ import Spinner from 'react-bootstrap/Spinner';
 import Greeting from '../../Components/Greeting/Greeting';
 import SearchBar from '../../Components/SearchBar/SearchBar';
 import NavBar from '../../Components/NavBar/NavBar';
+import { ProductApi } from '../../Context/ProductControlApi';
 
 
 const ProductsCards = () => {
     const { desdeDB, getAllProducts } = useContext(DataProductApi)
+    const { loginUser } = useContext(ProductApi)
+
 
     const [loading, setLoading] = useState(false)
 
@@ -32,7 +35,9 @@ const ProductsCards = () => {
     return (
         <div className='mt-5'>
 
-            <Greeting userName={'Gaston'} userRol={'Salon'} />
+            {loginUser &&
+                <Greeting userName={loginUser.name} userRol={loginUser.rol} />
+            }
 
             <div className='d-block d-lg-none'>
                 <SearchBar />

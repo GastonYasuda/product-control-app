@@ -3,16 +3,21 @@ import SearchBar from '../../Components/SearchBar/SearchBar'
 import NavBar from '../../Components/NavBar/NavBar'
 import DetailElementComponent from '../../Components/DetailElementComponent/DetailElementComponent'
 import Greeting from '../../Components/Greeting/Greeting'
+import { useContext } from 'react'
+import { ProductApi } from '../../Context/ProductControlApi'
 
 
 const SuppierDetail = () => {
+    const { loginUser } = useContext(ProductApi)
 
     const { idSupplier } = useParams()
 
     return (
         <div className='mt-5'>
 
-            <Greeting userName={'Gaston'} userRol={'Salon'} />
+            {loginUser &&
+                <Greeting userName={loginUser.name} userRol={loginUser.rol} />
+            }
 
             <div className='d-block d-lg-none'>
                 <SearchBar />

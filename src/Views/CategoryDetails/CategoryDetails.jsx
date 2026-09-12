@@ -2,16 +2,22 @@ import { useParams } from 'react-router-dom'
 import SearchBar from '../../Components/SearchBar/SearchBar'
 import NavBar from '../../Components/NavBar/NavBar'
 import DetailElementComponent from '../../Components/DetailElementComponent/DetailElementComponent'
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import Greeting from '../../Components/Greeting/Greeting'
+import { ProductApi } from '../../Context/ProductControlApi'
 
 const CategoryDetails = () => {
+    const { loginUser } = useContext(ProductApi)
+
     const { idCategory } = useParams()
+
 
     return (
         <div className='mt-5'>
 
-            <Greeting userName={'Gaston'} userRol={'Salon'} />
+            {loginUser &&
+                <Greeting userName={loginUser.name} userRol={loginUser.rol} />
+            }
 
             <div className='d-block d-lg-none'>
                 <SearchBar />
