@@ -111,7 +111,7 @@ const ProductsCards = () => {
 
                         {showProducts.map((product, i) => (
                             <Col key={i}>
-                                <Card className="w-100 h-100 d-flex justify-content-space-between">
+                                <Card className="w-100 h-100 d-flex justify-content-between">
                                     {product.pending && <span className='position-absolute top-0 end-0 badge bg-warning p-2 mt-1 me-1'>Pendiente</span>}
 
                                     <Link to={`/product/${product.name}`}>
@@ -123,39 +123,44 @@ const ProductsCards = () => {
                                     <Card.Body className='d-flex flex-column justify-content-between'>
                                         <div className='text-start d-flex flex-column'>
                                             <div>
-                                                <h5>{product.name}</h5>
-                                                <h6>{product.supplier}</h6>
-                                                <span>Cod: {product.code}</span>
-                                            </div>
-                                            <div className='w-100 mt-2 d-flex justify-content-between'>
-                                                <span>${product.price}</span>
-                                                <span>Stock: {product.stock}</span>
+                                                <h6>{product.name}</h6>
+                                                <p>{product.supplier}</p>
                                             </div>
                                         </div>
 
-                                        <Form className='d-flex flex-column' onSubmit={addCountSubmit} >
-                                            <Form.Control
-                                                type="number"
-                                                className='mb-3'
-                                                placeholder={product.count ? product.count : '0'}
-                                                onChange={(e) => { setProductCount(e.target.value) }}
-                                            />
-                                            <section>
-                                                <Button type="submit" variant='danger' className='ms-2'>
-                                                    <span className="material-symbols-outlined">
-                                                        delete
-                                                    </span>
-                                                </Button>
+                                        <div>
+                                            <div className='w-100 d-flex flex-column justify-content-between'>
+                                                <span className='text-start'>Cod: {product.code}</span>
+                                                <section className='d-flex justify-content-between'>
+                                                    <span className='fw-semibold'>${product.price}</span>
+                                                    <span>Stock: {product.stock}</span>
+                                                </section>
+                                            </div>
 
-                                                <Button type="submit" variant='dark' className='ms-2' onClick={() => { addToOrder(product.id) }} >
-                                                    <span className="material-symbols-outlined">
-                                                        format_list_bulleted_add
-                                                    </span>
-                                                </Button>
-                                            </section>
+                                            <Form className='d-flex flex-column mt-2' onSubmit={addCountSubmit} >
+                                                <Form.Control
+                                                    type="number"
+                                                    className='mb-3'
+                                                    placeholder={product.count ? product.count : '0'}
+                                                    onChange={(e) => { setProductCount(e.target.value) }}
+                                                />
+                                                <section className='d-flex justify-content-between'>
+                                                    <Button type="submit" variant='danger'>
+                                                        <span className="material-symbols-outlined">
+                                                            delete
+                                                        </span>
+                                                    </Button>
+
+                                                    <Button type="submit" variant='dark' onClick={() => { addToOrder(product.id) }} >
+                                                        <span className="material-symbols-outlined">
+                                                            format_list_bulleted_add
+                                                        </span>
+                                                    </Button>
+                                                </section>
 
 
-                                        </Form>
+                                            </Form>
+                                        </div>
                                     </Card.Body>
                                 </Card>
                             </Col>
