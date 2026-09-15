@@ -8,7 +8,7 @@ import Greeting from '../../Components/Greeting/Greeting'
 import { ProductApi } from '../../Context/ProductControlApi'
 
 const Order = () => {
-    const { loginUser } = useContext(ProductApi)
+    const { loginUser, orderByName } = useContext(ProductApi)
 
     const [pendingProducts, setPendingProducts] = useState([])
     const [productCount, setProductCount] = useState()
@@ -17,8 +17,10 @@ const Order = () => {
 
     useEffect(() => {
 
-
-        setPendingProducts(JSON.parse(localStorage.getItem("pendingProductsArray")))
+        if (pendingProducts.length === 0) {
+            const pendingProductsFromLocalStorage = JSON.parse(localStorage.getItem("pendingProductsArray"))
+            setPendingProducts(orderByName(pendingProductsFromLocalStorage))
+        }
 
     }, [])
 
@@ -32,7 +34,7 @@ const Order = () => {
         // console.log('productCount', productCount);
 
         const changeOnlyProductCount = pendingProducts.map((product) => product.id === id ?
-            { ...product, count: productCount }
+            { ...product, count: productCount, pending: true }
             : product
         )
 

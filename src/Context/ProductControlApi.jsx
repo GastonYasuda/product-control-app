@@ -21,8 +21,16 @@ const ProductControlApi = ({ children }) => {
 
     }
 
+
+
+    const orderByName = (productoArray) => {
+        return [...productoArray].sort((a, b) =>
+            a.name.localeCompare(b.name)
+        );
+    }
+
     return (
-        <ProductApi.Provider value={{ test, loginUser, setLoginUser }}>
+        <ProductApi.Provider value={{ test, loginUser, setLoginUser, orderByName }}>
             {children}
         </ProductApi.Provider>
     )
