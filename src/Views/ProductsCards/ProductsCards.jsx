@@ -33,7 +33,7 @@ const ProductsCards = () => {
 
 
             const pendingProducts =
-                JSON.parse(localStorage.getItem("pendingProductsArray")) || []
+                JSON.parse(localStorage.getItem("pendingProductsArray"))
 
             if (pendingProducts.length !== 0) {
 
