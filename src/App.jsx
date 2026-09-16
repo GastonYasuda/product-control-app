@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom'
 import Home from './Views/Home/Home'
 import Login from './Views/Login/Login'
 import ProductDetail from './Views/ProductDetail/ProductDetail'
@@ -15,10 +15,14 @@ function App() {
   const [almostLogged, setAlmostLogged] = useState(JSON.parse(localStorage.getItem("userPass")))
 
 
+
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={almostLogged ? <Home /> : <Login />} />
+        <Route path='/' element={almostLogged.length === 0 ? <Login /> : <Home />} />
+        <Route path='/login' element={<Login />} />
+        <Route path="/home" element={<Home />} />
 
         <Route path='/products' element={<ProductsCards />} />
         <Route path='/product/:idProduct' element={<ProductDetail />} />
@@ -27,7 +31,6 @@ function App() {
         <Route path='/supplier' element={<Suppier />} />
         <Route path='/supplier/:idSupplier' element={<SuppierDetail />} />
         <Route path='/order' element={<Order />} />
-        <Route path='/login' element={<Login />} />
 
         <Route path='*' element={<h3>Error!<br /> La pagina no existe! </h3>} />
 

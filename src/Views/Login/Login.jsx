@@ -7,11 +7,22 @@ import { useNavigate } from 'react-router-dom';
 import { ProductApi } from '../../Context/ProductControlApi';
 
 const Login = () => {
+    const [almostLogged, setAlmostLogged] = useState(JSON.parse(localStorage.getItem("userPass")))
 
 
     const [user, setUser] = useState('')
     const navigate = useNavigate()
     const [password, setPassword] = useState('')
+
+    useEffect(() => {
+
+        if (almostLogged.length !== 0) {
+            navigate('/home')
+        } else {
+            navigate('/login')
+        }
+
+    }, [])
 
 
 
@@ -27,7 +38,7 @@ const Login = () => {
 
         if (validateUserPass) {
             localStorage.setItem('userPass', JSON.stringify(validateUserPass))
-            navigate('/')
+            navigate('/home')
         }
 
     }

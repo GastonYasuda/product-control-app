@@ -20,9 +20,8 @@ const Home = () => {
 
     return (
         <div className='mt-5'>
-            {loginUser &&
-                <Greeting userName={loginUser.name} userRol={loginUser.rol} />
-            }
+            <Greeting userName={loginUser.name} userRol={loginUser.rol} />
+
 
             <div className='d-block d-lg-none'>
                 <SearchBar />
