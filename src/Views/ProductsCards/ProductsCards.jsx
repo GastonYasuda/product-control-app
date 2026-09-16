@@ -30,6 +30,8 @@ const ProductsCards = () => {
             setLoading(true)
         } else {
             setLoading(false)
+            console.log('loading', loading);
+
 
 
             const pendingProducts =
