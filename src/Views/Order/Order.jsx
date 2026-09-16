@@ -5,6 +5,7 @@ import SearchBar from '../../Components/SearchBar/SearchBar'
 import NavBar from '../../Components/NavBar/NavBar'
 import Greeting from '../../Components/Greeting/Greeting'
 import { ProductApi } from '../../Context/ProductControlApi'
+import { Link } from 'react-router-dom'
 
 const Order = () => {
     const { loginUser, orderByName } = useContext(ProductApi)
@@ -85,9 +86,9 @@ const Order = () => {
                         <div>
                             <div className="orderContainer_card mx-auto d-flex flex-row justify-content-evenly rounded">
                                 <div>
-                                    {/* <Link to={`/product/${product.name}`}> */}
-                                    <img src={product.image} className='w-100 h-100 object-fit-contain m-auto' alt={`${product.image} image`} />
-                                    {/* </Link> */}
+                                    <Link to={`/product/${product.name}`}>
+                                        <img src={product.image} className='w-100 h-100 object-fit-contain m-auto' alt={`${product.image} image`} />
+                                    </Link>
                                 </div>
                                 <div className="p-3 d-flex flex-column justify-content-between">
 

@@ -14,14 +14,66 @@ const ProductDetail = () => {
 
 
     const { idProduct } = useParams()
-    const [product, setProduct] = useState({})
+    const [showProducts, setShowProducts] = useState()
+
+    const [pendingProducts, setPendingProducts] = useState(JSON.parse(localStorage.getItem("pendingProductsArray")))
+    const [productCount, setProductCount] = useState()
+
 
 
     useEffect(() => {
-        const selectedProduct = getAllProducts.find(product => product.name === idProduct)
-        setProduct(selectedProduct)
 
-    }, [getAllProducts])
+
+        if (pendingProducts !== null) {
+            const isPendingArray = pendingProducts.find(product => product.name === idProduct)
+            setShowProducts(isPendingArray);
+            console.log(isPendingArray);
+
+
+        } else {
+
+            const selectedProduct = getAllProducts.find(product => product.name === idProduct)
+            setShowProducts(selectedProduct)
+            console.log('selectedProduct', selectedProduct.name);
+        }
+
+    }, [getAllProducts, pendingProducts])
+
+
+
+    const updateToOrder = (id) => {
+
+        const changeOnlyProductCount = pendingProducts.map((product) => product.id === id ?
+            { ...product, count: productCount, pending: true }
+            : product
+        )
+
+        setPendingProducts(changeOnlyProductCount);
+        localStorage.setItem('pendingProductsArray', JSON.stringify(changeOnlyProductCount))
+    }
+
+
+
+    const handleCountChange = (id, count) => {
+        setPendingProducts(prev => prev.map(product => product.id === id ?
+            { ...product, count: Number(count) }
+            : product
+        )
+        )
+        setProductCount(count)
+    }
+
+
+    const deleteOrderCount = () => {
+
+        //busco el producto
+        const deletedCount = pendingProducts.map((product => product.id === showProducts.id &&
+            { ...product, count: 0, pending: false }))
+
+
+        setPendingProducts(deletedCount);
+        localStorage.setItem('pendingProductsArray', JSON.stringify(deletedCount))
+    }
 
 
     return (
@@ -35,49 +87,47 @@ const ProductDetail = () => {
                 <SearchBar />
             </div>
 
-            {product &&
+            {showProducts &&
                 <div className='productDetailComponent mx-auto d-flex flex-column'>
-                    <h4 className='pt-3'> {product.name}</h4>
+                    <h4 className='pt-3'> {showProducts.name}</h4>
 
                     <div className='d-flex productDetailComponent_body my-5'>
 
 
                         <div className='productDetailComponent_body_image m-auto'>
-                            <img src={product.image} className='h-100 object-fit-contain' alt={`${product.name} img`} />
+                            <img src={showProducts.image} className='h-100 object-fit-contain' alt={`${showProducts.name} img`} />
                         </div>
 
-                        {product.pending && <span>Pendiente</span>}
+                        {showProducts.pending && <span className='position-absolute top-0 end-0 badge bg-warning p-2 mt-1 me-1'>Pendiente</span>}
 
                         <div className="m-auto p-3">
 
                             <div className="w-100 d-flex flex-column align-items-start">
 
-                                <h6>{product.supplier}</h6>
-                                <p>Codigo: {product.code}</p>
+                                <h6>{showProducts.supplier}</h6>
+                                <p>Codigo: {showProducts.code}</p>
                                 <div className='w-100 d-flex justify-content-between'>
-                                    <p>$ {product.price}</p>
-                                    <p>Stock: {product.stock}</p>
+                                    <p>$ {showProducts.price}</p>
+                                    <p>Stock: {showProducts.stock}</p>
                                 </div>
                             </div>
 
                             <Form className='w-100 mt-2 d-flex justify-content-between'>
                                 <Form.Control
                                     type="number"
-                                    placeholder="0"
+                                    value={showProducts.count}
+                                    onChange={(e) => handleCountChange(showProducts.id, e.target.value)}
                                 />
-                                {product.pending ?
-                                    <Button type="submit" variant='danger' className='ms-2'>
-                                        <span className="material-symbols-outlined">
-                                            delete
-                                        </span>
-                                    </Button>
-                                    :
-                                    <Button type="submit" variant='dark' className='ms-2'>
-                                        <span className="material-symbols-outlined">
-                                            format_list_bulleted_add
-                                        </span>
-                                    </Button>
-                                }
+                                <Button type="button" variant='danger' className='ms-2' onClick={() => { deleteOrderCount() }}>
+                                    <span className="material-symbols-outlined">
+                                        delete
+                                    </span>
+                                </Button>
+                                <Button type="button" variant='dark' className='ms-2' onClick={() => { updateToOrder(showProducts.id) }}>
+                                    <span className="material-symbols-outlined">
+                                        format_list_bulleted_add
+                                    </span>
+                                </Button>
                             </Form>
                         </div>
                     </div>

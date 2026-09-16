@@ -32,7 +32,7 @@ const ProductsCards = () => {
 
         } else {
             setLoading(false)
-            console.log('loading', loading);
+            // console.log('loading', loading);
 
 
             if (pendingProducts !== null) {
@@ -52,21 +52,13 @@ const ProductsCards = () => {
                 localStorage.setItem('pendingProductsArray', JSON.stringify([]))
 
             }
-
-
-            console.log('pendingProducts', pendingProducts);
-
-
-
+            // console.log('pendingProducts', pendingProducts);
         }
 
     }, [getAllProducts, pendingProducts])
 
 
 
-    const addCountSubmit = (e) => {
-        e.preventDefault()
-    }
 
 
 
@@ -81,9 +73,10 @@ const ProductsCards = () => {
         if (repeatProduct) {
 
             const changeOnlyProductCount = pendingProducts.map((product) => product.id === id ?
-                { ...product, count: productCount, pending: true }
+                { ...product, count: Number(productCount), pending: true }
                 : product
             )
+
 
             setPendingProducts(changeOnlyProductCount);
             localStorage.setItem('pendingProductsArray', JSON.stringify(changeOnlyProductCount))
@@ -92,7 +85,7 @@ const ProductsCards = () => {
         } else {
 
             const addProductCount = [...pendingProducts,
-            { ...searchProductToUpdate, count: productCount, pending: true }]
+            { ...searchProductToUpdate, count: Number(productCount), pending: true }]
 
             setPendingProducts(addProductCount);
             localStorage.setItem('pendingProductsArray', JSON.stringify(addProductCount))
@@ -148,7 +141,7 @@ const ProductsCards = () => {
                                                 </section>
                                             </div>
 
-                                            <Form className='d-flex flex-column mt-2' onSubmit={addCountSubmit} >
+                                            <Form className='d-flex flex-column mt-2'>
                                                 <Form.Control
                                                     type="number"
                                                     className='mb-3'
@@ -156,13 +149,13 @@ const ProductsCards = () => {
                                                     onChange={(e) => { setProductCount(e.target.value) }}
                                                 />
                                                 <section className='d-flex justify-content-between'>
-                                                    <Button type="submit" variant='danger'>
+                                                    <Button type="button" variant='danger'>
                                                         <span className="material-symbols-outlined">
                                                             delete
                                                         </span>
                                                     </Button>
 
-                                                    <Button type="submit" variant='dark' onClick={() => { addToOrder(product.id) }} >
+                                                    <Button type="button" variant='dark' onClick={() => { addToOrder(product.id) }} >
                                                         <span className="material-symbols-outlined">
                                                             format_list_bulleted_add
                                                         </span>
