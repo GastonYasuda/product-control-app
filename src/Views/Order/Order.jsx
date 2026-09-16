@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
 import './order.css'
-import { Link } from 'react-router-dom'
 import { Button, Col, Form, Row } from 'react-bootstrap'
 import SearchBar from '../../Components/SearchBar/SearchBar'
 import NavBar from '../../Components/NavBar/NavBar'
@@ -17,17 +16,14 @@ const Order = () => {
 
     useEffect(() => {
 
-        if (pendingProducts.length === 0) {
-            const pendingProductsFromLocalStorage = JSON.parse(localStorage.getItem("pendingProductsArray"))
-            setPendingProducts(orderByName(pendingProductsFromLocalStorage))
-        }
+        const pendingProducts =
+            JSON.parse(localStorage.getItem("pendingProductsArray")) || []
+
+        setPendingProducts(orderByName(pendingProducts))
 
     }, [])
 
 
-    const updateCountSubmit = (e) => {
-        e.preventDefault()
-    }
 
     const updateToOrder = (id) => {
         // console.log('modificado el ', id);
@@ -42,13 +38,24 @@ const Order = () => {
         localStorage.setItem('pendingProductsArray', JSON.stringify(changeOnlyProductCount))
     }
 
+
+    const handleCountChange = (id, count) => {
+        setPendingProducts(prev =>
+            prev.map(product =>
+                product.id === id
+                    ? { ...product, count: Number(count) }
+                    : product
+            )
+        )
+    }
+
+
+
     const deleteOrder = (id) => {
         const deleteProductCountId = pendingProducts.filter((product) => product.id !== id)
 
         setPendingProducts(deleteProductCountId);
         localStorage.setItem('pendingProductsArray', JSON.stringify(deleteProductCountId))
-
-
     }
 
 
@@ -94,20 +101,21 @@ const Order = () => {
                                         </div>
                                     </div>
 
-                                    <Form className='mt-2 d-flex justify-content-between' onSubmit={updateCountSubmit} >
+                                    <Form className='mt-2 d-flex justify-content-between' >
+
                                         <Form.Control
                                             type="number"
-                                            placeholder={product.count}
-                                            onChange={(e) => { setProductCount(e.target.value) }}
+                                            value={product.count || ""}
+                                            onChange={(e) => handleCountChange(product.id, e.target.value)}
                                         />
 
-                                        <Button type="submit" variant='danger' className='ms-3' onClick={() => { deleteOrder(product.id) }}>
+                                        <Button type="button" variant='danger' className='ms-3' onClick={() => { deleteOrder(product.id) }}>
                                             <span className="material-symbols-outlined">
                                                 delete
                                             </span>
                                         </Button>
 
-                                        <Button type="submit" variant='dark' className='ms-2' onClick={() => { updateToOrder(product.id) }}>
+                                        <Button type="button" variant='dark' className='ms-2' onClick={() => { updateToOrder(product.id) }}>
                                             <span className="material-symbols-outlined">
                                                 format_list_bulleted_add
                                             </span>
