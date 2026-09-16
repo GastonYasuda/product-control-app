@@ -66,7 +66,6 @@ const ProductDetail = () => {
 
     const deleteOrderCount = () => {
 
-
         const deletedCount = pendingProducts.map(product =>
             product.id === showProducts.id
                 ? { ...product, count: 0, pending: false }
