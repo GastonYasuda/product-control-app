@@ -40,13 +40,12 @@ const Order = () => {
 
 
     const handleCountChange = (id, count) => {
-        setPendingProducts(prev =>
-            prev.map(product =>
-                product.id === id
-                    ? { ...product, count: Number(count) }
-                    : product
-            )
+        setPendingProducts(prev => prev.map(product => product.id === id ?
+            { ...product, count: Number(count) }
+            : product
         )
+        )
+        setProductCount(count)
     }
 
 

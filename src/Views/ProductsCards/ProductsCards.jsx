@@ -20,7 +20,7 @@ const ProductsCards = () => {
 
     const [productCount, setProductCount] = useState()
     const [loading, setLoading] = useState(false)
-    const [pendingProducts, setPendingProducts] = useState([])
+    const [pendingProducts, setPendingProducts] = useState(JSON.parse(localStorage.getItem("pendingProductsArray")))
     const [showProducts, setShowProducts] = useState([])
 
 
@@ -28,16 +28,11 @@ const ProductsCards = () => {
 
         if (getAllProducts.length === 0) {
             setLoading(true)
+            // localStorage.setItem('pendingProductsArray', JSON.stringify())
+
         } else {
             setLoading(false)
             console.log('loading', loading);
-
-
-
-            const pendingProducts =
-                JSON.parse(localStorage.getItem("pendingProductsArray"))
-
-            console.log('pendingProducts', pendingProducts);
 
 
             if (pendingProducts !== null) {
@@ -51,7 +46,17 @@ const ProductsCards = () => {
                 //console.log(mergedProducts);
 
                 setShowProducts(orderByName(mergedProducts))
+
+            } else {
+                setShowProducts(orderByName(getAllProducts))
+                localStorage.setItem('pendingProductsArray', JSON.stringify([]))
+
             }
+
+
+            console.log('pendingProducts', pendingProducts);
+
+
 
         }
 
