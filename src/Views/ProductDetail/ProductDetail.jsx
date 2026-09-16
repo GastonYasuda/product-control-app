@@ -66,10 +66,12 @@ const ProductDetail = () => {
 
     const deleteOrderCount = () => {
 
-        //busco el producto
-        const deletedCount = pendingProducts.map((product => product.id === showProducts.id &&
-            { ...product, count: 0, pending: false }))
 
+        const deletedCount = pendingProducts.map(product =>
+            product.id === showProducts.id
+                ? { ...product, count: 0, pending: false }
+                : product
+        )
 
         setPendingProducts(deletedCount);
         localStorage.setItem('pendingProductsArray', JSON.stringify(deletedCount))
