@@ -31,8 +31,8 @@ const ProductsCards = () => {
         } else {
             setLoading(false)
 
-            if (pendingProducts.length === 0 || null) {
-                setPendingProducts(JSON.parse(localStorage.getItem("pendingProductsArray")))
+            if (pendingProducts.length === 0) {
+                setPendingProducts(JSON.parse(localStorage.getItem("pendingProductsArray")) || [])
 
             } else {
                 //console.log('pending', pendingProducts);
