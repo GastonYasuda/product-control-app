@@ -37,6 +37,9 @@ const ProductsCards = () => {
             const pendingProducts =
                 JSON.parse(localStorage.getItem("pendingProductsArray"))
 
+            console.log('pendingProducts', pendingProducts);
+
+
             if (pendingProducts !== null) {
 
                 const mergedProducts = [
