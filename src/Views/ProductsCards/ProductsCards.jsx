@@ -37,7 +37,7 @@ const ProductsCards = () => {
             const pendingProducts =
                 JSON.parse(localStorage.getItem("pendingProductsArray"))
 
-            if (pendingProducts.length !== 0) {
+            if (pendingProducts !== null) {
 
                 const mergedProducts = [
                     ...new Map(
