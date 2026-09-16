@@ -31,11 +31,11 @@ const ProductsCards = () => {
         } else {
             setLoading(false)
 
-            if (pendingProducts.length === 0) {
-                setPendingProducts(JSON.parse(localStorage.getItem("pendingProductsArray")) || [])
 
-            } else {
-                //console.log('pending', pendingProducts);
+            const pendingProducts =
+                JSON.parse(localStorage.getItem("pendingProductsArray")) || []
+
+            if (pendingProducts.length !== 0) {
 
                 const mergedProducts = [
                     ...new Map(
@@ -47,6 +47,7 @@ const ProductsCards = () => {
 
                 setShowProducts(orderByName(mergedProducts))
             }
+
         }
 
     }, [getAllProducts, pendingProducts])
