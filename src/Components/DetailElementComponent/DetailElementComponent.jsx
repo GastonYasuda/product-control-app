@@ -29,7 +29,6 @@ const DetailElementComponent = ({ detailElementName, from }) => {
         } else if (from === 'supplier') {
             console.log('from', from);
 
-
             const selectedSupplier = getAllProducts.filter(prod => prod.supplier.name === detailElementName)
             setDetailElement(selectedSupplier);
             console.log(selectedSupplier);
@@ -88,25 +87,20 @@ const DetailElementComponent = ({ detailElementName, from }) => {
             setShowProducts(orderByName(mergedProducts))
         }
 
-
-
-
     }
 
+    // const updateToOrder = (id) => {
+    //     // console.log('modificado el ', id);
+    //     // console.log('productCount', productCount);
 
+    //     const changeOnlyProductCount = pendingProducts.map((product) => product.id === id ?
+    //         { ...product, count: productCount, pending: true }
+    //         : product
+    //     )
 
-    const updateToOrder = (id) => {
-        // console.log('modificado el ', id);
-        // console.log('productCount', productCount);
-
-        const changeOnlyProductCount = pendingProducts.map((product) => product.id === id ?
-            { ...product, count: productCount, pending: true }
-            : product
-        )
-
-        setPendingProducts(changeOnlyProductCount);
-        localStorage.setItem('pendingProductsArray', JSON.stringify(changeOnlyProductCount))
-    }
+    //     setPendingProducts(changeOnlyProductCount);
+    //     localStorage.setItem('pendingProductsArray', JSON.stringify(changeOnlyProductCount))
+    // }
 
     const addToOrder = (id) => {
 

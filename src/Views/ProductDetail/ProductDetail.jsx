@@ -47,19 +47,6 @@ const ProductDetail = () => {
 
 
 
-    // const updateToOrder = (id) => {
-
-    //     const changeOnlyProductCount = pendingProducts.map((product) => product.id === id ?
-    //         { ...product, count: productCount, pending: true }
-    //         : product
-    //     )
-
-    //     setPendingProducts(changeOnlyProductCount);
-    //     localStorage.setItem('pendingProductsArray', JSON.stringify(changeOnlyProductCount))
-    // }
-
-
-
     const handleCountChange = (id, count) => {
         setPendingProducts(prev => prev.map(product => product.id === id ?
             { ...product, count: Number(count) }
