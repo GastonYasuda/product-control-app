@@ -167,7 +167,7 @@ const ProductDetail = () => {
                                 <Form.Control
                                     type="number"
                                     placeholder={showProducts.count}
-                                    value={showProducts.count ?? 0}
+                                    // value={showProducts.count ?? 0}
                                     onChange={(e) => handleCountChange(showProducts.id, e.target.value)}
                                 />
                                 <Button type="button" variant='danger' className='ms-2' onClick={() => { deleteOrder(showProducts.id) }}>

@@ -105,7 +105,8 @@ const Order = () => {
 
                                         <Form.Control
                                             type="number"
-                                            value={product.count || ""}
+                                            placeholder={product.count}
+                                            // value={product.count || ""}
                                             onChange={(e) => handleCountChange(product.id, e.target.value)}
                                         />
 

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import './login.css'
-import users from '../../../public/users.json'
+import users from '../../../src/assets/users.json'
 import { useNavigate } from 'react-router-dom';
 import { ProductApi } from '../../Context/ProductControlApi';
 

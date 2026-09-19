@@ -10,5 +10,11 @@
         "name": "daiana",
         "pass": "dai",
         "rol": "salon"
+    },
+    {
+        "id": 3,
+        "name": "julio",
+        "pass": "jul",
+        "rol": "salon"
     }
 ]
