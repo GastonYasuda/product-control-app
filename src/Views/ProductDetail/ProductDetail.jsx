@@ -122,7 +122,8 @@ const ProductDetail = () => {
                             <Form className='w-100 mt-2 d-flex justify-content-between'>
                                 <Form.Control
                                     type="number"
-                                    value={showProducts.count}
+                                    placeholder={showProducts.count}
+                                    value={showProducts.count ?? 0}
                                     onChange={(e) => handleCountChange(showProducts.id, e.target.value)}
                                 />
                                 <Button type="button" variant='danger' className='ms-2' onClick={() => { deleteOrderCount() }}>

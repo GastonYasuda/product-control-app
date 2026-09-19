@@ -117,7 +117,14 @@ const ProductsCards = () => {
 
         setShowProducts(orderByName(mergedProducts))
     }
-
+    const handleCountChange = (id, count) => {
+        setPendingProducts(prev => prev.map(product => product.id === id ?
+            { ...product, count: Number(count) }
+            : product
+        )
+        )
+        setProductCount(count)
+    }
 
     return (
         <div className='mt-5'>
@@ -163,7 +170,7 @@ const ProductsCards = () => {
                                                 <section className='d-flex justify-content-between'>
                                                     <span className='fw-semibold'>${product.price}</span>
                                                     <span>Stock: {product.stock}</span>
-                                                    <span>{product.count}</span>
+                                                    {/* <span>{product.count}</span> */}
                                                 </section>
                                             </div>
 
@@ -172,8 +179,7 @@ const ProductsCards = () => {
                                                     type="number"
                                                     className='mb-3'
                                                     placeholder={product.count}
-                                                    value={product.count || productCount}
-                                                    onChange={(e) => { setProductCount(e.target.value) }}
+                                                    onChange={(e) => handleCountChange(showProducts.id, e.target.value)}
                                                 />
                                                 <section className='d-flex justify-content-between'>
                                                     <Button type="button" variant='danger' onClick={() => { deleteOrder(product.id) }}>

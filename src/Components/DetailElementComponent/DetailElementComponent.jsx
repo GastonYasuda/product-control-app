@@ -22,6 +22,7 @@ const DetailElementComponent = ({ detailElementName, from }) => {
             const selectedCategory = getAllProducts.filter(prod => prod.category.name === detailElementName)
             setDetailElement(selectedCategory);
             console.log(selectedCategory);
+            mergeProdFunc(selectedCategory, from)
 
 
 
@@ -32,6 +33,7 @@ const DetailElementComponent = ({ detailElementName, from }) => {
             const selectedSupplier = getAllProducts.filter(prod => prod.supplier.name === detailElementName)
             setDetailElement(selectedSupplier);
             console.log(selectedSupplier);
+            mergeProdFunc(selectedSupplier, from)
 
         }
 
@@ -48,22 +50,47 @@ const DetailElementComponent = ({ detailElementName, from }) => {
     }, [getAllProducts, detailElementName, pendingProducts])
 
 
-    const mergeProdFunc = (array1) => {
+    const mergeProdFunc = (array1, from) => {
 
-        const pendingProductsByCategory = pendingProducts.filter(pendingProd => pendingProd.category === detailElementName)
-        console.log(pendingProductsByCategory);
+        if (from === 'category') {
+
+            const pendingProductsByCategory = pendingProducts.filter(pendingProd => pendingProd.category.name === detailElementName)
+            //   console.log(pendingProductsByCategory);
+            // console.log(array1);
+
+            const mergedProducts = [
+                ...new Map(
+                    [...array1, ...pendingProductsByCategory].map(product => [product.id, product])
+                ).values()
+            ];
+            // console.log('mergedProducts2', mergedProducts);
+
+            setShowProducts(orderByName(mergedProducts))
+
+        } else if (from === 'supplier') {
+
+            const pendingProductsBySupplier = pendingProducts.filter(pendingProd => pendingProd.supplier.name === detailElementName)
+            console.log(pendingProducts);
+
+            console.log(pendingProducts[0].supplier.name);
+
+            console.log(pendingProductsBySupplier);//[]vacio
+            console.log(array1);//todo de toyshop
+            console.log(detailElementName);//toyshop
+
+            const mergedProducts = [
+                ...new Map(
+                    [...array1, ...pendingProductsBySupplier].map(product => [product.id, product])
+                ).values()
+            ];
+            console.log('mergedProducts2', mergedProducts);
+
+            setShowProducts(orderByName(mergedProducts))
+        }
 
 
 
-        const mergedProducts = [
-            ...new Map(
-                [...array1, ...pendingProductsByCategory].map(product => [product.id, product])
-            ).values()
-        ];
 
-        console.log('mergedProducts2', mergedProducts);
-
-        setShowProducts(orderByName(mergedProducts))
     }
 
 
@@ -106,7 +133,7 @@ const DetailElementComponent = ({ detailElementName, from }) => {
 
         <Row xs={2} md={4} className="productsCardContainer g-4  mx-auto justify-content-center" >
 
-            {detailElement.map((product, i) => (
+            {showProducts.map((product, i) => (
                 <Col key={i}>
                     <Card className="w-100 h-100 d-flex justify-content-between">
                         {product.pending && <span className='position-absolute top-0 end-0 badge bg-warning p-2 mt-1 me-1'>Pendiente</span>}
