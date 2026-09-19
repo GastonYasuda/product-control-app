@@ -94,7 +94,7 @@ const Order = () => {
 
                                     <div className="d-flex flex-column align-items-start">
                                         <h5>{product.name}</h5>
-                                        <span>{product.supplier}</span>
+                                        <span>{product.supplier.name}</span>
                                         <div className='w-100 d-flex justify-content-between'>
                                             <span>${product.price}</span>
                                             <span>Stock: {product.stock}</span>

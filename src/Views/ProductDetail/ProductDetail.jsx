@@ -23,11 +23,17 @@ const ProductDetail = () => {
 
     useEffect(() => {
 
-
-        if (pendingProducts !== null) {
+        if (pendingProducts.length !== 0) {
             const isPendingArray = pendingProducts.find(product => product.name === idProduct)
-            setShowProducts(isPendingArray);
-            console.log(isPendingArray);
+
+            if (isPendingArray === undefined) {
+                const selectedProduct = getAllProducts.find(product => product.name === idProduct)
+                setShowProducts(selectedProduct)
+            } else {
+
+                setShowProducts(isPendingArray);
+                console.log(isPendingArray);
+            }
 
 
         } else {
@@ -105,7 +111,7 @@ const ProductDetail = () => {
 
                             <div className="w-100 d-flex flex-column align-items-start">
 
-                                <h6>{showProducts.supplier}</h6>
+                                <h6>{showProducts.supplier.name}</h6>
                                 <p>Codigo: {showProducts.code}</p>
                                 <div className='w-100 d-flex justify-content-between'>
                                     <p>$ {showProducts.price}</p>

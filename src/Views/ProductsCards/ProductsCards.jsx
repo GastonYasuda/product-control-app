@@ -34,25 +34,24 @@ const ProductsCards = () => {
             setLoading(false)
             // console.log('loading', loading);
 
+            // console.log('aca', pendingProducts);
+            // console.log('showProducts', showProducts);
+            // console.log('getAllProducts', getAllProducts);
+
 
             if (pendingProducts !== null) {
 
-                const mergedProducts = [
-                    ...new Map(
-                        [...getAllProducts, ...pendingProducts].map(product => [product.id, product])
-                    ).values()
-                ];
+                mergeProdFunc(getAllProducts)
 
-                //console.log(mergedProducts);
 
-                setShowProducts(orderByName(mergedProducts))
 
             } else {
                 setShowProducts(orderByName(getAllProducts))
                 localStorage.setItem('pendingProductsArray', JSON.stringify([]))
-
             }
-            // console.log('pendingProducts', pendingProducts);
+
+
+            console.log('pendingProducts', pendingProducts);
         }
 
     }, [getAllProducts, pendingProducts])
@@ -68,7 +67,6 @@ const ProductsCards = () => {
         // console.log('searchProductToUpdate', searchProductToUpdate);
 
         const repeatProduct = pendingProducts.some((product) => product.id === id)
-        // console.log(repeatProduct);
 
         if (repeatProduct) {
 
@@ -91,6 +89,33 @@ const ProductsCards = () => {
             localStorage.setItem('pendingProductsArray', JSON.stringify(addProductCount))
 
         }
+    }
+
+
+    const deleteOrder = (id) => {
+        const deleteProductCountId = pendingProducts.filter((product) => product.id !== id)
+        // console.log('chequeo si corre para ver proque no me marca 0', deleteProductCountId);
+        // console.log('pendings', pendingProducts);
+
+        mergeProdFunc(showProducts)
+
+        setPendingProducts(deleteProductCountId);
+        localStorage.setItem('pendingProductsArray', JSON.stringify(deleteProductCountId))
+    }
+
+
+
+    const mergeProdFunc = (array1) => {
+
+        const mergedProducts = [
+            ...new Map(
+                [...array1, ...pendingProducts].map(product => [product.id, product])
+            ).values()
+        ];
+
+        console.log('mergedProducts2', mergedProducts);
+
+        setShowProducts(orderByName(mergedProducts))
     }
 
 
@@ -128,7 +153,7 @@ const ProductsCards = () => {
                                         <div className='text-start d-flex flex-column'>
                                             <div>
                                                 <h6>{product.name}</h6>
-                                                <p>{product.supplier}</p>
+                                                <p>{product.supplier.name}</p>
                                             </div>
                                         </div>
 
@@ -138,6 +163,7 @@ const ProductsCards = () => {
                                                 <section className='d-flex justify-content-between'>
                                                     <span className='fw-semibold'>${product.price}</span>
                                                     <span>Stock: {product.stock}</span>
+                                                    <span>{product.count}</span>
                                                 </section>
                                             </div>
 
@@ -145,11 +171,12 @@ const ProductsCards = () => {
                                                 <Form.Control
                                                     type="number"
                                                     className='mb-3'
-                                                    placeholder={product.count ? product.count : '0'}
+                                                    placeholder={product.count}
+                                                    value={product.count || productCount}
                                                     onChange={(e) => { setProductCount(e.target.value) }}
                                                 />
                                                 <section className='d-flex justify-content-between'>
-                                                    <Button type="button" variant='danger'>
+                                                    <Button type="button" variant='danger' onClick={() => { deleteOrder(product.id) }}>
                                                         <span className="material-symbols-outlined">
                                                             delete
                                                         </span>
@@ -161,8 +188,6 @@ const ProductsCards = () => {
                                                         </span>
                                                     </Button>
                                                 </section>
-
-
                                             </Form>
                                         </div>
                                     </Card.Body>

@@ -13,11 +13,36 @@ const MainCard = ({ cardName }) => {
 
         if (getAllProducts.length > 0) {
             if (cardName === 'category') {
-                const uniqueCategory = [...new Set(getAllProducts.map(prod => prod.category))];
+                const uniqueCategory = [
+                    ...new Map(
+                        getAllProducts.map(prod => [
+                            prod.category.name,
+                            {
+                                name: prod.category.name,
+                                img: prod.category.img
+                            }
+                        ])
+                    ).values()
+                ];
+
+
                 setElementsArray(uniqueCategory);
+                console.log(uniqueCategory);
+
 
             } else if (cardName === 'supplier') {
-                const uniqueSuplier = [...new Set(getAllProducts.map(prod => prod.supplier))];
+                const uniqueSuplier = [
+                    ...new Map(
+                        getAllProducts.map(prod => [
+                            prod.supplier.name,
+                            {
+                                name: prod.supplier.name,
+                                img: prod.supplier.img
+                            }
+                        ])
+                    ).values()
+                ];
+
                 setElementsArray(uniqueSuplier);
             }
         }
@@ -34,17 +59,25 @@ const MainCard = ({ cardName }) => {
                 elementsArray.map((selectElement, i) => (
                     <Col key={i}>
                         <Card className="h-100 d-flex justify-content-space-between">
-                            <Link to={`/${cardName}/${selectElement}`}>
+                            <Link to={`/${cardName}/${selectElement.name}`}>
 
-                                <div className='w-100 homeCardImage'>
-                                    <img src="https://lirp.cdn-website.com/a2bff480/dms3rep/multi/opt/imagen-1+%282%29-1920w.png"
-                                        className='w-100 h-100 object-fit-cover'
-                                        alt='libreria img' />
+                                <div className='homeCardImage d-flex justify-content-center align-items-center'>
+                                    {cardName === 'category' ?
+                                        <span className="material-symbols-outlined">
+                                            {selectElement.img}
+                                        </span>
+                                        :
+                                        <img src={selectElement.img} className='w-75' />
+                                    }
+
+
                                 </div>
+
+
 
                                 <Card.Body>
                                     <div className='text-center mt-3 text-black'>
-                                        <h5>{selectElement}</h5>
+                                        <h5>{selectElement.name}</h5>
                                     </div>
                                 </Card.Body>
                             </Link>

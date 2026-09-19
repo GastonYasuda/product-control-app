@@ -19,7 +19,7 @@ const DepoMainInfo = () => {
         }, {
             'title': 'Entregados',
             'icon': ' deployed_code_history',
-            'count': '8',
+            'count': '3',
         }
     ]
 

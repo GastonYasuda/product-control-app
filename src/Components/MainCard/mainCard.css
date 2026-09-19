@@ -1,3 +1,9 @@
 .mainCardComponent {
     margin-bottom: 7rem;
 }
+
+.homeCardImage {
+    span {
+        font-size: 80px;
+    }
+}
