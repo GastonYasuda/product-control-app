@@ -97,7 +97,7 @@ const ProductsCards = () => {
         // console.log('chequeo si corre para ver proque no me marca 0', deleteProductCountId);
         // console.log('pendings', pendingProducts);
 
-        mergeProdFunc(showProducts)
+        // mergeProdFunc(showProducts)
 
         setPendingProducts(deleteProductCountId);
         localStorage.setItem('pendingProductsArray', JSON.stringify(deleteProductCountId))

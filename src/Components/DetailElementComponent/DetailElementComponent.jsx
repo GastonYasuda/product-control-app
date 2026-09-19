@@ -108,15 +108,45 @@ const DetailElementComponent = ({ detailElementName, from }) => {
         localStorage.setItem('pendingProductsArray', JSON.stringify(changeOnlyProductCount))
     }
 
+    const addToOrder = (id) => {
 
-    // const handleCountChange = (id, count) => {
-    //     setPendingProducts(prev => prev.map(product => product.id === id ?
-    //         { ...product, count: Number(count) }
-    //         : product
-    //     )
-    //     )
-    //     setProductCount(count)
-    // }
+        const searchProductToUpdate = getAllProducts.find((product) => product.id === id)
+        // console.log('searchProductToUpdate', searchProductToUpdate);
+
+        const repeatProduct = pendingProducts.some((product) => product.id === id)
+
+        if (repeatProduct) {
+
+            const changeOnlyProductCount = pendingProducts.map((product) => product.id === id ?
+                { ...product, count: Number(productCount), pending: true }
+                : product
+            )
+
+
+            setPendingProducts(changeOnlyProductCount);
+            localStorage.setItem('pendingProductsArray', JSON.stringify(changeOnlyProductCount))
+
+
+        } else {
+
+            const addProductCount = [...pendingProducts,
+            { ...searchProductToUpdate, count: Number(productCount), pending: true }]
+
+            setPendingProducts(addProductCount);
+            localStorage.setItem('pendingProductsArray', JSON.stringify(addProductCount))
+
+        }
+    }
+
+
+    const handleCountChange = (id, count) => {
+        setPendingProducts(prev => prev.map(product => product.id === id ?
+            { ...product, count: Number(count) }
+            : product
+        )
+        )
+        setProductCount(count)
+    }
 
 
 
@@ -158,17 +188,23 @@ const DetailElementComponent = ({ detailElementName, from }) => {
                                     <section className='d-flex justify-content-between'>
                                         <span className='fw-semibold'>${product.price}</span>
                                         <span>Stock: {product.stock}</span>
-                                        <span>{product.count}</span>
+                                        {/* <span>{product.count}</span> */}
                                     </section>
                                 </div>
 
                                 <Form className='d-flex flex-column mt-2'>
-                                    <Form.Control
+                                    {/* <Form.Control
                                         type="number"
                                         className='mb-3'
                                         placeholder={product.count}
                                         value={product.count}
                                         onChange={(e) => { setProductCount(e.target.value) }}
+                                    /> */}
+                                    <Form.Control
+                                        type="number"
+                                        className='mb-3'
+                                        placeholder={product.count}
+                                        onChange={(e) => handleCountChange(showProducts.id, e.target.value)}
                                     />
                                     <section className='d-flex justify-content-between'>
                                         <Button type="button" variant='danger' onClick={() => { deleteOrder(product.id) }}>
@@ -177,7 +213,7 @@ const DetailElementComponent = ({ detailElementName, from }) => {
                                             </span>
                                         </Button>
 
-                                        <Button type="button" variant='dark' onClick={() => { updateToOrder(product.id) }} >
+                                        <Button type="button" variant='dark' onClick={() => { addToOrder(product.id) }} >
                                             <span className="material-symbols-outlined">
                                                 format_list_bulleted_add
                                             </span>

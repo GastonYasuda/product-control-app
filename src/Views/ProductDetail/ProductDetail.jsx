@@ -47,16 +47,16 @@ const ProductDetail = () => {
 
 
 
-    const updateToOrder = (id) => {
+    // const updateToOrder = (id) => {
 
-        const changeOnlyProductCount = pendingProducts.map((product) => product.id === id ?
-            { ...product, count: productCount, pending: true }
-            : product
-        )
+    //     const changeOnlyProductCount = pendingProducts.map((product) => product.id === id ?
+    //         { ...product, count: productCount, pending: true }
+    //         : product
+    //     )
 
-        setPendingProducts(changeOnlyProductCount);
-        localStorage.setItem('pendingProductsArray', JSON.stringify(changeOnlyProductCount))
-    }
+    //     setPendingProducts(changeOnlyProductCount);
+    //     localStorage.setItem('pendingProductsArray', JSON.stringify(changeOnlyProductCount))
+    // }
 
 
 
@@ -69,18 +69,62 @@ const ProductDetail = () => {
         setProductCount(count)
     }
 
+    const addToOrder = (id) => {
 
-    const deleteOrderCount = () => {
+        const searchProductToUpdate = getAllProducts.find((product) => product.id === id)
+        // console.log('searchProductToUpdate', searchProductToUpdate);
 
-        const deletedCount = pendingProducts.map(product =>
-            product.id === showProducts.id
-                ? { ...product, count: 0, pending: false }
+        const repeatProduct = pendingProducts.some((product) => product.id === id)
+
+        if (repeatProduct) {
+
+            const changeOnlyProductCount = pendingProducts.map((product) => product.id === id ?
+                { ...product, count: Number(productCount), pending: true }
                 : product
-        )
+            )
 
-        setPendingProducts(deletedCount);
-        localStorage.setItem('pendingProductsArray', JSON.stringify(deletedCount))
+
+            setPendingProducts(changeOnlyProductCount);
+            localStorage.setItem('pendingProductsArray', JSON.stringify(changeOnlyProductCount))
+
+
+        } else {
+
+            const addProductCount = [...pendingProducts,
+            { ...searchProductToUpdate, count: Number(productCount), pending: true }]
+
+            setPendingProducts(addProductCount);
+            localStorage.setItem('pendingProductsArray', JSON.stringify(addProductCount))
+
+        }
     }
+
+    // const deleteOrderCount = () => {
+
+    //     const deletedCount = pendingProducts.map(product =>
+    //         product.id === showProducts.id
+    //             ? { ...product, count: 0, pending: false }
+    //             : product
+    //     )
+
+    //     setPendingProducts(deletedCount);
+    //     localStorage.setItem('pendingProductsArray', JSON.stringify(deletedCount))
+    // }
+
+
+
+
+    const deleteOrder = (id) => {
+        const deleteProductCountId = pendingProducts.filter((product) => product.id !== id)
+        // console.log('chequeo si corre para ver proque no me marca 0', deleteProductCountId);
+        // console.log('pendings', pendingProducts);
+
+        // mergeProdFunc(showProducts)
+
+        setPendingProducts(deleteProductCountId);
+        localStorage.setItem('pendingProductsArray', JSON.stringify(deleteProductCountId))
+    }
+
 
 
     return (
@@ -126,12 +170,12 @@ const ProductDetail = () => {
                                     value={showProducts.count ?? 0}
                                     onChange={(e) => handleCountChange(showProducts.id, e.target.value)}
                                 />
-                                <Button type="button" variant='danger' className='ms-2' onClick={() => { deleteOrderCount() }}>
+                                <Button type="button" variant='danger' className='ms-2' onClick={() => { deleteOrder(showProducts.id) }}>
                                     <span className="material-symbols-outlined">
                                         delete
                                     </span>
                                 </Button>
-                                <Button type="button" variant='dark' className='ms-2' onClick={() => { updateToOrder(showProducts.id) }}>
+                                <Button type="button" variant='dark' className='ms-2' onClick={() => { addToOrder(showProducts.id) }}>
                                     <span className="material-symbols-outlined">
                                         format_list_bulleted_add
                                     </span>
