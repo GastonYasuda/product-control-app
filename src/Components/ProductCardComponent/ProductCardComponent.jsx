@@ -1,11 +1,26 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Button, Card, Col, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import Form from 'react-bootstrap/Form';
+import { DataProductApi } from '../../Context/DataBaseProductApi';
+import { ProductApi } from '../../Context/ProductControlApi';
 
 const ProductCardComponent = ({ productsArray }) => {
+    const { getAllProducts } = useContext(DataProductApi)
+    const { orderByName } = useContext(ProductApi)
 
 
+    const [pendingProducts, setPendingProducts] = useState(JSON.parse(localStorage.getItem("pendingProductsArray")))
+    const [showProducts, setShowProducts] = useState([])
+    const [productCount, setProductCount] = useState()
+
+    useEffect(() => {
+        console.log(productsArray);
+
+
+        mergeProdFunc(getAllProducts)
+
+    }, [pendingProducts, productsArray])
 
 
 
@@ -42,10 +57,6 @@ const ProductCardComponent = ({ productsArray }) => {
 
     const deleteOrder = (id) => {
         const deleteProductCountId = pendingProducts.filter((product) => product.id !== id)
-        // console.log('chequeo si corre para ver proque no me marca 0', deleteProductCountId);
-        // console.log('pendings', pendingProducts);
-
-        // mergeProdFunc(showProducts)
 
         setPendingProducts(deleteProductCountId);
         localStorage.setItem('pendingProductsArray', JSON.stringify(deleteProductCountId))
@@ -65,6 +76,8 @@ const ProductCardComponent = ({ productsArray }) => {
 
         setShowProducts(orderByName(mergedProducts))
     }
+
+
     const handleCountChange = (id, count) => {
         setPendingProducts(prev => prev.map(product => product.id === id ?
             { ...product, count: Number(count) }
@@ -73,10 +86,13 @@ const ProductCardComponent = ({ productsArray }) => {
         )
         setProductCount(count)
     }
+
+
+
     return (
         <Row xs={2} md={4} className="productsCardContainer g-4  mx-auto justify-content-center" >
 
-            {productsArray.map((product, i) => (
+            {showProducts.map((product, i) => (
                 <Col key={i}>
                     <Card className="w-100 h-100 d-flex justify-content-between">
                         {product.pending && <span className='position-absolute top-0 end-0 badge bg-warning p-2 mt-1 me-1'>Pendiente</span>}

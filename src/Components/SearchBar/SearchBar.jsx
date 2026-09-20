@@ -44,7 +44,7 @@ const SearchBar = () => {
                 </InputGroup>
             </div>
 
-            {searchProductArray !== null && <ProductCardComponent productsArray={searchProductArray} />}
+            {searchProductArray.length !== 0 && <ProductCardComponent productsArray={searchProductArray} />}
 
         </>
     )
