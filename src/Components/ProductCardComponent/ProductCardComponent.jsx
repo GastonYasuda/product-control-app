@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form';
 import { DataProductApi } from '../../Context/DataBaseProductApi';
 import { ProductApi } from '../../Context/ProductControlApi';
 
-const ProductCardComponent = ({ productsArray }) => {
+const ProductCardComponent = ({ productsArray, from }) => {
     const { getAllProducts } = useContext(DataProductApi)
     const { orderByName } = useContext(ProductApi)
 
@@ -17,8 +17,29 @@ const ProductCardComponent = ({ productsArray }) => {
     useEffect(() => {
         console.log(productsArray);
 
+        if (from === 'productCard') {
 
-        mergeProdFunc(getAllProducts)
+            mergeProdFunc(getAllProducts)
+
+        } else if (from === 'searchBar') {
+
+            //del array que traigo de busqueda (productsArray) tengo que ver si esta en pending product y reemplazar el del pending products asi me figura count
+            const selectRepeatProd = productsArray.map(product => {
+                // 1. Buscamos si este producto está en pendientes
+                const coincidencia = pendingProducts.find(pendingProd => pendingProd.id === product.id);
+
+                // 2. Si hay coincidencia, devolvemos el producto pendiente (reemplazo)
+                //    Si no hay, devolvemos el producto original sin cambios
+                return coincidencia ? coincidencia : product;
+            });
+
+            console.log(selectRepeatProd);
+
+
+            setShowProducts(selectRepeatProd)
+
+
+        }
 
     }, [pendingProducts, productsArray])
 
@@ -90,7 +111,7 @@ const ProductCardComponent = ({ productsArray }) => {
 
 
     return (
-        <Row xs={2} md={4} className="productsCardContainer g-4  mx-auto justify-content-center" >
+        <Row xs={2} md={4} className="productsCardContainer mt-2 g-4 mx-auto justify-content-center" >
 
             {showProducts.map((product, i) => (
                 <Col key={i}>

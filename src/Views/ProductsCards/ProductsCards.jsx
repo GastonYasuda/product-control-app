@@ -47,7 +47,7 @@ const ProductsCards = () => {
                 loading ?
                     <Spinner animation="grow" variant="success" className='loadingSpinner' />
                     :
-                    <ProductCardComponent productsArray={showProducts} />
+                    <ProductCardComponent productsArray={showProducts} from={'productCard'} />
             }
 
             <NavBar />

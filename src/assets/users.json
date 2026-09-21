@@ -3,18 +3,42 @@
         "id": 1,
         "name": "gaston",
         "pass": "gas",
-        "rol": "deposito"
+        "rol": "deposito",
+        "userPendingProd": [
+            {
+                "id": "13",
+                "count": 22
+            }
+        ],
+        "userDeliveredProd": []
     },
     {
         "id": 2,
         "name": "daiana",
         "pass": "dai",
-        "rol": "salon"
+        "rol": "salon",
+        "userPendingProd": [
+            {
+                "id": "1",
+                "count": 12
+            },
+            {
+                "id": "6",
+                "count": 2
+            },
+            {
+                "id": "7",
+                "count": 9
+            }
+        ],
+        "userDeliveredProd": []
     },
     {
         "id": 3,
         "name": "julio",
         "pass": "jul",
-        "rol": "salon"
+        "rol": "salon",
+        "userPendingProd": [],
+        "userDeliveredProd": []
     }
 ]

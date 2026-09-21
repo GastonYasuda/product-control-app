@@ -4,21 +4,28 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import './searchBar.css'
 import { DataProductApi } from '../../Context/DataBaseProductApi';
 import ProductCardComponent from '../ProductCardComponent/ProductCardComponent';
+import { useNavigate } from 'react-router-dom';
 
 const SearchBar = () => {
     const { getAllProducts } = useContext(DataProductApi)
 
+    const navigate = useNavigate()
+
     const [searchProductInput, setSearchProductInput] = useState()
-    const [searchProductArray, setSearchProductArray] = useState([])
+
+
+    // const [searchProductArray, setSearchProductArray] = useState([])
 
     const handleSearch = () => {
         console.log('vamos a buscar => ', searchProductInput);
+
+        navigate(`/searchResults/${searchProductInput}`);
         //buscar en TODOS LOS PRODUCTOS, coincidencias de nombre, codigo, proveedor...
 
 
-        const productCoincidence = getAllProducts.filter((product) => product.name.toLowerCase().includes(searchProductInput.toLowerCase()))
-        setSearchProductArray(productCoincidence)
-        console.log(productCoincidence);
+        // const productCoincidence = getAllProducts.filter((product) => product.name.toLowerCase().includes(searchProductInput.toLowerCase()))
+        // setSearchProductArray(productCoincidence)
+        // console.log(productCoincidence);
 
 
     }
@@ -44,7 +51,7 @@ const SearchBar = () => {
                 </InputGroup>
             </div>
 
-            {searchProductArray.length !== 0 && <ProductCardComponent productsArray={searchProductArray} />}
+
 
         </>
     )

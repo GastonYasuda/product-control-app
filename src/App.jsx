@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './Views/Home/Home'
 import Login from './Views/Login/Login'
 import ProductDetail from './Views/ProductDetail/ProductDetail'
@@ -8,7 +8,8 @@ import CategoryDetails from './Views/CategoryDetails/CategoryDetails'
 import Suppier from './Views/Suppier/Suppier'
 import SuppierDetail from './Views/SuppierDetail/SuppierDetail'
 import ProductsCards from './Views/ProductsCards/ProductsCards'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+import SearchResults from './Views/SearchResults/SearchResults'
 
 function App() {
 
@@ -31,6 +32,8 @@ function App() {
         <Route path='/supplier' element={<Suppier />} />
         <Route path='/supplier/:idSupplier' element={<SuppierDetail />} />
         <Route path='/order' element={<Order />} />
+        <Route path='/searchResult' element={<SearchResults />} />
+        <Route path='/searchResults/:idSearchResults' element={<SearchResults />} />
 
         <Route path='*' element={<h3>Error!<br /> La pagina no existe! </h3>} />
 
