@@ -8,7 +8,7 @@ import SearchBar from '../../Components/SearchBar/SearchBar';
 import NavBar from '../../Components/NavBar/NavBar';
 import { ProductApi } from '../../Context/ProductControlApi';
 import ProductCardComponent from '../../Components/ProductCardComponent/ProductCardComponent';
-import ProductCardComponent_copy from '../../Components/ProductCardComponent/ProductCardComponent_copy';
+import ProductCardComponent_copy from '../../Components/ProductCardComponent/ProductCardComponent';
 
 
 const ProductsCards = () => {
@@ -69,12 +69,8 @@ const ProductsCards = () => {
                 loading ?
                     <Spinner animation="grow" variant="success" className='loadingSpinner' />
                     :
-                    // <ProductCardComponent
-                    //     productsArray={showProducts}
-                    //     from={'productCard'}
-                    //     loginUser={loginUser}
-                    // />
-                    <ProductCardComponent_copy
+
+                    <ProductCardComponent
                         productsArray={showProducts}
                         from={'productCard'}
                         loginUser={loginUser}
