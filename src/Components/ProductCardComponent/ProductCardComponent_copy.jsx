@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Button, Card, Col, Row } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
-import Form from 'react-bootstrap/Form';
+import { Row } from 'react-bootstrap'
 import { DataProductApi } from '../../Context/DataBaseProductApi';
 import { ProductApi } from '../../Context/ProductControlApi';
 import ProductCardComponentDetail from '../ProductCardComponentDetail/ProductCardComponentDetail';
@@ -11,29 +9,25 @@ const ProductCardComponent_copy = ({ productsArray, from, loginUser }) => {
     const { orderByName } = useContext(ProductApi)
 
 
-    //  const [pendingProducts, setPendingProducts] = useState(loginUser.userPendingProd)
     const [showProducts, setShowProducts] = useState([])
-    const [productCount, setProductCount] = useState('')
-    const [pendingProducts, setPendingProducts] = useState(productsArray)
+    const [pendingProducts, setPendingProducts] = useState()
 
 
 
     useEffect(() => {
-        console.log(productsArray.length);
+        //  console.log(productsArray.length);
 
         if (productsArray.length !== 0) {
-            console.log(productsArray);
+            //  console.log(productsArray);
 
             if (from === 'productCard') {
                 mergeProdFunc(getAllProducts, productsArray)//me muestra todos los productos con los pendientes
+                setPendingProducts(productsArray)
 
             } else if (from === 'searchBar') {
 
             }
         }
-
-
-
 
     }, [getAllProducts, productsArray])
 
@@ -58,6 +52,10 @@ const ProductCardComponent_copy = ({ productsArray, from, loginUser }) => {
         if (cantidad > product.stock) return alert(`Solo hay ${product.stock} en stock`)
 
         const exists = pendingProducts.some(p => p.id === id)
+        console.log(exists);
+        console.log(pendingProducts);
+
+
         const newPending = exists
             ? pendingProducts.map(p => p.id === id ? { ...p, count: cantidad, pending: true } : p)
             : [...pendingProducts, { ...product, count: cantidad, pending: true }]
