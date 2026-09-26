@@ -16,7 +16,6 @@ const ProductsCards = () => {
     const { loginUser } = useContext(ProductApi)
 
     const [loading, setLoading] = useState(false)
-    const [showProducts, setShowProducts] = useState([])
 
 
     useEffect(() => {
@@ -28,26 +27,6 @@ const ProductsCards = () => {
             setLoading(false)
         }
 
-
-        const { userPendingProd } = loginUser
-
-
-        if (userPendingProd !== undefined) {
-
-            const getArray = userPendingProd.flatMap(userProduct =>
-                getAllProducts.filter(product => product.id === userProduct.id)
-                    .map(product => ({
-                        ...product,
-                        count: userProduct.count,
-                        pending: userProduct.pending
-                    }))
-            )
-
-            setShowProducts(getArray)
-            console.log(getArray);
-
-
-        }
 
     }, [getAllProducts])
 
@@ -71,7 +50,6 @@ const ProductsCards = () => {
                     :
 
                     <ProductCardComponent
-                        productsArray={showProducts}
                         from={'productCard'}
                         loginUser={loginUser}
                     />

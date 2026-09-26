@@ -30,29 +30,26 @@ const SearchBar = () => {
     }
 
     return (
-        <>
-            <div className="searchBarContainer">
 
-                <InputGroup className="searchBarContainer_input ">
-                    <Form.Control
-                        placeholder="Buscador"
-                        aria-label="Recipient's username"
-                        aria-describedby="basic-addon2"
-                        className="bg-light"
-                        onChange={(e) => { setSearchProductInput(e.target.value) }}
-                    />
+        <div className="searchBarContainer">
 
-                    <button className='searchBarButton rounded-end' id="button-addon2" onClick={() => { handleSearch() }}>
-                        <span className="material-symbols-outlined searchBarButton_icon">
-                            search
-                        </span>
-                    </button>
-                </InputGroup>
-            </div>
+            <InputGroup className="searchBarContainer_input ">
+                <Form.Control
+                    placeholder="Buscador"
+                    aria-label="Recipient's username"
+                    aria-describedby="basic-addon2"
+                    className="bg-light"
+                    onChange={(e) => { setSearchProductInput(e.target.value) }}
+                />
 
+                <button className='searchBarButton rounded-end' id="button-addon2" onClick={() => { handleSearch() }}>
+                    <span className="material-symbols-outlined searchBarButton_icon">
+                        search
+                    </span>
+                </button>
+            </InputGroup>
+        </div>
 
-
-        </>
     )
 }
 

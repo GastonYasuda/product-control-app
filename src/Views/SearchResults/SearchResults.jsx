@@ -28,17 +28,14 @@ const SearchResults = () => {
         }
 
 
-        const productCoincidence = getAllProducts.filter((product) => product.name.toLowerCase().includes(idSearchResults.toLowerCase()))
-        // setSearchProductArray(productCoincidence)
-        console.log(productCoincidence);
-
-
-
-
         const { userPendingProd } = loginUser
 
+        const productCoincidence = getAllProducts.filter((product) => product.name.toLowerCase().includes(idSearchResults.toLowerCase()))
+        // setSearchProductArray(productCoincidence)
+        // console.log(productCoincidence);
 
         if (userPendingProd !== undefined) {
+            // console.log(userPendingProd);
 
             const getArray = userPendingProd.flatMap(userProduct =>
                 productCoincidence.filter(product => product.id === userProduct.id)
@@ -48,15 +45,23 @@ const SearchResults = () => {
                         pending: userProduct.pending
                     }))
             )
-            console.log(getArray);
 
-            setSearchProductArray(getArray)
+
+            const userPendingProductsMerged = getArray.length === 0 ? productCoincidence : getArray
+
+            const mergedProducts = [
+                ...new Map(
+                    [...productCoincidence, ...userPendingProductsMerged].map(product => [product.id, product])
+                ).values()
+            ];
+            console.log('resultadoBuscador', mergedProducts);
+
+            setSearchProductArray(mergedProducts)
         }
 
-        //  console.log(productCoincidence);
 
 
-    }, [getAllProducts, idSearchResults])
+    }, [getAllProducts, idSearchResults, loginUser])
 
 
 
@@ -77,7 +82,12 @@ const SearchResults = () => {
                 loading ?
                     <Spinner animation="grow" variant="success" className='loadingSpinner' />
                     :
-                    <ProductCardComponent productsArray={searchProductArray} from={'searchBar'} />
+                    // <ProductCardComponent productsArray={searchProductArray} from={'searchBar'} />
+                    <ProductCardComponent
+                        searchProductArray={searchProductArray}
+                        from={'searchBar'}
+                        loginUser={loginUser}
+                    />
             }
 
             <NavBar />
