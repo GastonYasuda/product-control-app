@@ -8,6 +8,7 @@ import SearchBar from '../../Components/SearchBar/SearchBar';
 import NavBar from '../../Components/NavBar/NavBar';
 import { ProductApi } from '../../Context/ProductControlApi';
 import ProductCardComponent from '../../Components/ProductCardComponent/ProductCardComponent';
+import ProductCardComponent_copy from '../../Components/ProductCardComponent/ProductCardComponent_copy';
 
 
 const ProductsCards = () => {
@@ -25,6 +26,27 @@ const ProductsCards = () => {
 
         } else {
             setLoading(false)
+        }
+
+
+        const { userPendingProd } = loginUser
+
+
+        if (userPendingProd !== undefined) {
+
+            const getArray = userPendingProd.flatMap(userProduct =>
+                getAllProducts.filter(product => product.id === userProduct.id)
+                    .map(product => ({
+                        ...product,
+                        count: userProduct.count,
+                        pending: userProduct.pending
+                    }))
+            )
+
+            setShowProducts(getArray)
+            console.log(getArray);
+
+
         }
 
     }, [getAllProducts])
@@ -47,7 +69,16 @@ const ProductsCards = () => {
                 loading ?
                     <Spinner animation="grow" variant="success" className='loadingSpinner' />
                     :
-                    <ProductCardComponent productsArray={showProducts} from={'productCard'} />
+                    // <ProductCardComponent
+                    //     productsArray={showProducts}
+                    //     from={'productCard'}
+                    //     loginUser={loginUser}
+                    // />
+                    <ProductCardComponent_copy
+                        productsArray={showProducts}
+                        from={'productCard'}
+                        loginUser={loginUser}
+                    />
             }
 
             <NavBar />

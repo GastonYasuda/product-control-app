@@ -6,42 +6,74 @@ import NavBar from '../../Components/NavBar/NavBar'
 import Greeting from '../../Components/Greeting/Greeting'
 import { ProductApi } from '../../Context/ProductControlApi'
 import { Link } from 'react-router-dom'
+import { DataProductApi } from '../../Context/DataBaseProductApi'
 
 const Order = () => {
     const { loginUser, orderByName } = useContext(ProductApi)
+    const { desdeDB, getAllProducts } = useContext(DataProductApi)
 
-    const [pendingProducts, setPendingProducts] = useState([])
+
     const [productCount, setProductCount] = useState()
+    const [showProducts, setShowProducts] = useState([])
 
 
+
+    //tengo que crear un nuevo array que me muestre los showProducts
 
     useEffect(() => {
 
-        const pendingProducts =
-            JSON.parse(localStorage.getItem("pendingProductsArray")) || []
+        const { userPendingProd } = loginUser
 
-        setPendingProducts(orderByName(pendingProducts))
 
-    }, [])
+        if (userPendingProd !== undefined) {
+
+            const getArray = userPendingProd.flatMap(userProduct =>
+                getAllProducts.filter(product => product.id === userProduct.id)
+                    .map(product => ({
+                        ...product,
+                        count: userProduct.count
+                    }))
+            )
+            console.log(getArray);
+
+            setShowProducts(getArray)
+
+
+
+            //   localStorage.setItem('userPass', JSON.stringify(changeOnlyProductCount))
+
+        }
+
+
+
+    }, [getAllProducts, loginUser])
+
+
+
 
 
 
     const updateToOrder = (id) => {
-        // console.log('modificado el ', id);
-        // console.log('productCount', productCount);
 
-        const changeOnlyProductCount = pendingProducts.map((product) => product.id === id ?
+        const changeOnlyProductCount = showProducts.map((product) => product.id === id ?
             { ...product, count: productCount, pending: true }
             : product
         )
 
-        setPendingProducts(changeOnlyProductCount);
-        localStorage.setItem('pendingProductsArray', JSON.stringify(changeOnlyProductCount))
+
+        const updateUserPendingProd = {
+            ...loginUser,
+            userPendingProd: changeOnlyProductCount
+        }
+
+
+        setShowProducts(changeOnlyProductCount);
+        localStorage.setItem('userPass', JSON.stringify(updateUserPendingProd))
     }
 
 
     const handleCountChange = (id, count) => {
-        setPendingProducts(prev => prev.map(product => product.id === id ?
+        setShowProducts(prev => prev.map(product => product.id === id ?
             { ...product, count: Number(count) }
             : product
         )
@@ -52,10 +84,18 @@ const Order = () => {
 
 
     const deleteOrder = (id) => {
-        const deleteProductCountId = pendingProducts.filter((product) => product.id !== id)
+        const deleteProductCountId = showProducts.filter((product) => product.id !== id)
 
-        setPendingProducts(deleteProductCountId);
-        localStorage.setItem('pendingProductsArray', JSON.stringify(deleteProductCountId))
+        const updateUserPendingProd = {
+            ...loginUser,
+            userPendingProd: deleteProductCountId
+        }
+        console.log(updateUserPendingProd);
+
+
+        setShowProducts(deleteProductCountId);
+        localStorage.setItem('userPass', JSON.stringify(updateUserPendingProd))
+
     }
 
 
@@ -76,11 +116,11 @@ const Order = () => {
                 <Button>Enviar</Button>
             </div>
 
-            {pendingProducts.length === 0 ?
+            {showProducts.length === 0 ?
 
                 <h1>No hay productos pendientes!</h1>
 
-                : pendingProducts.map((product, i) => (
+                : showProducts.map((product, i) => (
 
                     <div className='orderContainer g-4 mx-auto justify-content-center' key={i}>
                         <div>

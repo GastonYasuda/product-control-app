@@ -6,8 +6,22 @@
         "rol": "deposito",
         "userPendingProd": [
             {
-                "id": "13",
-                "count": 22
+                "id": "1",
+                "name": "Vaso Pampa",
+                "category": {
+                    "name": "Bazar",
+                    "img": "sell"
+                },
+                "supplier": {
+                    "name": "Durax",
+                    "img": "https://http2.mlstatic.com/D_NQ_NP_796251-MLA78218162873_082024-O.webp"
+                },
+                "image": "https://grisellbazar.com.ar/wp-content/uploads/2025/11/VASO-PAMPA.jpg",
+                "code": 1234,
+                "count": 45,
+                "price": 958,
+                "stock": 54,
+                "pending": true
             }
         ],
         "userDeliveredProd": []
@@ -19,16 +33,40 @@
         "rol": "salon",
         "userPendingProd": [
             {
-                "id": "1",
-                "count": 12
+                "id": "13",
+                "name": "Auto Escarabajo",
+                "category": {
+                    "name": "Jugueteria",
+                    "img": "toys"
+                },
+                "supplier": {
+                    "name": "Toy Shop",
+                    "img": "https://img.magnific.com/vector-gratis/diseno-fuente-word-toy-shop-muchos-juguetes_1308-42318.jpg?semt=ais_hybrid&w=740&q=80"
+                },
+                "image": "https://jugueteriaeltrebol.com.ar/wp-content/uploads/2026/08/7798138273221.jpg",
+                "code": 443,
+                "count": 11,
+                "price": 640,
+                "stock": 75,
+                "pending": true
             },
             {
-                "id": "6",
-                "count": 2
-            },
-            {
-                "id": "7",
-                "count": 9
+                "id": "14",
+                "name": "Esfera Dron",
+                "category": {
+                    "name": "Jugueteria",
+                    "img": "toys"
+                },
+                "supplier": {
+                    "name": "Toy Shop",
+                    "img": "https://img.magnific.com/vector-gratis/diseno-fuente-word-toy-shop-muchos-juguetes_1308-42318.jpg?semt=ais_hybrid&w=740&q=80"
+                },
+                "image": "https://jugueteriaeltrebol.com.ar/wp-content/uploads/2026/08/6926251588842-1.jpg",
+                "code": 443,
+                "count": 22,
+                "price": 640,
+                "stock": 75,
+                "pending": true
             }
         ],
         "userDeliveredProd": []

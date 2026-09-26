@@ -3,7 +3,6 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import './searchBar.css'
 import { DataProductApi } from '../../Context/DataBaseProductApi';
-import ProductCardComponent from '../ProductCardComponent/ProductCardComponent';
 import { useNavigate } from 'react-router-dom';
 
 const SearchBar = () => {

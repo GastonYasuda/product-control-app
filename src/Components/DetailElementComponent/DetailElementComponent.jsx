@@ -36,15 +36,6 @@ const DetailElementComponent = ({ detailElementName, from }) => {
 
         }
 
-        // if (pendingProducts !== null) {
-
-        //     //  mergeProdFunc(detailElement)
-
-        // } else {
-        //     setShowProducts(orderByName(detailElement))
-        //     localStorage.setItem('pendingProductsArray', JSON.stringify([]))
-
-        // }
 
     }, [getAllProducts, detailElementName, pendingProducts])
 

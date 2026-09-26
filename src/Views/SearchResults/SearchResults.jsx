@@ -27,8 +27,32 @@ const SearchResults = () => {
             setLoading(false)
         }
 
+
         const productCoincidence = getAllProducts.filter((product) => product.name.toLowerCase().includes(idSearchResults.toLowerCase()))
-        setSearchProductArray(productCoincidence)
+        // setSearchProductArray(productCoincidence)
+        console.log(productCoincidence);
+
+
+
+
+        const { userPendingProd } = loginUser
+
+
+        if (userPendingProd !== undefined) {
+
+            const getArray = userPendingProd.flatMap(userProduct =>
+                productCoincidence.filter(product => product.id === userProduct.id)
+                    .map(product => ({
+                        ...product,
+                        count: userProduct.count,
+                        pending: userProduct.pending
+                    }))
+            )
+            console.log(getArray);
+
+            setSearchProductArray(getArray)
+        }
+
         //  console.log(productCoincidence);
 
 

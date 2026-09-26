@@ -5,17 +5,17 @@ import Form from 'react-bootstrap/Form';
 import { DataProductApi } from '../../Context/DataBaseProductApi';
 import { ProductApi } from '../../Context/ProductControlApi';
 
-const ProductCardComponent = ({ productsArray, from }) => {
+const ProductCardComponent = ({ productsArray, from, loginUser }) => {
     const { getAllProducts } = useContext(DataProductApi)
     const { orderByName } = useContext(ProductApi)
 
 
-    const [pendingProducts, setPendingProducts] = useState(JSON.parse(localStorage.getItem("pendingProductsArray")))
+    const [pendingProducts, setPendingProducts] = useState(loginUser.userPendingProd)
     const [showProducts, setShowProducts] = useState([])
     const [productCount, setProductCount] = useState()
 
     useEffect(() => {
-        console.log(productsArray);
+        //   console.log('userPendingProd', userPendingProd);
 
         if (from === 'productCard') {
 
@@ -33,22 +33,25 @@ const ProductCardComponent = ({ productsArray, from }) => {
                 return coincidencia ? coincidencia : product;
             });
 
-            console.log(selectRepeatProd);
+            //  console.log(selectRepeatProd);
 
 
             setShowProducts(selectRepeatProd)
 
 
         }
+        console.log(pendingProducts);
+        console.log('showProducts', showProducts);
 
-    }, [pendingProducts, productsArray])
+
+
+    }, [loginUser, pendingProducts, productsArray])
 
 
 
     const addToOrder = (id) => {
 
         const searchProductToUpdate = getAllProducts.find((product) => product.id === id)
-        // console.log('searchProductToUpdate', searchProductToUpdate);
 
         const repeatProduct = pendingProducts.some((product) => product.id === id)
 
@@ -59,9 +62,16 @@ const ProductCardComponent = ({ productsArray, from }) => {
                 : product
             )
 
+            const updateUserPendingProd = {
+                ...loginUser,
+                userPendingProd: changeOnlyProductCount
+            }
+
 
             setPendingProducts(changeOnlyProductCount);
-            localStorage.setItem('pendingProductsArray', JSON.stringify(changeOnlyProductCount))
+            localStorage.setItem('userPass', JSON.stringify(updateUserPendingProd))
+            console.log(updateUserPendingProd);
+
 
 
         } else {
@@ -69,8 +79,15 @@ const ProductCardComponent = ({ productsArray, from }) => {
             const addProductCount = [...pendingProducts,
             { ...searchProductToUpdate, count: Number(productCount), pending: true }]
 
+            const updateUserPendingProd = {
+                ...loginUser,
+                userPendingProd: addProductCount
+            }
+
+
             setPendingProducts(addProductCount);
-            localStorage.setItem('pendingProductsArray', JSON.stringify(addProductCount))
+            localStorage.setItem('userPass', JSON.stringify(updateUserPendingProd))
+            console.log(updateUserPendingProd);
 
         }
     }
@@ -79,8 +96,13 @@ const ProductCardComponent = ({ productsArray, from }) => {
     const deleteOrder = (id) => {
         const deleteProductCountId = pendingProducts.filter((product) => product.id !== id)
 
-        setPendingProducts(deleteProductCountId);
-        localStorage.setItem('pendingProductsArray', JSON.stringify(deleteProductCountId))
+        const updateUserPendingProd = {
+            ...loginUser,
+            userPendingProd: deleteProductCountId
+        }
+
+        setShowProducts(deleteProductCountId);
+        localStorage.setItem('userPass', JSON.stringify(updateUserPendingProd))
     }
 
 
@@ -89,7 +111,7 @@ const ProductCardComponent = ({ productsArray, from }) => {
 
         const mergedProducts = [
             ...new Map(
-                [...array1, ...pendingProducts].map(product => [product.id, product])
+                [...array1, ...productsArray].map(product => [product.id, product])
             ).values()
         ];
 
