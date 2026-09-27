@@ -11,16 +11,13 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser }) => {
 
 
     const [showProducts, setShowProducts] = useState([])
-    const [pendingProducts, setPendingProducts] = useState()
+    const [pendingProducts, setPendingProducts] = useState(loginUser.userPendingProd ?? [])
 
     const { userPendingProd } = loginUser
 
     useEffect(() => {
-        // console.log('userPendingProd', userPendingProd);
-        //  console.log('searchProductArray', searchProductArray);
 
-
-        if (userPendingProd !== undefined) {
+        if (userPendingProd ?? []) {
 
 
             if (from === 'productCard') {
@@ -28,15 +25,18 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser }) => {
                 setPendingProducts(userPendingProd)
 
             } else if (from === 'searchBar') {
-                setShowProducts(orderByName(updateProductsFrom(searchProductArray, userPendingProd)));
+
+                setShowProducts(orderByName(searchProductArray))
 
                 setPendingProducts(userPendingProd)
                 console.log('pending de storage', userPendingProd);
+                console.log('resultado de busqueda', searchProductArray);
+
 
             }
         }
 
-    }, [getAllProducts])
+    }, [getAllProducts, searchProductArray])
 
     const mergeProdFunc = (array1, array2) => {
         const mergedProducts = [
@@ -47,13 +47,6 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser }) => {
         console.log('productos para mostrar en pantalla', mergedProducts);
         setShowProducts(orderByName(mergedProducts))
     }
-
-
-    const updateProductsFrom = (base, updates) => {
-        const updatesById = new Map(updates.map(p => [p.id, p]));
-        return base.map(p => updatesById.get(p.id) ?? p);
-    };
-
 
 
 
@@ -88,55 +81,53 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser }) => {
 
         } else if (from === 'searchBar') {
             console.log(product.name);
+            const exists = pendingProducts.some(p => p.id === id)
 
-            const exists = pendingProducts.some(p => p.id === product.id)
-            console.log(exists);
-
-            const productMerged = exists ?
-                pendingProducts.map(p => p.id === id ? { ...p, count: cantidad, pending: true } : p)
+            const productMerged = exists
+                ? pendingProducts.map(p => p.id === id ? { ...p, count: cantidad, pending: true } : p)
                 : [...pendingProducts, { ...product, count: cantidad, pending: true }]
 
-            console.log('productMerged', productMerged);//pendientes viejos y el nuego agregado
 
+            setPendingProducts(productMerged)
             localStorage.setItem('userPass', JSON.stringify({ ...loginUser, userPendingProd: productMerged }))
 
-            const searchProductArrayUpdated = searchProductArray.map(p => p.id === id ? { ...p, count: cantidad, pending: true } : p)
 
-            console.log(searchProductArrayUpdated);
+            const searchProductArrayUpdated = searchProductArray.map(p =>
+                productMerged.find(pp => pp.id === p.id) ?? p
+            )
             setShowProducts(orderByName(searchProductArrayUpdated))
+
         }
     }
 
 
-
     const deleteOrder = (id) => {
+        const newPending = pendingProducts.filter(p => p.id !== id)
+
+        setPendingProducts(newPending)
+        localStorage.setItem('userPass', JSON.stringify({ ...loginUser, userPendingProd: newPending }))
+
         if (from === 'productCard') {
-
-            const newPending = pendingProducts.filter(p => p.id !== id)
-            setPendingProducts(newPending)
             mergeProdFunc(getAllProducts, newPending)
-            localStorage.setItem('userPass', JSON.stringify({ ...loginUser, userPendingProd: newPending }))
-
         } else if (from === 'searchBar') {
-            const newPending = searchProductArray.filter(p => p.id !== id)
-
-            console.log(newPending);
-
-            setPendingProducts(newPending)
-            mergeProdFunc(searchProductArray, newPending)
-            localStorage.setItem('userPass', JSON.stringify({ ...loginUser, userPendingProd: newPending }))
+            setShowProducts(orderByName(
+                searchProductArray.map(p =>
+                    newPending.find(pp => pp.id === p.id)      // si sigue pendiente, la versión pendiente
+                    ?? getAllProducts.find(gp => gp.id === p.id) // si no, la versión limpia
+                    ?? p
+                )
+            ))
         }
-
     }
 
 
 
     return (
         <Row xs={2} md={4} className="productsCardContainer mt-2 g-4 mx-auto justify-content-center" >
-
-            {showProducts.map((product, i) => (
-                <ProductCardComponentDetail product={product} key={i} deleteOrder={deleteOrder} addToOrder={addToOrder} />
-            ))
+            {
+                showProducts.map((product, i) => (
+                    <ProductCardComponentDetail product={product} key={product.id} deleteOrder={deleteOrder} addToOrder={addToOrder} />
+                ))
             }
         </Row>
     )
