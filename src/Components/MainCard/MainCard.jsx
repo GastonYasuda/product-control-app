@@ -27,7 +27,7 @@ const MainCard = ({ cardName }) => {
 
 
                 setElementsArray(uniqueCategory);
-                console.log(uniqueCategory);
+                // console.log(uniqueCategory);
 
 
             } else if (cardName === 'supplier') {

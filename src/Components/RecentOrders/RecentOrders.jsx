@@ -9,7 +9,7 @@ const RecentOrders = () => {
 
             <div className='h-100 m-3 py-2 d-flex rounded bg-light justify-content-around align-items-center'>
                 <span>#123</span>
-                <span className="bg-primary text-white rounded p-1">Pendiente</span>
+                <span className="bg-primary text-white rounded p-1">En Proceso</span>
                 <span>9/9/2026</span>
                 <Link to={''} className='LinkIcon'>
                     <span className="material-symbols-outlined">

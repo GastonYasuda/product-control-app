@@ -10,14 +10,14 @@ import { ProductApi } from '../../Context/ProductControlApi';
 
 const ProductDetail = () => {
     const { getAllProducts } = useContext(DataProductApi)
-    const { loginUser } = useContext(ProductApi)
+    const { loginUser, setLoginUser } = useContext(ProductApi)
 
 
     const { idProduct } = useParams()
     const [showProduct, setShowProduct] = useState()
 
     const [pendingProducts, setPendingProducts] = useState(loginUser.userPendingProd ?? [])
-    const [productCount, setProductCount] = useState()
+    const [inputCount, setInputCount] = useState('')
 
 
 
@@ -29,89 +29,55 @@ const ProductDetail = () => {
             if (isPendingArray === undefined) {
                 const selectedProduct = getAllProducts.find(product => product.name === idProduct)
                 setShowProduct(selectedProduct)
+                // console.log(selectedProduct);
+
             } else {
 
                 setShowProduct(isPendingArray);
-                console.log(isPendingArray);
+                //   console.log(isPendingArray);
             }
-
-
-        } else {
-
-            const selectedProduct = getAllProducts.find(product => product.name === idProduct)
-            setShowProduct(selectedProduct)
-            console.log('selectedProduct', selectedProduct.name);
         }
 
     }, [getAllProducts, pendingProducts])
 
 
+    const addToOrder = (id, count) => {
 
-    const handleCountChange = (id, count) => {
-        setPendingProducts(prev => prev.map(product => product.id === id ?
-            { ...product, count: Number(count) }
-            : product
-        )
-        )
-        setProductCount(count)
+        const cantidad = Number(count)
+        const product = getAllProducts.find(p => p.id === id)
+
+        if (!product) return
+        if (!Number.isInteger(cantidad) || cantidad <= 0) return alert('Ingresá una cantidad válida')
+        if (cantidad > product.stock) return alert(`Solo hay ${product.stock} en stock`)
+
+        // console.log(product.name);
+        const exists = pendingProducts.some(p => p.id === id)
+        //  console.log(exists);
+
+
+        const productMerged = exists
+            ? pendingProducts.map(p => p.id === id ? { ...p, count: cantidad, pending: true } : p)
+            : [...pendingProducts, { ...product, count: cantidad, pending: true }]
+
+        savePending(productMerged)
+        //    console.log('productMerged', productMerged);
+
     }
 
-    const addToOrder = (id) => {
 
-        const searchProductToUpdate = getAllProducts.find((product) => product.id === id)
-        // console.log('searchProductToUpdate', searchProductToUpdate);
-
-        const repeatProduct = pendingProducts.some((product) => product.id === id)
-
-        if (repeatProduct) {
-
-            const changeOnlyProductCount = pendingProducts.map((product) => product.id === id ?
-                { ...product, count: Number(productCount), pending: true }
-                : product
-            )
-
-
-            setPendingProducts(changeOnlyProductCount);
-            localStorage.setItem('pendingProductsArray', JSON.stringify(changeOnlyProductCount))
-
-
-        } else {
-
-            const addProductCount = [...pendingProducts,
-            { ...searchProductToUpdate, count: Number(productCount), pending: true }]
-
-            setPendingProducts(addProductCount);
-            localStorage.setItem('pendingProductsArray', JSON.stringify(addProductCount))
-
-        }
+    const savePending = (newPending) => {
+        const updatedUser = { ...loginUser, userPendingProd: newPending }
+        setPendingProducts(newPending)
+        setLoginUser(updatedUser)                                   // actualiza la app
+        localStorage.setItem('userPass', JSON.stringify(updatedUser)) // persiste
     }
-
-    // const deleteOrderCount = () => {
-
-    //     const deletedCount = pendingProducts.map(product =>
-    //         product.id === showProduct.id
-    //             ? { ...product, count: 0, pending: false }
-    //             : product
-    //     )
-
-    //     setPendingProducts(deletedCount);
-    //     localStorage.setItem('pendingProductsArray', JSON.stringify(deletedCount))
-    // }
-
-
 
 
     const deleteOrder = (id) => {
-        const deleteProductCountId = pendingProducts.filter((product) => product.id !== id)
-        // console.log('chequeo si corre para ver proque no me marca 0', deleteProductCountId);
-        // console.log('pendings', pendingProducts);
+        const newPending = pendingProducts.filter(p => p.id !== id)
+        savePending(newPending)
 
-        // mergeProdFunc(showProduct)
-
-        setPendingProducts(deleteProductCountId);
-        localStorage.setItem('pendingProductsArray', JSON.stringify(deleteProductCountId))
     }
-
 
 
     return (
@@ -152,23 +118,26 @@ const ProductDetail = () => {
                                 </div>
                             </div>
 
-                            <Form className='w-100 mt-2 d-flex justify-content-between'>
+                            <Form className='d-flex flex-column mt-2'>
                                 <Form.Control
                                     type="number"
                                     placeholder={showProduct.count}
-                                    // value={showProduct.count ?? 0}
-                                    onChange={(e) => handleCountChange(showProduct.id, e.target.value)}
+                                    value={inputCount}
+                                    onChange={(e) => setInputCount(e.target.value)}
                                 />
-                                <Button type="button" variant='danger' className='ms-2' onClick={() => { deleteOrder(showProduct.id) }}>
-                                    <span className="material-symbols-outlined">
-                                        delete
-                                    </span>
-                                </Button>
-                                <Button type="button" variant='dark' className='ms-2' onClick={() => { addToOrder(showProduct.id) }}>
-                                    <span className="material-symbols-outlined">
-                                        format_list_bulleted_add
-                                    </span>
-                                </Button>
+                                <section className='d-flex justify-content-between'>
+                                    <Button type="button" variant='danger' onClick={() => { deleteOrder(showProduct.id) }}>
+                                        <span className="material-symbols-outlined">
+                                            delete
+                                        </span>
+                                    </Button>
+
+                                    <Button variant="dark" onClick={() => { addToOrder(showProduct.id, inputCount); setInputCount(''); }}>
+                                        <span className="material-symbols-outlined">
+                                            format_list_bulleted_add
+                                        </span>
+                                    </Button>
+                                </section>
                             </Form>
                         </div>
                     </div>
