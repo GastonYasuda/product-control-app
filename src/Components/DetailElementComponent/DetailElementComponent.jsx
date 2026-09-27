@@ -75,57 +75,40 @@ const DetailElementComponent = ({ detailElementName, from }) => {
     }
 
 
-    const addToOrder = (id) => {
+    const addToOrder = (id, count) => {
 
-        const searchProductToUpdate = getAllProducts.find((product) => product.id === id)
-        // console.log('searchProductToUpdate', searchProductToUpdate);
+        const cantidad = Number(count)
+        const product = getAllProducts.find(p => p.id === id)
 
-        const repeatProduct = pendingProducts.some((product) => product.id === id)
+        if (!product) return
+        if (!Number.isInteger(cantidad) || cantidad <= 0) return alert('Ingresá una cantidad válida')
+        if (cantidad > product.stock) return alert(`Solo hay ${product.stock} en stock`)
 
-        if (repeatProduct) {
-
-            const changeOnlyProductCount = pendingProducts.map((product) => product.id === id ?
-                { ...product, count: Number(productCount), pending: true }
-                : product
-            )
-
-            savePending(changeOnlyProductCount)
-            // setPendingProducts(changeOnlyProductCount);
-            // localStorage.setItem('pendingProductsArray', JSON.stringify(changeOnlyProductCount))
+        console.log(product.name);
+        const exists = pendingProducts.some(p => p.id === id)
+        console.log(exists);
 
 
-        } else {
+        const productMerged = exists
+            ? pendingProducts.map(p => p.id === id ? { ...p, count: cantidad, pending: true } : p)
+            : [...pendingProducts, { ...product, count: cantidad, pending: true }]
 
-            const addProductCount = [...pendingProducts,
-            { ...searchProductToUpdate, count: Number(productCount), pending: true }]
+        savePending(productMerged)
+        console.log('productMerged', productMerged);
+
+        console.log(detailElement);
 
 
-            savePending(addProductCount)
 
-            // setPendingProducts(addProductCount);
-            // localStorage.setItem('pendingProductsArray', JSON.stringify(addProductCount))
+        const searchProductArrayUpdated = detailElement.map(p =>
+            productMerged.find(pp => pp.id === p.id) ?? p
+        )
+        console.log('searchProductArrayUpdated', searchProductArrayUpdated);
 
-        }
+        setShowProducts(orderByName(searchProductArrayUpdated))
+
     }
 
-
-    // const handleCountChange = (id, count) => {
-    //     setPendingProducts(prev => prev.map(product => product.id === id ?
-    //         { ...product, count: Number(count) }
-    //         : product
-    //     )
-    //     )
-    //     setProductCount(count)
-    // }
-
-
-
-    // const deleteOrder = (id) => {
-    //     const deleteProductCountId = pendingProducts.filter((product) => product.id !== id)
-
-    //     setPendingProducts(deleteProductCountId);
-    //     localStorage.setItem('pendingProductsArray', JSON.stringify(deleteProductCountId))
-    // }
 
     const savePending = (newPending) => {
         const updatedUser = { ...loginUser, userPendingProd: newPending }
@@ -141,7 +124,7 @@ const DetailElementComponent = ({ detailElementName, from }) => {
         savePending(newPending)
 
         setShowProducts(orderByName(
-            detailElementName.map(p =>
+            detailElement.map(p =>
                 newPending.find(pp => pp.id === p.id)      // si sigue pendiente, la versión pendiente
                 ?? getAllProducts.find(gp => gp.id === p.id) // si no, la versión limpia
                 ?? p

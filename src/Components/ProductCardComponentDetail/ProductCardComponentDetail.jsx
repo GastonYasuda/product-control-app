@@ -9,6 +9,7 @@ const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder }) => {
     const [inputCount, setInputCount] = useState('')
 
     useEffect(() => {
+        //   console.log('productCount', product.count);
 
     }, [])
 
@@ -37,7 +38,7 @@ const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder }) => {
                             <section className='d-flex justify-content-between'>
                                 <span className='fw-semibold'>${product.price}</span>
                                 <span>Stock: {product.stock}</span>
-                                {/* <span>{product.count}</span> */}
+                                <span>{product.count}</span>
                             </section>
                         </div>
                         <Form className='d-flex flex-column mt-2'>
