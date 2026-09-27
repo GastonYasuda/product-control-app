@@ -33,7 +33,7 @@ function App() {
         <Route path='/category/:idCategory' element={<CategoryDetails />} />
         <Route path='/supplier' element={<Suppier />} />
         <Route path='/supplier/:idSupplier' element={<SuppierDetail />} />
-        <Route path='/order' element={<Order />} />
+        <Route path='/:order' element={<Order />} />
         <Route path='/searchResult' element={<SearchResults />} />
         <Route path='/searchResults/:idSearchResults' element={<SearchResults />} />
 

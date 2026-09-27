@@ -50,57 +50,6 @@ const Order = () => {
     }, [getAllProducts, loginUser])
 
 
-
-
-
-
-    // const updateToOrder = (id) => {
-
-    //     const changeOnlyProductCount = showProducts.map((product) => product.id === id ?
-    //         { ...product, count: productCount, pending: true }
-    //         : product
-    //     )
-
-
-    //     const updateUserPendingProd = {
-    //         ...loginUser,
-    //         userPendingProd: changeOnlyProductCount
-    //     }
-
-
-    //     setShowProducts(changeOnlyProductCount);
-    //     localStorage.setItem('userPass', JSON.stringify(updateUserPendingProd))
-    // }
-
-
-    // const handleCountChange = (id, count) => {
-    //     setShowProducts(prev => prev.map(product => product.id === id ?
-    //         { ...product, count: Number(count) }
-    //         : product
-    //     )
-    //     )
-    //     setProductCount(count)
-    // }
-
-
-
-    // const deleteOrder = (id) => {
-    //     const deleteProductCountId = showProducts.filter((product) => product.id !== id)
-
-    //     const updateUserPendingProd = {
-    //         ...loginUser,
-    //         userPendingProd: deleteProductCountId
-    //     }
-    //     console.log(updateUserPendingProd);
-
-
-    //     setShowProducts(deleteProductCountId);
-    //     localStorage.setItem('userPass', JSON.stringify(updateUserPendingProd))
-
-    // }
-
-
-
     return (
         <div className='mt-5'>
             <section className='fixed-top headerComponent'>
@@ -114,11 +63,7 @@ const Order = () => {
                 </div>
             </section>
 
-            <div className='mt-5 d-flex justify-content-between ps-3 pe-3'>
-                <h4 className='text-start'>Pendientes</h4>
-
-                {/* <Button>Enviar</Button> */}
-            </div>
+            <h4 className='mt-5 text-start ps-3'>Pendientes</h4>
 
             <section className='orderMainComponent'>
                 <DetailElementComponent from={'orderList'} />
