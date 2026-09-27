@@ -69,7 +69,19 @@ body {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  background-color: #E8E9ED;
+}
+
+body {
+  width: 100%;
+  padding-top: 100px;
+  background: #E8E9ED !important;
+}
+
+.headerComponent {
+  background: #E8E9ED !important;
+  padding-bottom: 20px;
+  padding-top: 3rem;
+  filter: drop-shadow(1px 3px 5px #00000012)
 }
 
 /* 

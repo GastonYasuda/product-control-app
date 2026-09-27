@@ -17,7 +17,7 @@ const MainInfo = () => {
     ]
 
     return (
-        <div>
+        <div className="mt-5">
             <InfoCards cardParams={salonCards} />
 
             <RecentOrders />

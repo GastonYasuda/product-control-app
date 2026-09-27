@@ -3,7 +3,7 @@
         "id": 1,
         "name": "gaston",
         "pass": "gas",
-        "rol": "deposito",
+        "rol": "Deposito",
         "userPendingProd": [
             {
                 "id": "1",
@@ -30,7 +30,7 @@
         "id": 2,
         "name": "daiana",
         "pass": "dai",
-        "rol": "salon",
+        "rol": "Salon",
         "userPendingProd": [
             {
                 "id": "13",
@@ -75,7 +75,7 @@
         "id": 3,
         "name": "julio",
         "pass": "jul",
-        "rol": "salon",
+        "rol": "Salon",
         "userPendingProd": [],
         "userDeliveredProd": []
     }

@@ -4,7 +4,7 @@ const Greeting = ({ userName, userRol }) => {
 
 
     return (
-        <div className='mb-5 ps-3 text-start'>
+        <div className='mb-2 ps-3 text-start'>
             <h5>Hola {userName} 👋</h5>
             <p>{userRol}</p>
 

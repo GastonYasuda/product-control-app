@@ -54,67 +54,70 @@ const Order = () => {
 
 
 
-    const updateToOrder = (id) => {
+    // const updateToOrder = (id) => {
 
-        const changeOnlyProductCount = showProducts.map((product) => product.id === id ?
-            { ...product, count: productCount, pending: true }
-            : product
-        )
-
-
-        const updateUserPendingProd = {
-            ...loginUser,
-            userPendingProd: changeOnlyProductCount
-        }
+    //     const changeOnlyProductCount = showProducts.map((product) => product.id === id ?
+    //         { ...product, count: productCount, pending: true }
+    //         : product
+    //     )
 
 
-        setShowProducts(changeOnlyProductCount);
-        localStorage.setItem('userPass', JSON.stringify(updateUserPendingProd))
-    }
+    //     const updateUserPendingProd = {
+    //         ...loginUser,
+    //         userPendingProd: changeOnlyProductCount
+    //     }
 
 
-    const handleCountChange = (id, count) => {
-        setShowProducts(prev => prev.map(product => product.id === id ?
-            { ...product, count: Number(count) }
-            : product
-        )
-        )
-        setProductCount(count)
-    }
+    //     setShowProducts(changeOnlyProductCount);
+    //     localStorage.setItem('userPass', JSON.stringify(updateUserPendingProd))
+    // }
+
+
+    // const handleCountChange = (id, count) => {
+    //     setShowProducts(prev => prev.map(product => product.id === id ?
+    //         { ...product, count: Number(count) }
+    //         : product
+    //     )
+    //     )
+    //     setProductCount(count)
+    // }
 
 
 
-    const deleteOrder = (id) => {
-        const deleteProductCountId = showProducts.filter((product) => product.id !== id)
+    // const deleteOrder = (id) => {
+    //     const deleteProductCountId = showProducts.filter((product) => product.id !== id)
 
-        const updateUserPendingProd = {
-            ...loginUser,
-            userPendingProd: deleteProductCountId
-        }
-        console.log(updateUserPendingProd);
+    //     const updateUserPendingProd = {
+    //         ...loginUser,
+    //         userPendingProd: deleteProductCountId
+    //     }
+    //     console.log(updateUserPendingProd);
 
 
-        setShowProducts(deleteProductCountId);
-        localStorage.setItem('userPass', JSON.stringify(updateUserPendingProd))
+    //     setShowProducts(deleteProductCountId);
+    //     localStorage.setItem('userPass', JSON.stringify(updateUserPendingProd))
 
-    }
+    // }
 
 
 
     return (
         <div className='mt-5'>
-            {loginUser &&
-                <Greeting userName={loginUser.name} userRol={loginUser.rol} />
-            }
+            <section className='fixed-top headerComponent'>
 
-            <div className='d-block d-lg-none'>
-                <SearchBar />
-            </div>
+                {loginUser &&
+                    <Greeting userName={loginUser.name} userRol={loginUser.rol} />
+                }
 
-            <div className='mt-4 d-flex justify-content-between p-3'>
-                <h1 className=' text-start'>Pendientes</h1>
+                <div className='d-block d-lg-none'>
+                    <SearchBar />
+                </div>
+            </section>
 
-                <Button>Enviar</Button>
+            <div className='mt-5 d-flex justify-content-between ps-3 pe-3'>
+                <h4 className='text-start'>Pendientes</h4>
+
+                {/* <Button>Enviar</Button> */}
             </div>
 
             <section className='orderMainComponent'>

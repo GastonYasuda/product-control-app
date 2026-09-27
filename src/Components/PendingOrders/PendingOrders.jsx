@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const PendingOrders = () => {
     return (
         <div className='mt-3'>
-            <h1 className='mt-3 text-start ps-3'>Pedidos Pendientes</h1>
+            <h4 className='mt-3 text-start ps-3'>Pedidos Pendientes</h4>
 
             <div className='h-100 m-3 py-2 d-flex rounded bg-light justify-content-around align-items-center'>
                 <span>#123</span>

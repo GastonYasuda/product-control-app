@@ -68,16 +68,20 @@ const SearchResults = () => {
 
 
     return (
-        <div className='mainCardComponent mt-5'>
+        <div className='mt-5'>
 
-            {loginUser &&
-                <Greeting userName={loginUser.name} userRol={loginUser.rol} />
-            }
+            <section className='fixed-top headerComponent'>
 
-            <div className='d-block d-lg-none'>
-                <SearchBar />
-            </div>
-            <h4 className='mt-3'>Resultado de busqueda</h4>
+                {loginUser &&
+                    <Greeting userName={loginUser.name} userRol={loginUser.rol} />
+                }
+
+                <div className='d-block d-lg-none'>
+                    <SearchBar />
+                </div>
+            </section>
+
+            <h4 className='mt-5'>Resultado de busqueda</h4>
 
             {
                 loading ?

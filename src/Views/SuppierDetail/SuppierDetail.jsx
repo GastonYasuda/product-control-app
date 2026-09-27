@@ -14,16 +14,18 @@ const SuppierDetail = () => {
 
     return (
         <div className='mt-5'>
+            <section className='fixed-top headerComponent'>
 
-            {loginUser &&
-                <Greeting userName={loginUser.name} userRol={loginUser.rol} />
-            }
+                {loginUser &&
+                    <Greeting userName={loginUser.name} userRol={loginUser.rol} />
+                }
 
-            <div className='d-block d-lg-none'>
-                <SearchBar />
-            </div>
+                <div className='d-block d-lg-none'>
+                    <SearchBar />
+                </div>
+            </section>
 
-            <h1 className='mt-4 text-start ps-3'>{idSupplier}</h1>
+            <h4 className='mt-5 text-start ps-3'>{idSupplier}</h4>
 
             <DetailElementComponent detailElementName={idSupplier} from={'supplier'} />
 

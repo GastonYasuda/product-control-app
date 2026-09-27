@@ -11,7 +11,6 @@ const DetailElementComponent = ({ detailElementName, from }) => {
     const { getAllProducts } = useContext(DataProductApi)
     const { orderByName, loginUser, setLoginUser } = useContext(ProductApi)
 
-    const [productCount, setProductCount] = useState()
     const [detailElement, setDetailElement] = useState([])
     const [pendingProducts, setPendingProducts] = useState(loginUser.userPendingProd ?? [])
     const [showProducts, setShowProducts] = useState([])
@@ -152,7 +151,7 @@ const DetailElementComponent = ({ detailElementName, from }) => {
     return (
 
 
-        <Row xs={2} md={4} className="productsCardContainer g-4  mx-auto justify-content-center" >
+        <Row xs={2} md={4} className="productsCardContainer g-4 mx-auto justify-content-center" >
 
             {showProducts.map((product, i) => (
                 <ProductCardComponentDetail product={product} key={product.id} deleteOrder={deleteOrder} addToOrder={addToOrder} />

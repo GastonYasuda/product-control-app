@@ -23,28 +23,31 @@ const Home = () => {
 
     return (
         <div className='mt-5'>
+
             {loginUser !== null &&
                 <>
-                    < Greeting userName={loginUser.name} userRol={loginUser.rol} />
+                    <section className='fixed-top headerComponent'>
+                        < Greeting userName={loginUser.name} userRol={loginUser.rol} />
 
 
-                    <div className='d-block d-lg-none'>
-                        <SearchBar />
-                    </div>
+                        <div className='d-block d-lg-none'>
+                            <SearchBar />
+                        </div>
+
+                    </section>
 
                     {loginUser.rol === 'salon' ? <SalonMainInfo /> : <DepoMainInfo />}
 
-
-
-                    <div className="d-none d-lg-block">
-                        <NavBarDesktop />
-                    </div>
-
-                    <div className="d-block d-lg-none">
-                        <NavBarMobile />
-                    </div>
                 </>
+
             }
+            <div className="d-none d-lg-block">
+                <NavBarDesktop />
+            </div>
+
+            <div className="d-block d-lg-none">
+                <NavBarMobile />
+            </div>
 
         </div>
     )

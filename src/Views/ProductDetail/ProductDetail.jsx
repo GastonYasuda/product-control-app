@@ -116,14 +116,16 @@ const ProductDetail = () => {
 
     return (
         <div className='mainCardComponent mt-5'>
+            <section className='fixed-top headerComponent'>
 
-            {loginUser &&
-                <Greeting userName={loginUser.name} userRol={loginUser.rol} />
-            }
+                {loginUser !== null &&
+                    <Greeting userName={loginUser.name} userRol={loginUser.rol} />
+                }
 
-            <div className='d-block d-lg-none'>
-                <SearchBar />
-            </div>
+                <div className='d-block d-lg-none'>
+                    <SearchBar />
+                </div>
+            </section>
 
             {showProducts &&
                 <div className='productDetailComponent mx-auto d-flex flex-column'>

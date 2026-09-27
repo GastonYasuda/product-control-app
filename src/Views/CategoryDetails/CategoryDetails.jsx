@@ -14,16 +14,17 @@ const CategoryDetails = () => {
 
     return (
         <div className='mt-5'>
+            <section className='fixed-top headerComponent'>
+                {loginUser &&
+                    <Greeting userName={loginUser.name} userRol={loginUser.rol} />
+                }
 
-            {loginUser &&
-                <Greeting userName={loginUser.name} userRol={loginUser.rol} />
-            }
+                <div className='d-block d-lg-none'>
+                    <SearchBar />
+                </div>
+            </section>
 
-            <div className='d-block d-lg-none'>
-                <SearchBar />
-            </div>
-
-            <h1 className='mt-4 text-start ps-3'> {idCategory}</h1>
+            <h4 className='mt-5 text-start ps-3'> {idCategory}</h4>
 
             <DetailElementComponent detailElementName={idCategory} from={'category'} />
 

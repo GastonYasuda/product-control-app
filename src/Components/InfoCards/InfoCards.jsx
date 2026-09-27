@@ -4,7 +4,7 @@ import './infoCard.css';
 
 const InfoCards = ({ cardParams }) => {
     return (
-        <div className='infoCard_component mt-3'>
+        <div className='infoCard_component mt-5'>
 
             {cardParams.map((card, i) => (
                 <div className='infoCard_body px-2' key={i}>
