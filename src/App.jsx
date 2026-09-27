@@ -8,12 +8,16 @@ import CategoryDetails from './Views/CategoryDetails/CategoryDetails'
 import Suppier from './Views/Suppier/Suppier'
 import SuppierDetail from './Views/SuppierDetail/SuppierDetail'
 import ProductsCards from './Views/ProductsCards/ProductsCards'
-import { useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import SearchResults from './Views/SearchResults/SearchResults'
+import { ProductApi } from './Context/ProductControlApi'
 
 function App() {
 
+  // const { loginUser } = useContext(ProductApi)
+
   const [almostLogged, setAlmostLogged] = useState(JSON.parse(localStorage.getItem("userPass")))
+
 
 
 
@@ -21,7 +25,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={almostLogged.length === 0 ? <Login /> : <Home />} />
+        <Route path='/' element={almostLogged === null || almostLogged.length === 0 ? <Login /> : <Home />} />
         <Route path='/login' element={<Login />} />
         <Route path="/home" element={<Home />} />
 

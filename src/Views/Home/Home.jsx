@@ -11,8 +11,11 @@ const Home = () => {
 
     const { loginUser, setLoginUser } = useContext(ProductApi)
 
+
+
     useEffect(() => {
-        setLoginUser(JSON.parse(localStorage.getItem("userPass")))
+        const getUser = JSON.parse(localStorage.getItem("userPass"))
+        setLoginUser(getUser);
 
     }, [])
 
@@ -20,24 +23,28 @@ const Home = () => {
 
     return (
         <div className='mt-5'>
-            <Greeting userName={loginUser.name} userRol={loginUser.rol} />
+            {loginUser !== null &&
+                <>
+                    < Greeting userName={loginUser.name} userRol={loginUser.rol} />
 
 
-            <div className='d-block d-lg-none'>
-                <SearchBar />
-            </div>
+                    <div className='d-block d-lg-none'>
+                        <SearchBar />
+                    </div>
 
-            {loginUser.rol === 'salon' ? <SalonMainInfo /> : <DepoMainInfo />}
+                    {loginUser.rol === 'salon' ? <SalonMainInfo /> : <DepoMainInfo />}
 
 
 
-            <div className="d-none d-lg-block">
-                <NavBarDesktop />
-            </div>
+                    <div className="d-none d-lg-block">
+                        <NavBarDesktop />
+                    </div>
 
-            <div className="d-block d-lg-none">
-                <NavBarMobile />
-            </div>
+                    <div className="d-block d-lg-none">
+                        <NavBarMobile />
+                    </div>
+                </>
+            }
 
         </div>
     )

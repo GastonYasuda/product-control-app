@@ -9,7 +9,7 @@ const DepoMainInfo = () => {
 
     const depoCards = [
         {
-            'title': 'Pedidos Pendientes',
+            'title': 'Pedidos En Proceso',
             'icon': ' deployed_code_history',
             'count': '1',
         }, {

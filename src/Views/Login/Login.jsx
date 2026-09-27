@@ -4,7 +4,6 @@ import Form from 'react-bootstrap/Form';
 import './login.css'
 import users from '../../../src/assets/users.json'
 import { useNavigate } from 'react-router-dom';
-import { ProductApi } from '../../Context/ProductControlApi';
 
 const Login = () => {
     const [almostLogged, setAlmostLogged] = useState(JSON.parse(localStorage.getItem("userPass")))
@@ -16,10 +15,11 @@ const Login = () => {
 
     useEffect(() => {
 
-        if (almostLogged.length !== 0) {
-            navigate('/home')
+        if (almostLogged !== null) {
+            almostLogged.length !== 0 ? navigate('/home') : navigate('/login')
         } else {
-            navigate('/login')
+            localStorage.setItem('userPass', JSON.stringify([]))
+
         }
 
     }, [])
@@ -34,12 +34,12 @@ const Login = () => {
         console.log('Password:', password)
 
         const validateUserPass = users.find(eachUser => eachUser.name === user && eachUser.pass === password)
+
+        localStorage.setItem('userPass', JSON.stringify(validateUserPass))
         console.log(validateUserPass);
 
-        if (validateUserPass) {
-            localStorage.setItem('userPass', JSON.stringify(validateUserPass))
-            navigate('/home')
-        }
+        navigate('/home')
+
 
     }
 
