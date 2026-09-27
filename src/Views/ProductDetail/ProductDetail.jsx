@@ -14,9 +14,9 @@ const ProductDetail = () => {
 
 
     const { idProduct } = useParams()
-    const [showProducts, setShowProducts] = useState()
+    const [showProduct, setShowProduct] = useState()
 
-    const [pendingProducts, setPendingProducts] = useState(JSON.parse(localStorage.getItem("pendingProductsArray")))
+    const [pendingProducts, setPendingProducts] = useState(loginUser.userPendingProd ?? [])
     const [productCount, setProductCount] = useState()
 
 
@@ -28,10 +28,10 @@ const ProductDetail = () => {
 
             if (isPendingArray === undefined) {
                 const selectedProduct = getAllProducts.find(product => product.name === idProduct)
-                setShowProducts(selectedProduct)
+                setShowProduct(selectedProduct)
             } else {
 
-                setShowProducts(isPendingArray);
+                setShowProduct(isPendingArray);
                 console.log(isPendingArray);
             }
 
@@ -39,7 +39,7 @@ const ProductDetail = () => {
         } else {
 
             const selectedProduct = getAllProducts.find(product => product.name === idProduct)
-            setShowProducts(selectedProduct)
+            setShowProduct(selectedProduct)
             console.log('selectedProduct', selectedProduct.name);
         }
 
@@ -89,7 +89,7 @@ const ProductDetail = () => {
     // const deleteOrderCount = () => {
 
     //     const deletedCount = pendingProducts.map(product =>
-    //         product.id === showProducts.id
+    //         product.id === showProduct.id
     //             ? { ...product, count: 0, pending: false }
     //             : product
     //     )
@@ -106,7 +106,7 @@ const ProductDetail = () => {
         // console.log('chequeo si corre para ver proque no me marca 0', deleteProductCountId);
         // console.log('pendings', pendingProducts);
 
-        // mergeProdFunc(showProducts)
+        // mergeProdFunc(showProduct)
 
         setPendingProducts(deleteProductCountId);
         localStorage.setItem('pendingProductsArray', JSON.stringify(deleteProductCountId))
@@ -115,7 +115,7 @@ const ProductDetail = () => {
 
 
     return (
-        <div className='mainCardComponent mt-5'>
+        <div className='mainCardComponent mt-3'>
             <section className='fixed-top headerComponent'>
 
                 {loginUser !== null &&
@@ -127,44 +127,44 @@ const ProductDetail = () => {
                 </div>
             </section>
 
-            {showProducts &&
-                <div className='productDetailComponent mx-auto d-flex flex-column'>
-                    <h4 className='pt-3'> {showProducts.name}</h4>
+            {showProduct &&
+                <div className='productDetailComponent mx-auto d-flex flex-column position-relative'>
+                    <h4 className='pt-3'> {showProduct.name}</h4>
 
                     <div className='d-flex productDetailComponent_body my-5'>
 
 
                         <div className='productDetailComponent_body_image m-auto'>
-                            <img src={showProducts.image} className='h-100 object-fit-contain' alt={`${showProducts.name} img`} />
+                            <img src={showProduct.image} className='h-100 object-fit-contain' alt={`${showProduct.name} img`} />
                         </div>
 
-                        {showProducts.pending && <span className='position-absolute top-0 end-0 badge bg-warning p-2 mt-1 me-1'>Pendiente</span>}
+                        {showProduct.pending && <span className='position-absolute top-0 end-0 badge bg-warning p-2 mt-1 me-1'>Pendiente</span>}
 
                         <div className="m-auto p-3">
 
                             <div className="w-100 d-flex flex-column align-items-start">
 
-                                <h6>{showProducts.supplier.name}</h6>
-                                <p>Codigo: {showProducts.code}</p>
+                                <h6>{showProduct.supplier.name}</h6>
+                                <p>Codigo: {showProduct.code}</p>
                                 <div className='w-100 d-flex justify-content-between'>
-                                    <p>$ {showProducts.price}</p>
-                                    <p>Stock: {showProducts.stock}</p>
+                                    <p>$ {showProduct.price}</p>
+                                    <p>Stock: {showProduct.stock}</p>
                                 </div>
                             </div>
 
                             <Form className='w-100 mt-2 d-flex justify-content-between'>
                                 <Form.Control
                                     type="number"
-                                    placeholder={showProducts.count}
-                                    // value={showProducts.count ?? 0}
-                                    onChange={(e) => handleCountChange(showProducts.id, e.target.value)}
+                                    placeholder={showProduct.count}
+                                    // value={showProduct.count ?? 0}
+                                    onChange={(e) => handleCountChange(showProduct.id, e.target.value)}
                                 />
-                                <Button type="button" variant='danger' className='ms-2' onClick={() => { deleteOrder(showProducts.id) }}>
+                                <Button type="button" variant='danger' className='ms-2' onClick={() => { deleteOrder(showProduct.id) }}>
                                     <span className="material-symbols-outlined">
                                         delete
                                     </span>
                                 </Button>
-                                <Button type="button" variant='dark' className='ms-2' onClick={() => { addToOrder(showProducts.id) }}>
+                                <Button type="button" variant='dark' className='ms-2' onClick={() => { addToOrder(showProduct.id) }}>
                                     <span className="material-symbols-outlined">
                                         format_list_bulleted_add
                                     </span>

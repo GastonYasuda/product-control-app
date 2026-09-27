@@ -8,7 +8,6 @@ import SearchBar from '../../Components/SearchBar/SearchBar';
 import NavBar from '../../Components/NavBar/NavBar';
 import { ProductApi } from '../../Context/ProductControlApi';
 import ProductCardComponent from '../../Components/ProductCardComponent/ProductCardComponent';
-import ProductCardComponent_copy from '../../Components/ProductCardComponent/ProductCardComponent';
 
 
 const ProductsCards = () => {
