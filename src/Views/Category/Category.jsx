@@ -27,7 +27,7 @@ const Category = () => {
 
             <h1 className='mt-4 text-start ps-3'>Categorias</h1>
 
-            <MainCard cardName="category" />
+            <MainCard cardName={"category"} />
 
             <NavBar />
         </div>

@@ -35,6 +35,20 @@ const DetailElementComponent = ({ detailElementName, from }) => {
             console.log(selectedSupplier);
             mergeProdFunc(selectedSupplier)
 
+        } else if (from === 'orderList') {
+
+            const getArray = pendingProducts.flatMap(userProduct =>
+                getAllProducts.filter(product => product.id === userProduct.id)
+                    .map(product => ({
+                        ...product,
+                        count: userProduct.count,
+                        pending: userProduct.pending
+                    }))
+            )
+            console.log(getArray);
+
+            setShowProducts(getArray)
+
         }
 
 

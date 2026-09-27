@@ -7,6 +7,7 @@ import Greeting from '../../Components/Greeting/Greeting'
 import { ProductApi } from '../../Context/ProductControlApi'
 import { Link } from 'react-router-dom'
 import { DataProductApi } from '../../Context/DataBaseProductApi'
+import DetailElementComponent from '../../Components/DetailElementComponent/DetailElementComponent'
 
 const Order = () => {
     const { loginUser, orderByName } = useContext(ProductApi)
@@ -116,59 +117,67 @@ const Order = () => {
                 <Button>Enviar</Button>
             </div>
 
-            {showProducts.length === 0 ?
+            <section className='orderMainComponent'>
+                <DetailElementComponent
+                    // detailElementName={idCategory}
+                    from={'orderList'} />
 
-                <h1>No hay productos pendientes!</h1>
+                {/*                 
 
-                : showProducts.map((product, i) => (
+                {showProducts.length === 0 ?
+                    <h1>No hay productos pendientes!</h1>
 
-                    <div className='orderContainer g-4 mx-auto justify-content-center' key={i}>
-                        <div>
-                            <div className="orderContainer_card mx-auto d-flex flex-row justify-content-evenly rounded">
-                                <div>
-                                    <Link to={`/product/${product.name}`}>
-                                        <img src={product.image} className='w-100 h-100 object-fit-contain m-auto' alt={`${product.image} image`} />
-                                    </Link>
-                                </div>
-                                <div className="p-3 d-flex flex-column justify-content-between">
+                    : showProducts.map((product, i) => (
 
-                                    <div className="d-flex flex-column align-items-start">
-                                        <h5>{product.name}</h5>
-                                        <span>{product.supplier.name}</span>
-                                        <div className='w-100 d-flex justify-content-between'>
-                                            <span>${product.price}</span>
-                                            <span>Stock: {product.stock}</span>
-                                        </div>
+                        <div className='orderContainer g-4 mx-auto justify-content-center' key={i}>
+                            <div>
+                                <div className="orderContainer_card mx-auto d-flex flex-row justify-content-evenly rounded">
+                                    <div>
+                                        <Link to={`/product/${product.name}`}>
+                                            <img src={product.image} className='w-100 h-100 object-fit-contain m-auto' alt={`${product.image} image`} />
+                                        </Link>
                                     </div>
+                                    <div className="p-3 d-flex flex-column justify-content-between">
 
-                                    <Form className='mt-2 d-flex justify-content-between' >
+                                        <div className="d-flex flex-column align-items-start">
+                                            <h5>{product.name}</h5>
+                                            <span>{product.supplier.name}</span>
+                                            <div className='w-100 d-flex justify-content-between'>
+                                                <span>${product.price}</span>
+                                                <span>Stock: {product.stock}</span>
+                                            </div>
+                                        </div>
 
-                                        <Form.Control
-                                            type="number"
-                                            placeholder={product.count}
-                                            // value={product.count || ""}
-                                            onChange={(e) => handleCountChange(product.id, e.target.value)}
-                                        />
+                                        <Form className='mt-2 d-flex justify-content-between' >
 
-                                        <Button type="button" variant='danger' className='ms-3' onClick={() => { deleteOrder(product.id) }}>
-                                            <span className="material-symbols-outlined">
-                                                delete
-                                            </span>
-                                        </Button>
+                                            <Form.Control
+                                                type="number"
+                                                placeholder={product.count}
+                                                // value={product.count || ""}
+                                                onChange={(e) => handleCountChange(product.id, e.target.value)}
+                                            />
 
-                                        <Button type="button" variant='dark' className='ms-2' onClick={() => { updateToOrder(product.id) }}>
-                                            <span className="material-symbols-outlined">
-                                                format_list_bulleted_add
-                                            </span>
-                                        </Button>
-                                    </Form>
+                                            <Button type="button" variant='danger' className='ms-3' onClick={() => { deleteOrder(product.id) }}>
+                                                <span className="material-symbols-outlined">
+                                                    delete
+                                                </span>
+                                            </Button>
+
+                                            <Button type="button" variant='dark' className='ms-2' onClick={() => { updateToOrder(product.id) }}>
+                                                <span className="material-symbols-outlined">
+                                                    format_list_bulleted_add
+                                                </span>
+                                            </Button>
+                                        </Form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                ))}
+                    ))
 
+                } */}
 
+            </section>
 
 
             <NavBar />

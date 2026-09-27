@@ -8,10 +8,6 @@ const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder }) => {
 
     const [inputCount, setInputCount] = useState('')
 
-    useEffect(() => {
-        //   console.log('productCount', product.count);
-
-    }, [])
 
     return (
         <Col>

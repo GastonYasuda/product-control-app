@@ -1,5 +1,10 @@
+.orderMainComponent {
+    padding-bottom: 25%;
+}
+
 .orderContainer {
     width: 95%;
+    padding-bottom: 10px;
 }
 
 .orderContainer_card {
