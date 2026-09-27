@@ -31,10 +31,12 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser }) => {
                 setShowProducts(orderByName(updateProductsFrom(searchProductArray, userPendingProd)));
 
                 setPendingProducts(userPendingProd)
+                console.log('pending de storage', userPendingProd);
+
             }
         }
 
-    }, [getAllProducts, searchProductArray])
+    }, [getAllProducts])
 
     const mergeProdFunc = (array1, array2) => {
         const mergedProducts = [
@@ -94,15 +96,14 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser }) => {
                 pendingProducts.map(p => p.id === id ? { ...p, count: cantidad, pending: true } : p)
                 : [...pendingProducts, { ...product, count: cantidad, pending: true }]
 
-            console.log('productMerged', productMerged);
+            console.log('productMerged', productMerged);//pendientes viejos y el nuego agregado
 
             localStorage.setItem('userPass', JSON.stringify({ ...loginUser, userPendingProd: productMerged }))
 
-            const searchProductArrayUpdated = pendingProducts.map(p => p.id === id ? { ...p, count: cantidad, pending: true } : p)
+            const searchProductArrayUpdated = searchProductArray.map(p => p.id === id ? { ...p, count: cantidad, pending: true } : p)
 
             console.log(searchProductArrayUpdated);
-            setPendingProducts(productMerged)
-            mergeProdFunc(searchProductArrayUpdated, productMerged)
+            setShowProducts(orderByName(searchProductArrayUpdated))
         }
     }
 
