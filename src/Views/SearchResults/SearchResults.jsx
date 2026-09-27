@@ -17,6 +17,7 @@ const SearchResults = () => {
     const [loading, setLoading] = useState(false)
     const [searchProductArray, setSearchProductArray] = useState([])
 
+
     useEffect(() => {
         console.log(idSearchResults);
 

@@ -4,13 +4,11 @@ export const ProductApi = createContext()
 
 const ProductControlApi = ({ children }) => {
 
-    const [loginUser, setLoginUser] = useState([])
-
+    const [loginUser, setLoginUser] = useState(JSON.parse(localStorage.getItem('userPass')))
 
     useEffect(() => {
 
 
-        setLoginUser(JSON.parse(localStorage.getItem("userPass")))
 
 
 

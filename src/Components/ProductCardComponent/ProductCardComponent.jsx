@@ -6,7 +6,7 @@ import ProductCardComponentDetail from '../ProductCardComponentDetail/ProductCar
 
 const ProductCardComponent = ({ searchProductArray, from, loginUser }) => {
     const { getAllProducts } = useContext(DataProductApi)
-    const { orderByName } = useContext(ProductApi)
+    const { orderByName, setLoginUser } = useContext(ProductApi)
 
 
 
@@ -16,27 +16,29 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser }) => {
     const { userPendingProd } = loginUser
 
     useEffect(() => {
+        const pending = userPendingProd ?? []
+        setPendingProducts(pending)
 
-        if (userPendingProd ?? []) {
-
-
-            if (from === 'productCard') {
-                mergeProdFunc(getAllProducts, userPendingProd)//me muestra todos los productos con los pendientes
-                setPendingProducts(userPendingProd)
-
-            } else if (from === 'searchBar') {
-
-                setShowProducts(orderByName(searchProductArray))
-
-                setPendingProducts(userPendingProd)
-                console.log('pending de storage', userPendingProd);
-                console.log('resultado de busqueda', searchProductArray);
-
-
-            }
+        if (from === 'productCard') {
+            mergeProdFunc(getAllProducts, pending)
+        } else if (from === 'searchBar') {
+            setShowProducts(orderByName(
+                searchProductArray.map(p =>
+                    pending.find(pp => pp.id === p.id)
+                    ?? getAllProducts.find(gp => gp.id === p.id)
+                    ?? p
+                )
+            ))
         }
+    }, [getAllProducts, searchProductArray, userPendingProd])
 
-    }, [getAllProducts, searchProductArray])
+
+    const savePending = (newPending) => {
+        const updatedUser = { ...loginUser, userPendingProd: newPending }
+        setPendingProducts(newPending)
+        setLoginUser(updatedUser)                                   // actualiza la app
+        localStorage.setItem('userPass', JSON.stringify(updatedUser)) // persiste
+    }
 
     const mergeProdFunc = (array1, array2) => {
         const mergedProducts = [
@@ -73,8 +75,9 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser }) => {
 
 
             //   console.log('nuevo array para guardar en local', newPending);
-            localStorage.setItem('userPass', JSON.stringify({ ...loginUser, userPendingProd: newPending }))
-            setPendingProducts(newPending)
+            // localStorage.setItem('userPass', JSON.stringify({ ...loginUser, userPendingProd: newPending }))
+            // setPendingProducts(newPending)
+            savePending(newPending)
 
             mergeProdFunc(getAllProducts, newPending)
 
@@ -87,9 +90,10 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser }) => {
                 ? pendingProducts.map(p => p.id === id ? { ...p, count: cantidad, pending: true } : p)
                 : [...pendingProducts, { ...product, count: cantidad, pending: true }]
 
+            savePending(productMerged)
 
-            setPendingProducts(productMerged)
-            localStorage.setItem('userPass', JSON.stringify({ ...loginUser, userPendingProd: productMerged }))
+            // setPendingProducts(productMerged)
+            // localStorage.setItem('userPass', JSON.stringify({ ...loginUser, userPendingProd: productMerged }))
 
 
             const searchProductArrayUpdated = searchProductArray.map(p =>
@@ -104,8 +108,10 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser }) => {
     const deleteOrder = (id) => {
         const newPending = pendingProducts.filter(p => p.id !== id)
 
-        setPendingProducts(newPending)
-        localStorage.setItem('userPass', JSON.stringify({ ...loginUser, userPendingProd: newPending }))
+        savePending(newPending)
+
+        // setPendingProducts(newPending)
+        // localStorage.setItem('userPass', JSON.stringify({ ...loginUser, userPendingProd: newPending }))
 
         if (from === 'productCard') {
             mergeProdFunc(getAllProducts, newPending)
