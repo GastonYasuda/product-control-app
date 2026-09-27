@@ -44,14 +44,14 @@ const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder }) => {
                                 value={inputCount}
                                 onChange={(e) => setInputCount(e.target.value)}
                             />
-                            <section className='d-flex justify-content-between'>
-                                <Button type="button" variant='danger' onClick={() => { deleteOrder(product.id) }}>
+                            <section className='d-flex mt-3'>
+                                <Button type="button" variant='danger' className='w-50 me-2' onClick={() => { deleteOrder(product.id) }}>
                                     <span className="material-symbols-outlined">
                                         delete
                                     </span>
                                 </Button>
 
-                                <Button variant="dark" onClick={() => { addToOrder(product.id, inputCount); setInputCount(''); }}>
+                                <Button variant="primary" className='w-50 me-2' onClick={() => { addToOrder(product.id, inputCount); setInputCount(''); }}>
                                     <span className="material-symbols-outlined">
                                         format_list_bulleted_add
                                     </span>

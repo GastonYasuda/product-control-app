@@ -94,10 +94,10 @@ const ProductDetail = () => {
             </section>
 
             {showProduct &&
-                <div className='productDetailComponent mx-auto d-flex flex-column position-relative'>
+                <div className='productDetailComponent mx-auto d-flex flex-column position-relative rounded'>
                     <h4 className='pt-3'> {showProduct.name}</h4>
 
-                    <div className='d-flex productDetailComponent_body my-5'>
+                    <div className='d-flex productDetailComponent_body mb-3'>
 
 
                         <div className='productDetailComponent_body_image m-auto'>
@@ -125,14 +125,14 @@ const ProductDetail = () => {
                                     value={inputCount}
                                     onChange={(e) => setInputCount(e.target.value)}
                                 />
-                                <section className='d-flex justify-content-between'>
-                                    <Button type="button" variant='danger' onClick={() => { deleteOrder(showProduct.id) }}>
+                                <section className='d-flex mt-3'>
+                                    <Button type="button" variant='danger' className='w-50 me-2' onClick={() => { deleteOrder(showProduct.id) }}>
                                         <span className="material-symbols-outlined">
                                             delete
                                         </span>
                                     </Button>
 
-                                    <Button variant="dark" onClick={() => { addToOrder(showProduct.id, inputCount); setInputCount(''); }}>
+                                    <Button variant="primary" className='w-50' onClick={() => { addToOrder(showProduct.id, inputCount); setInputCount(''); }}>
                                         <span className="material-symbols-outlined">
                                             format_list_bulleted_add
                                         </span>

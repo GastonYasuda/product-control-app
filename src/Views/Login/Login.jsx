@@ -19,7 +19,6 @@ const Login = () => {
             almostLogged.length !== 0 ? navigate('/home') : navigate('/login')
         } else {
             localStorage.setItem('userPass', JSON.stringify([]))
-
         }
 
     }, [])
@@ -33,7 +32,7 @@ const Login = () => {
         console.log('Usuario:', user)
         console.log('Password:', password)
 
-        const validateUserPass = users.find(eachUser => eachUser.name === user && eachUser.pass === password)
+        const validateUserPass = users.find(eachUser => eachUser.name.toLocaleLowerCase() === user && eachUser.pass.toLocaleLowerCase() === password)
 
         localStorage.setItem('userPass', JSON.stringify(validateUserPass))
         console.log(validateUserPass);
@@ -44,7 +43,7 @@ const Login = () => {
     }
 
     return (
-        <div className='loginContainer m-auto rounded'>
+        <div className='loginContainer mx-auto mt-5 rounded'>
             <h1>Login</h1>
 
             <Form className='loginForm' onSubmit={handleSubmit}>
@@ -78,7 +77,7 @@ const Login = () => {
                         Contraseña
                     </label>
                 </Form.Floating>
-
+                {/* 
                 <Form.Group
                     className="mt-4 loginFormCheckBox"
                     controlId="formBasicCheckbox"
@@ -87,10 +86,10 @@ const Login = () => {
                         type="checkbox"
                         label="Recordar Login"
                     />
-                </Form.Group>
+                </Form.Group> */}
 
                 <Button
-                    variant="dark"
+                    variant="primary"
                     type="submit"
                     className='loginFormButton'
                 >

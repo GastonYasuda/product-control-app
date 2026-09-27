@@ -1,9 +1,9 @@
 [
     {
         "id": 1,
-        "name": "gaston",
+        "name": "Gaston",
         "pass": "gas",
-        "rol": "Deposito",
+        "rol": "Depósito",
         "userPendingProd": [
             {
                 "id": "1",
@@ -28,9 +28,9 @@
     },
     {
         "id": 2,
-        "name": "daiana",
-        "pass": "dai",
-        "rol": "Salon",
+        "name": "Daiana",
+        "pass": "da",
+        "rol": "Salón",
         "userPendingProd": [
             {
                 "id": "13",
@@ -73,9 +73,9 @@
     },
     {
         "id": 3,
-        "name": "julio",
-        "pass": "jul",
-        "rol": "Salon",
+        "name": "Fernando",
+        "pass": "fer",
+        "rol": "Salón",
         "userPendingProd": [],
         "userDeliveredProd": []
     }
