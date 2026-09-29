@@ -34,10 +34,21 @@ const Login = () => {
 
         const validateUserPass = users.find(eachUser => eachUser.name.toLocaleLowerCase() === user && eachUser.pass.toLocaleLowerCase() === password)
 
-        localStorage.setItem('userPass', JSON.stringify(validateUserPass))
-        console.log(validateUserPass);
+        if (validateUserPass === undefined) {
+            localStorage.setItem('userPass', JSON.stringify([]))
+            setUser('')
+            setPassword('')
 
-        navigate('/home')
+            alert('usuario o contrasena erronea')
+
+        } else {
+
+
+            localStorage.setItem('userPass', JSON.stringify(validateUserPass))
+            console.log(validateUserPass);
+
+            navigate('/home')
+        }
 
 
     }
@@ -77,16 +88,6 @@ const Login = () => {
                         Contraseña
                     </label>
                 </Form.Floating>
-                {/* 
-                <Form.Group
-                    className="mt-4 loginFormCheckBox"
-                    controlId="formBasicCheckbox"
-                >
-                    <Form.Check
-                        type="checkbox"
-                        label="Recordar Login"
-                    />
-                </Form.Group> */}
 
                 <Button
                     variant="primary"
