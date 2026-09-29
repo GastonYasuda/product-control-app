@@ -2,6 +2,27 @@
     padding-bottom: 25%;
 }
 
+.cardComponent--vertical {
+    justify-content: space-between;
+
+    .pendientStyle {
+        right: 0 !important;
+        margin-right: 1em;
+    }
+
+}
+
+.cardComponent--horizontal {
+    flex-direction: row !important;
+
+    .pendientStyle {
+        left: 0 !important;
+        margin-left: 1em;
+
+    }
+}
+
+
 .homeCardImage {
     height: 200px;
 }

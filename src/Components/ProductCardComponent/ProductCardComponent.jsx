@@ -132,7 +132,7 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser }) => {
         <Row xs={2} md={4} className="productsCardContainer g-4 mx-auto justify-content-center" >
             {
                 showProducts.map((product, i) => (
-                    <ProductCardComponentDetail product={product} key={product.id} deleteOrder={deleteOrder} addToOrder={addToOrder} />
+                    <ProductCardComponentDetail product={product} key={product.id} deleteOrder={deleteOrder} addToOrder={addToOrder} variant={'vertical'} />
                 ))
             }
         </Row>

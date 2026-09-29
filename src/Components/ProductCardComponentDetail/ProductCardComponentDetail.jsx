@@ -4,15 +4,15 @@ import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom'
 
 
-const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder }) => {
+const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, variant }) => {
 
     const [inputCount, setInputCount] = useState('')
 
 
     return (
         <Col>
-            <Card className="w-100 h-100 d-flex justify-content-between">
-                {product.pending && <span className='position-absolute top-0 end-0 badge bg-warning p-2 mt-1 me-1'>Pendiente</span>}
+            <Card className={`w-100 h-100 d-flex cardComponent--${variant}`}>
+                {product.pending && <span className='pendientStyle position-absolute top-0 badge bg-warning p-2 mt-2'>Pendiente</span>}
 
                 <Link to={`/product/${product.name}`}>
                     <div className='w-100 m-auto homeCardImage'>
@@ -34,7 +34,6 @@ const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder }) => {
                             <section className='d-flex justify-content-between'>
                                 <span className='fw-semibold'>${product.price}</span>
                                 <span>Stock: {product.stock}</span>
-                                <span>{product.count}</span>
                             </section>
                         </div>
                         <Form className='d-flex flex-column mt-2'>

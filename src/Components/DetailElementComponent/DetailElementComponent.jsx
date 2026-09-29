@@ -20,19 +20,20 @@ const DetailElementComponent = ({ detailElementName, from }) => {
 
         if (from === 'category') {
             const selectedCategory = getAllProducts.filter(prod => prod.category.name === detailElementName)
-            setDetailElement(selectedCategory);
-            console.log(selectedCategory);
+            setDetailElement(selectedCategory)
+            console.log(selectedCategory)
             mergeProdFunc(selectedCategory)
-
+            setVariant('vertical')
 
 
         } else if (from === 'supplier') {
             console.log('from', from);
 
             const selectedSupplier = getAllProducts.filter(prod => prod.supplier.name === detailElementName)
-            setDetailElement(selectedSupplier);
-            console.log(selectedSupplier);
+            setDetailElement(selectedSupplier)
+            console.log(selectedSupplier)
             mergeProdFunc(selectedSupplier)
+            setVariant('vertical')
 
         } else if (from === 'orderList') {
 
@@ -44,10 +45,8 @@ const DetailElementComponent = ({ detailElementName, from }) => {
                         pending: userProduct.pending
                     }))
             )
-            console.log(getArray);
-
+            console.log(getArray)
             setShowProducts(getArray)
-
         }
 
 
@@ -151,10 +150,10 @@ const DetailElementComponent = ({ detailElementName, from }) => {
     return (
 
 
-        <Row xs={2} md={4} className="productsCardContainer g-4 mx-auto justify-content-center" >
+        <Row xs={1} md={4} className="productsCardContainer g-4 mx-auto justify-content-center" >
 
             {showProducts.map((product, i) => (
-                <ProductCardComponentDetail product={product} key={product.id} deleteOrder={deleteOrder} addToOrder={addToOrder} />
+                <ProductCardComponentDetail product={product} key={product.id} deleteOrder={deleteOrder} addToOrder={addToOrder} variant={'horizontal'} />
             ))
             }
         </Row>
