@@ -13,9 +13,13 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser }) => {
     const [showProducts, setShowProducts] = useState([])
     const [pendingProducts, setPendingProducts] = useState(loginUser.userPendingProd ?? [])
 
+    const [variant, setVariant] = useState('')
+
+
     const { userPendingProd } = loginUser
 
     useEffect(() => {
+
         const pending = userPendingProd ?? []
         setPendingProducts(pending)
 
@@ -132,7 +136,7 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser }) => {
         <Row xs={2} md={4} className="productsCardContainer g-4 mx-auto justify-content-center" >
             {
                 showProducts.map((product, i) => (
-                    <ProductCardComponentDetail product={product} key={product.id} deleteOrder={deleteOrder} addToOrder={addToOrder} variant={'vertical'} />
+                    <ProductCardComponentDetail product={product} key={product.id} deleteOrder={deleteOrder} addToOrder={addToOrder} variant={variant} setVariant={setVariant} from={from} />
                 ))
             }
         </Row>

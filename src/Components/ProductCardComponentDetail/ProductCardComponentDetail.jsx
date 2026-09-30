@@ -4,9 +4,19 @@ import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom'
 
 
-const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, variant }) => {
+const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, variant, setVariant, from }) => {
 
     const [inputCount, setInputCount] = useState('')
+
+    useEffect(() => {
+        console.log(from);
+
+        if (from === 'category' || from === 'supplier' || from === 'productCard') {
+            setVariant('vertical')
+        } else {
+            setVariant('horizontal')
+        }
+    }, [variant])
 
 
     return (

@@ -15,25 +15,24 @@ const DetailElementComponent = ({ detailElementName, from }) => {
     const [pendingProducts, setPendingProducts] = useState(loginUser.userPendingProd ?? [])
     const [showProducts, setShowProducts] = useState([])
 
+    const [variant, setVariant] = useState('')
 
     useEffect(() => {
 
         if (from === 'category') {
             const selectedCategory = getAllProducts.filter(prod => prod.category.name === detailElementName)
             setDetailElement(selectedCategory)
-            console.log(selectedCategory)
+            //  console.log(selectedCategory)
             mergeProdFunc(selectedCategory)
-            setVariant('vertical')
 
 
         } else if (from === 'supplier') {
-            console.log('from', from);
+            //    console.log('from', from);
 
             const selectedSupplier = getAllProducts.filter(prod => prod.supplier.name === detailElementName)
             setDetailElement(selectedSupplier)
-            console.log(selectedSupplier)
+            //  console.log(selectedSupplier)
             mergeProdFunc(selectedSupplier)
-            setVariant('vertical')
 
         } else if (from === 'orderList') {
 
@@ -45,8 +44,8 @@ const DetailElementComponent = ({ detailElementName, from }) => {
                         pending: userProduct.pending
                     }))
             )
-            console.log(getArray)
-            setShowProducts(getArray)
+            //   console.log(getArray)
+            setShowProducts(orderByName(getArray))
         }
 
 
@@ -79,7 +78,7 @@ const DetailElementComponent = ({ detailElementName, from }) => {
                     [...array1, ...pendingProductsBySupplier].map(product => [product.id, product])
                 ).values()
             ];
-            console.log('mergedProducts2', mergedProducts);
+            //   console.log('mergedProducts2', mergedProducts);
 
             setShowProducts(orderByName(mergedProducts))
         }
@@ -96,9 +95,9 @@ const DetailElementComponent = ({ detailElementName, from }) => {
         if (!Number.isInteger(cantidad) || cantidad <= 0) return alert('Ingresá una cantidad válida')
         if (cantidad > product.stock) return alert(`Solo hay ${product.stock} en stock`)
 
-        console.log(product.name);
+        //  console.log(product.name);
         const exists = pendingProducts.some(p => p.id === id)
-        console.log(exists);
+        //  console.log(exists);
 
 
         const productMerged = exists
@@ -106,16 +105,16 @@ const DetailElementComponent = ({ detailElementName, from }) => {
             : [...pendingProducts, { ...product, count: cantidad, pending: true }]
 
         savePending(productMerged)
-        console.log('productMerged', productMerged);
+        // console.log('productMerged', productMerged);
 
-        console.log(detailElement);
+        //  console.log(detailElement);
 
 
 
         const searchProductArrayUpdated = detailElement.map(p =>
             productMerged.find(pp => pp.id === p.id) ?? p
         )
-        console.log('searchProductArrayUpdated', searchProductArrayUpdated);
+        //  console.log('searchProductArrayUpdated', searchProductArrayUpdated);
 
         setShowProducts(orderByName(searchProductArrayUpdated))
 
@@ -150,10 +149,10 @@ const DetailElementComponent = ({ detailElementName, from }) => {
     return (
 
 
-        <Row xs={1} md={4} className="productsCardContainer g-4 mx-auto justify-content-center" >
+        <Row className="productsCardContainer g-4 mx-auto justify-content-center" >
 
             {showProducts.map((product, i) => (
-                <ProductCardComponentDetail product={product} key={product.id} deleteOrder={deleteOrder} addToOrder={addToOrder} variant={'horizontal'} />
+                <ProductCardComponentDetail product={product} key={product.id} deleteOrder={deleteOrder} addToOrder={addToOrder} variant={variant} setVariant={setVariant} from={from} />
             ))
             }
         </Row>

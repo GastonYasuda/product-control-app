@@ -36,7 +36,7 @@ const Home = () => {
 
                     </section>
 
-                    {loginUser.rol === 'salon' ? <SalonMainInfo /> : <DepoMainInfo />}
+                    {loginUser.rol === 'Salón' ? <SalonMainInfo /> : <DepoMainInfo />}
 
                 </>
 

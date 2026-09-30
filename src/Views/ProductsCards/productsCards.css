@@ -1,9 +1,14 @@
 .productsCardContainer {
     padding-bottom: 25%;
+
 }
 
 .cardComponent--vertical {
+    flex-direction: column;
     justify-content: space-between;
+    display: grid;
+    grid-template-columns: 2fr;
+    gap: 16px;
 
     .pendientStyle {
         right: 0 !important;
@@ -13,7 +18,8 @@
 }
 
 .cardComponent--horizontal {
-    flex-direction: row !important;
+    flex-direction: column !important;
+    align-items: center;
 
     .pendientStyle {
         left: 0 !important;
