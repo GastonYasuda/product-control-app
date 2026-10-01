@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Button } from 'react-bootstrap'
 import { ProductApi } from '../../Context/ProductControlApi'
 
@@ -7,6 +7,8 @@ const SendPendingProducts = () => {
     const { loginUser, setLoginUser } = useContext(ProductApi)
 
     const { userPendingProd, userDeliveredProd } = loginUser
+
+    const [oldDeliveredProd, setOldDeliveredProd] = useState(JSON.parse(localStorage.getItem("pendingOrder")) || [])
 
     //lo mando a localStorage, mas adelante tiene que enviarse a la DB
 
@@ -17,8 +19,12 @@ const SendPendingProducts = () => {
     const handlePendingProducts = () => {
         //  console.log('userPendingProd', userPendingProd);
 
-        const oldDeliveredProd = userDeliveredProd ?? []
-        console.log('oldDeliveredProd', oldDeliveredProd);
+        const userOldDeliveredProd = userDeliveredProd ?? []
+        console.log('oldDeliveredProd', userOldDeliveredProd);
+
+        // const oldDeliveredProd = JSON.parse(localStorage.getItem("pendingOrder"))
+        console.log(oldDeliveredProd || []);
+
 
         const pendingProd = userPendingProd ?? []
         console.log('pendingProd', pendingProd);
@@ -35,9 +41,9 @@ const SendPendingProducts = () => {
             }
         ]
 
-        localStorage.setItem('pendingOrder', JSON.stringify(pendingOrder))
+        localStorage.setItem('pendingOrder', JSON.stringify([...oldDeliveredProd, ...pendingOrder]))
 
-        const deletePendingProdAndaddingDeliveredProd = { ...loginUser, userDeliveredProd: [...oldDeliveredProd, [...userPendingProd]], userPendingProd: [] }
+        const deletePendingProdAndaddingDeliveredProd = { ...loginUser, userDeliveredProd: [...oldDeliveredProd, ...pendingOrder], userPendingProd: [] }
 
         localStorage.setItem('userPass', JSON.stringify(deletePendingProdAndaddingDeliveredProd))
         setLoginUser(deletePendingProdAndaddingDeliveredProd)

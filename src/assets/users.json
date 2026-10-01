@@ -69,7 +69,52 @@
                 "pending": true
             }
         ],
-        "userDeliveredProd": []
+        "userDeliveredProd": [
+            {
+                "orderId": "xx",
+                "orderStatus": "En Preparación",
+                "date": " 2026-10-01T01: 43: 42.645Z",
+                "userOrder": "Daiana",
+                "orderArray": [
+                    {
+                        "id": "20",
+                        "name": "Luminox Impreso Fangio",
+                        "category": {
+                            "name": "Bazar",
+                            "img": "sell"
+                        },
+                        "supplier": {
+                            "name": "Lumilagro",
+                            "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdisFCMqAmUSsUZeyxhdit7LLXtyHfbhi2BHE7g5Ti3eM1mmygIYGYZyCF&s=10"
+                        },
+                        "image": "https://www.lumilagro.com.ar/wp-content/uploads/2025/01/Fangio-1-.webp",
+                        "code": 443,
+                        "count": 0,
+                        "price": 640,
+                        "stock": 75,
+                        "pending": false
+                    },
+                    {
+                        "id": "15",
+                        "name": "Formula 1 A525",
+                        "category": {
+                            "name": "Jugueteria",
+                            "img": "toys"
+                        },
+                        "supplier": {
+                            "name": "Toy Shop",
+                            "img": "https://img.magnific.com/vector-gratis/diseno-fuente-word-toy-shop-muchos-juguetes_1308-42318.jpg?semt=ais_hybrid&w=740&q=80"
+                        },
+                        "image": "https://http2.mlstatic.com/D_NQ_NP_2X_667274-CBT104322313217_012026-F.webp",
+                        "code": 443,
+                        "count": 0,
+                        "price": 640,
+                        "stock": 75,
+                        "pending": false
+                    }
+                ]
+            }
+        ]
     },
     {
         "id": 3,

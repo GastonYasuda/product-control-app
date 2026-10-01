@@ -49,7 +49,7 @@ const DetailElementComponent = ({ detailElementName, from }) => {
         }
 
 
-    }, [getAllProducts, detailElementName, pendingProducts])
+    }, [getAllProducts, detailElementName, pendingProducts, loginUser])
 
 
     const mergeProdFunc = (array1) => {
