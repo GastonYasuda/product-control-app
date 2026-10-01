@@ -43,9 +43,11 @@ const SendPendingProducts = () => {
 
         localStorage.setItem('pendingOrder', JSON.stringify([...oldDeliveredProd, ...pendingOrder]))
 
+
         const deletePendingProdAndaddingDeliveredProd = { ...loginUser, userDeliveredProd: [...oldDeliveredProd, ...pendingOrder], userPendingProd: [] }
 
         localStorage.setItem('userPass', JSON.stringify(deletePendingProdAndaddingDeliveredProd))
+        //en vez de estar guardando en el localStorage del usuario, podria buscar en pendingOrder y ver si coincide la persona que envio la orden, y el usuario que esta logueado en HOME
         setLoginUser(deletePendingProdAndaddingDeliveredProd)
 
     }
