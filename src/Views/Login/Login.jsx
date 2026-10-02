@@ -90,7 +90,7 @@ const Login = () => {
                 </Form.Floating>
 
                 <Button
-                    variant="primary"
+                    variant="secondary"
                     type="submit"
                     className='loginFormButton'
                 >

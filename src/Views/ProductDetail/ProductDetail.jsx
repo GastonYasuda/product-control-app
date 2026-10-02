@@ -126,15 +126,15 @@ const ProductDetail = () => {
                                     onChange={(e) => setInputCount(e.target.value)}
                                 />
                                 <section className='d-flex mt-3'>
-                                    <Button type="button" variant='danger' className='w-50 me-2' onClick={() => { deleteOrder(showProduct.id) }}>
+                                    <Button type="button" variant='secondary' className='w-50 me-2' onClick={() => { deleteOrder(showProduct.id) }}>
                                         <span className="material-symbols-outlined">
-                                            delete
+                                            remove_shopping_cart
                                         </span>
                                     </Button>
 
-                                    <Button variant="primary" className='w-50' onClick={() => { addToOrder(showProduct.id, inputCount); setInputCount(''); }}>
-                                        <span className="material-symbols-outlined">
-                                            format_list_bulleted_add
+                                    <Button variant="info" className='w-50' onClick={() => { addToOrder(showProduct.id, inputCount); setInputCount(''); }}>
+                                        <span className="material-symbols-outlined text-light">
+                                            add_shopping_cart
                                         </span>
                                     </Button>
                                 </section>

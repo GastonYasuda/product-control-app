@@ -20,27 +20,31 @@ const SendPendingProducts = () => {
         //  console.log('userPendingProd', userPendingProd);
 
         const userOldDeliveredProd = userDeliveredProd ?? []
-        console.log('oldDeliveredProd', userOldDeliveredProd);
+        // console.log('oldDeliveredProd', userOldDeliveredProd);
 
         // const oldDeliveredProd = JSON.parse(localStorage.getItem("pendingOrder"))
-        console.log(oldDeliveredProd || []);
+        //  console.log(oldDeliveredProd || []);
 
 
         const pendingProd = userPendingProd ?? []
-        console.log('pendingProd', pendingProd);
+        // console.log('pendingProd', pendingProd);
 
 
+        const fechaFormateada = new Intl.DateTimeFormat('es-ES', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
+        }).format(new Date());
 
         const pendingOrder = [
             {
                 "orderId": 'xx',
                 "orderStatus": "En Preparación",
-                "date": new Date().toISOString(),
+                "date": fechaFormateada,
                 "userOrder": `${loginUser.name}`,
                 "orderArray": userPendingProd
             }
-        ]
-
+        ];
         localStorage.setItem('pendingOrder', JSON.stringify([...oldDeliveredProd, ...pendingOrder]))
 
 
@@ -55,8 +59,10 @@ const SendPendingProducts = () => {
 
     return (
 
-        <Button type='button' variant='primary' className='position-absolute top-0 end-0 me-2 mt-5' onClick={() => { handlePendingProducts() }}>
-            Enviar
+        <Button type='button' variant='info' className='position-absolute top-0 end-0 me-2 mt-5' onClick={() => { handlePendingProducts() }}>
+            <span class="material-symbols-outlined text-light">
+                shopping_cart_checkout
+            </span>
         </Button>
 
     )

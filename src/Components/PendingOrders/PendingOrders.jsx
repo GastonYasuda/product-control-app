@@ -20,7 +20,7 @@ const PendingOrders = () => {
 
             <div className='h-100 m-3 py-2 d-flex rounded bg-light justify-content-around align-items-center'>
                 <span>#119</span>
-                <span className="bg-primary text-white rounded p-1">Preparado</span>
+                <span className="bg-secondary text-white rounded p-1">Preparado</span>
                 <span>5/9/2026</span>
                 <span>Kumi</span>
                 <Link to={''} className='LinkIcon'>
@@ -32,7 +32,7 @@ const PendingOrders = () => {
 
             <div className='h-100 m-3 py-2 d-flex rounded bg-light justify-content-around align-items-center'>
                 <span>#112</span>
-                <span className="bg-primary text-white rounded p-1">Preparado</span>
+                <span className="bg-secondary text-white rounded p-1">Preparado</span>
                 <span>3/9/2026</span>
                 <span>Kumi</span>
                 <Link to={''} className='LinkIcon'>

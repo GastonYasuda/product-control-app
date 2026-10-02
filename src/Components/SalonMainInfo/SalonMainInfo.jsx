@@ -15,20 +15,20 @@ const MainInfo = () => {
 
 
 
-    const processingCount = orders.filter(order => order.orderStatus === 'En Preparación').length
-    const deliveredCount = orders.filter(order => order.orderStatus === 'Entregado').length
+    const processingCount = orders.filter(order => order.orderStatus === 'En Preparación')
+    const deliveredCount = orders.filter(order => order.orderStatus === 'Entregado')
 
 
     const salonCards = [
         {
             title: 'Pedidos En Proceso',
             icon: 'deployed_code_history',
-            count: processingCount
+            count: processingCount.length
         },
         {
             title: 'Mis pedidos realizados',
             icon: 'history',
-            count: deliveredCount
+            count: deliveredCount.length
         },
     ]
 
@@ -36,7 +36,7 @@ const MainInfo = () => {
         <div className="mt-5">
             <InfoCards cardParams={salonCards} />
 
-            <RecentOrders />
+            <RecentOrders processingCount={processingCount} deliveredCount={deliveredCount} />
         </div>
     )
 }
