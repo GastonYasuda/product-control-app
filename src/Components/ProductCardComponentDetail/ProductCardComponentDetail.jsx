@@ -9,7 +9,7 @@ const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, variant,
     const [inputCount, setInputCount] = useState('')
 
     useEffect(() => {
-        //  console.log(from);
+
 
         if (from === 'category' || from === 'supplier' || from === 'productCard') {
             setVariant('vertical')

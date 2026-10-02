@@ -23,19 +23,25 @@ const ProductDetail = () => {
 
     useEffect(() => {
 
+        console.log(pendingProducts);
+
+
         if (pendingProducts.length !== 0) {
             const isPendingArray = pendingProducts.find(product => product.name === idProduct)
 
             if (isPendingArray === undefined) {
                 const selectedProduct = getAllProducts.find(product => product.name === idProduct)
                 setShowProduct(selectedProduct)
-                // console.log(selectedProduct);
+                //   console.log(selectedProduct);
 
             } else {
-
                 setShowProduct(isPendingArray);
-                //   console.log(isPendingArray);
+                //  console.log(isPendingArray);
             }
+        } else if (pendingProducts.length === 0) {
+            const selectedProduct = getAllProducts.find(product => product.name === idProduct)
+            setShowProduct(selectedProduct)
+
         }
 
     }, [getAllProducts, pendingProducts])

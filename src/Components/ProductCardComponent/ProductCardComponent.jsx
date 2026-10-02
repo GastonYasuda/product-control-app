@@ -20,6 +20,7 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser }) => {
 
     useEffect(() => {
 
+
         const pending = userPendingProd ?? []
         setPendingProducts(pending)
 
