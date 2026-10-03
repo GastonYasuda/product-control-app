@@ -60,11 +60,17 @@ const OrderDetailInfo = ({ idOrderDetail }) => {
                         <Dropdown.Toggle
                             variant="success"
                             id="dropdown-basic"
-                            className='d-flex algin-items-center'
+                            className={`d-flex algin-items-center 
+                            ${orderStatus === 'Entregado'
+                                    ? 'bg-secondary'
+                                    : orderStatus === 'Preparado'
+                                        ? 'bg-success'
+                                        : 'bg-info'}
+                                `}
                         >
                             {orderStatus}
 
-                            <span class="material-symbols-outlined mt-1 ps-1">
+                            <span className="material-symbols-outlined mt-1 ps-1">
                                 stat_minus_1
                             </span>
                         </Dropdown.Toggle>
