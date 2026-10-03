@@ -11,6 +11,7 @@ import ProductsCards from './Views/ProductsCards/ProductsCards'
 import { useContext, useEffect, useState } from 'react'
 import SearchResults from './Views/SearchResults/SearchResults'
 import { ProductApi } from './Context/ProductControlApi'
+import OrderDetail from './Views/OrderDetail/OrderDetail'
 
 function App() {
 
@@ -36,6 +37,7 @@ function App() {
         <Route path='/:order' element={<Order />} />
         <Route path='/searchResult' element={<SearchResults />} />
         <Route path='/searchResults/:idSearchResults' element={<SearchResults />} />
+        <Route path='/orderDetail/:idOrder' element={<OrderDetail />} />
 
         <Route path='*' element={<h3>Error!<br /> La pagina no existe! </h3>} />
 

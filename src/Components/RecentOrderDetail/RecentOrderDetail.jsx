@@ -5,7 +5,7 @@ const RecentOrderDetail = ({ orderData }) => {
     return (
         <div className='h-100 m-3 py-2 d-flex rounded bg-light
         align-items-center'>
-            <span className='flex-fill'>{orderData.orderId}</span>
+            <span className='flex-fill'>#{orderData.orderId}</span>
             <span className={`${orderData.orderStatus === 'Entregado'
                 ? 'bg-secondary'
                 : 'bg-info'

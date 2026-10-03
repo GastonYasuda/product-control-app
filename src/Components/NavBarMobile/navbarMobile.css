@@ -42,8 +42,8 @@
         transform: translate3d(10px, -84px, 0px) !important;
         text-align: end !important;
         background: rgba(15, 15, 15, 0.9) !important;
-        -webkit-backdrop-filter: blur(5px) !important;
-        backdrop-filter: blur(6px) !important;
+        /* -webkit-backdrop-filter: blur(5px) !important;
+        backdrop-filter: blur(6px) !important; */
     }
 
     .dropdown-menu-txt {
