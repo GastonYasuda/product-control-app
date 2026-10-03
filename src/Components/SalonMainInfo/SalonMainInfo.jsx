@@ -15,28 +15,31 @@ const MainInfo = () => {
 
 
 
-    const processingCount = orders.filter(order => order.orderStatus === 'En Preparación')
+    const onProcessCount = orders.filter(order => order.orderStatus === 'En Preparación')
+    const preparedCount = orders.filter(order => order.orderStatus === 'Preparado')
     const deliveredCount = orders.filter(order => order.orderStatus === 'Entregado')
-
 
     const salonCards = [
         {
-            title: 'Pedidos En Preparación',
-            icon: 'deployed_code_history',
-            count: processingCount.length
-        },
-        {
-            title: 'Mis pedidos realizados',
-            icon: 'history',
-            count: deliveredCount.length
-        },
+            'title': 'Pedidos En Preparación',
+            'icon': ' deployed_code_history',
+            'count': onProcessCount.length,
+        }, {
+            'title': 'Preparados',
+            'icon': ' package_2',
+            'count': preparedCount.length,
+        }, {
+            'title': 'Entregados',
+            'icon': 'delivery_truck_speed',
+            'count': deliveredCount.length,
+        }
     ]
 
     return (
         <div className="mt-5">
             <InfoCards cardParams={salonCards} />
 
-            <RecentOrders processingCount={processingCount} deliveredCount={deliveredCount} />
+            <RecentOrders preparedCount={preparedCount} deliveredCount={deliveredCount} onProcessCount={onProcessCount} />
         </div>
     )
 }

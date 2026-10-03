@@ -1,14 +1,21 @@
-import React, { useEffect } from 'react'
 import RecentOrderDetail from '../RecentOrderDetail/RecentOrderDetail'
 
-const RecentOrders = ({ processingCount, deliveredCount }) => {
+const RecentOrders = ({ preparedCount, deliveredCount, onProcessCount }) => {
+
+    console.log(onProcessCount);
+    console.log(preparedCount);
+
 
 
     return (
         <div className='mt-3'>
             <h4 className='mt-3 text-start ps-3'>Pedidos Recientes</h4>
 
-            {processingCount.length !== 0 && processingCount.map(((processingOrder, i) =>
+            {onProcessCount.length !== 0 && onProcessCount.map(((process, i) =>
+                <RecentOrderDetail orderData={process} key={i} />
+            ))}
+
+            {preparedCount.length !== 0 && preparedCount.map(((processingOrder, i) =>
                 <RecentOrderDetail orderData={processingOrder} key={i} />
 
             ))}

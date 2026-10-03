@@ -15,37 +15,37 @@ const NavBarMobile = () => {
     }
 
     return (
-        <div className='navBar_container m-auto fixed-bottom p-2 d-flex justify-content-around'>
+        <div className='navBar_container m-auto fixed-bottom p-2 pt-3 d-flex justify-content-around'>
 
-            <Link to={'/'} className='navBar_container_item' >
+            <Link to={'/'} className='navBar_container_item text-secondary' >
                 <span className="material-symbols-outlined navbar_icon">
                     home
                 </span>
                 <span className='navbar_txt'>Home</span>
             </Link>
 
-            <Link to={'/products'} className='navBar_container_item' >
+            <Link to={'/products'} className='navBar_container_item text-secondary' >
                 <span className="material-symbols-outlined navbar_icon">
                     splitscreen
                 </span>
                 <span className='navbar_txt'>Productos</span>
             </Link>
 
-            <Link to={'/category'} className='navBar_container_item' >
+            <Link to={'/category'} className='navBar_container_item text-secondary' >
                 <span className="material-symbols-outlined navbar_icon">
                     category
                 </span>
                 <span className='navbar_txt'>Categoria</span>
             </Link>
 
-            <Link to={'/supplier'} className='navBar_container_item'>
+            <Link to={'/supplier'} className='navBar_container_item text-secondary'>
                 <span className="material-symbols-outlined navbar_icon">
                     store
                 </span>
                 <span className='navbar_txt'>Proveedor</span>
             </Link>
 
-            <Link to={'/order'} className='navBar_container_item'>
+            <Link to={'/order'} className='navBar_container_item text-secondary'>
                 <span className="material-symbols-outlined navbar_icon">
                     order_approve
                 </span>
@@ -54,10 +54,10 @@ const NavBarMobile = () => {
 
             <Dropdown className='navBar_container_item' >
                 <Dropdown.Toggle className='pt-0 d-flex flex-column border-0 bg-transparent' id="dropdown-basic">
-                    <span className="material-symbols-outlined navbar_icon">
+                    <span className="material-symbols-outlined navbar_icon text-secondary">
                         account_circle
                     </span>
-                    <span className='navbar_txt'>Login</span>
+                    <span className='navbar_txt text-secondary'>Login</span>
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu >
