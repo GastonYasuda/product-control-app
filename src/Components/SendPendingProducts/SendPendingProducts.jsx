@@ -6,7 +6,7 @@ const SendPendingProducts = () => {
 
     const { loginUser, setLoginUser } = useContext(ProductApi)
 
-    const { userPendingProd, userDeliveredProd } = loginUser
+    const { userPendingProd } = loginUser
 
     const [oldDeliveredProd, setOldDeliveredProd] = useState(JSON.parse(localStorage.getItem("pendingOrder")) || [])
 
@@ -14,21 +14,7 @@ const SendPendingProducts = () => {
 
 
 
-
-
     const handlePendingProducts = () => {
-        //  console.log('userPendingProd', userPendingProd);
-
-        const userOldDeliveredProd = userDeliveredProd ?? []
-        // console.log('oldDeliveredProd', userOldDeliveredProd);
-
-        // const oldDeliveredProd = JSON.parse(localStorage.getItem("pendingOrder"))
-        //  console.log(oldDeliveredProd || []);
-
-
-        const pendingProd = userPendingProd ?? []
-        // console.log('pendingProd', pendingProd);
-
 
         const fechaFormateada = new Intl.DateTimeFormat('es-ES', {
             day: '2-digit',
@@ -38,7 +24,7 @@ const SendPendingProducts = () => {
 
         const pendingOrder = [
             {
-                "orderId": 'xx',
+                "orderId": Math.floor(Math.random() * 90),
                 "orderStatus": "En Preparación",
                 "date": fechaFormateada,
                 "userOrder": `${loginUser.name}`,

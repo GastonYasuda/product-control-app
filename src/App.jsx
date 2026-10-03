@@ -37,7 +37,7 @@ function App() {
         <Route path='/:order' element={<Order />} />
         <Route path='/searchResult' element={<SearchResults />} />
         <Route path='/searchResults/:idSearchResults' element={<SearchResults />} />
-        <Route path='/orderDetail/:idOrder' element={<OrderDetail />} />
+        <Route path='/orderDetail/:idOrderDetail' element={<OrderDetail />} />
 
         <Route path='*' element={<h3>Error!<br /> La pagina no existe! </h3>} />
 
