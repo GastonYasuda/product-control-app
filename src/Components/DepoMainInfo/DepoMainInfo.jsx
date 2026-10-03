@@ -11,9 +11,9 @@ const DepoMainInfo = () => {
     const preparedCount = allOrders.filter(order => order.orderStatus === 'Preparado')
     const deliveredCount = allOrders.filter(order => order.orderStatus === 'Entregado')
 
-    console.log('processingCount', processingCount.length);
-    console.log('preparedCount', preparedCount.length);
-    console.log('deliveredCount', deliveredCount.length);
+    // console.log('processingCount', processingCount.length);
+    // console.log('preparedCount', preparedCount.length);
+    // console.log('deliveredCount', deliveredCount.length);
 
 
 
@@ -37,8 +37,9 @@ const DepoMainInfo = () => {
         <div>
             <InfoCards cardParams={depoCards} />
 
-            <PendingOrders />
-            {/* <RecentOrders /> */}
+            {/* <PendingOrders /> */}
+            <RecentOrders processingCount={processingCount} deliveredCount={deliveredCount} />
+
 
         </div>
     )
