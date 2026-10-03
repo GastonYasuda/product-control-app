@@ -21,7 +21,7 @@ const MainInfo = () => {
 
     const salonCards = [
         {
-            title: 'Pedidos En Proceso',
+            title: 'Pedidos En Preparación',
             icon: 'deployed_code_history',
             count: processingCount.length
         },

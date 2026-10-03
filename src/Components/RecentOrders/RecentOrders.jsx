@@ -3,14 +3,6 @@ import RecentOrderDetail from '../RecentOrderDetail/RecentOrderDetail'
 
 const RecentOrders = ({ processingCount, deliveredCount }) => {
 
-    useEffect(() => {
-        console.log('processingCount', processingCount);
-        console.log('deliveredCount', deliveredCount);
-
-
-    }, [])
-
-
 
     return (
         <div className='mt-3'>
@@ -24,9 +16,6 @@ const RecentOrders = ({ processingCount, deliveredCount }) => {
             {deliveredCount.length !== 0 && deliveredCount.map((deliveredOrder, i) =>
                 <RecentOrderDetail orderData={deliveredOrder} key={i} />
             )}
-
-
-
 
 
         </div>
