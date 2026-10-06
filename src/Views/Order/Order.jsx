@@ -5,6 +5,7 @@ import NavBar from '../../Components/NavBar/NavBar'
 import Greeting from '../../Components/Greeting/Greeting'
 import { ProductApi } from '../../Context/ProductControlApi'
 import DetailElementComponent from '../../Components/DetailElementComponent/DetailElementComponent'
+import noProductImg from '../../assets/noProducts.png'
 
 const Order = () => {
     const { loginUser } = useContext(ProductApi)
@@ -32,7 +33,12 @@ const Order = () => {
                     </section>
                 </>
                 :
-                <h4 className='mt-5'>No hay productos pendientes</h4>
+                <section className='pt-5'>
+                    <img src={noProductImg} className="pt-5 w-50 h-auto" alt="no products image" />
+                    <h4 className='mt-3'>
+                        No hay productos pendientes
+                    </h4>
+                </section>
             }
             <NavBar />
         </div>
