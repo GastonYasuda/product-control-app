@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { DataProductApi } from '../../Context/DataBaseProductApi'
 import { ProductApi } from '../../Context/ProductControlApi'
 import ProductCardComponentDetail from '../ProductCardComponentDetail/ProductCardComponentDetail'
+import Swal from 'sweetalert2'
 
 
 const DetailElementComponent = ({ detailElementName, from }) => {
@@ -92,9 +93,14 @@ const DetailElementComponent = ({ detailElementName, from }) => {
         const product = getAllProducts.find(p => p.id === id)
 
         if (!product) return
-        if (!Number.isInteger(cantidad) || cantidad <= 0) return alert('Ingresá una cantidad válida')
-        if (cantidad > product.stock) return alert(`Solo hay ${product.stock} en stock`)
-
+        if (!Number.isInteger(cantidad) || cantidad <= 0) return aplicateSweetAlert('The Internet?', "that thing", "question")
+        // alert('Ingresá una cantidad válida')
+        if (cantidad > product.stock) return aplicateSweetAlert('The Internet?', "that thing", "question")
+        //     Swal.fire({
+        //     title: "The Internet?",
+        //     text: "That thing is still around?",
+        //     icon: "question"
+        // });
         //  console.log(product.name);
         const exists = pendingProducts.some(p => p.id === id)
         //  console.log(exists);
@@ -142,6 +148,15 @@ const DetailElementComponent = ({ detailElementName, from }) => {
             )
         ))
 
+    }
+
+    const aplicateSweetAlert = (title, text, icon) => {
+        alert('Ingresá una cantidad válida')
+        if (cantidad > product.stock) return Swal.fire({
+            title: title,
+            text: text,
+            icon: icon
+        });
     }
 
 
