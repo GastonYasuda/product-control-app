@@ -4,8 +4,11 @@ import Form from 'react-bootstrap/Form';
 import './login.css'
 import users from '../../../src/assets/users.json'
 import { useNavigate } from 'react-router-dom';
+import { ProductApi } from '../../Context/ProductControlApi';
 
 const Login = () => {
+
+    const { aplicateSweetAlert } = useContext(ProductApi)
     const [almostLogged, setAlmostLogged] = useState(JSON.parse(localStorage.getItem("userPass")))
 
 
@@ -39,7 +42,7 @@ const Login = () => {
             setUser('')
             setPassword('')
 
-            alert('usuario o contrasena erronea')
+            aplicateSweetAlert("Usuario o Contraseña incorrecta!", "Ingrese nuevamente su usuario y contraseña", "warning")
 
         } else {
 
