@@ -15,8 +15,6 @@ import OrderDetail from './Views/OrderDetail/OrderDetail'
 
 function App() {
 
-  // const { loginUser } = useContext(ProductApi)
-
   const [almostLogged, setAlmostLogged] = useState(JSON.parse(localStorage.getItem("userPass")))
 
 

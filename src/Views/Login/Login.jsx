@@ -43,13 +43,11 @@ const Login = () => {
 
         } else {
 
-
             localStorage.setItem('userPass', JSON.stringify(validateUserPass))
             console.log(validateUserPass);
 
             navigate('/home')
         }
-
 
     }
 

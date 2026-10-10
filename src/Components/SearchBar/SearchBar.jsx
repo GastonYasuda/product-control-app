@@ -2,11 +2,9 @@ import React, { useContext, useState } from 'react'
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import './searchBar.css'
-import { DataProductApi } from '../../Context/DataBaseProductApi';
 import { useNavigate } from 'react-router-dom';
 
 const SearchBar = () => {
-    const { getAllProducts } = useContext(DataProductApi)
 
     const navigate = useNavigate()
 
@@ -25,8 +23,6 @@ const SearchBar = () => {
         // const productCoincidence = getAllProducts.filter((product) => product.name.toLowerCase().includes(searchProductInput.toLowerCase()))
         // setSearchProductArray(productCoincidence)
         // console.log(productCoincidence);
-
-
     }
 
     return (

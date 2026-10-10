@@ -29,7 +29,7 @@ const OrderDetailInfo = ({ idOrderDetail }) => {
 
         Swal.fire({
             title: "Desea cambiar el estado de la orden?",
-            text: `De "${orderStatus}" a "${newStatus}"`,
+            text: `"${orderStatus}" a "${newStatus}"`,
             icon: "question",
             showCancelButton: true,
             confirmButtonColor: "#17a2b8",
