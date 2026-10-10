@@ -7,7 +7,7 @@ import { toast, Slide, ToastContainer } from 'react-toastify';
 
 const ProductCardComponent = ({ searchProductArray, from, loginUser }) => {
     const { getAllProducts } = useContext(DataProductApi)
-    const { orderByName, setLoginUser } = useContext(ProductApi)
+    const { orderByName, setLoginUser, aplicateSweetAlert } = useContext(ProductApi)
 
 
 
@@ -61,13 +61,12 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser }) => {
     const addToOrder = (id, count) => {
         console.log('id', id);
 
-        const cantidad = Number(count)
+        const cant = Number(count)
         const product = getAllProducts.find(p => p.id === id)
 
         if (!product) return
-        if (!Number.isInteger(cantidad) || cantidad <= 0) return alert('Ingresá una cantidad válida')
-        if (cantidad > product.stock) return alert(`Solo hay ${product.stock} en stock`)
-
+        if (!Number.isInteger(cant) || cant <= 0) return aplicateSweetAlert("Cantidad Erronea", "Ingrese un número mayor a 0", "warning")
+        if (cant > product.stock) return aplicateSweetAlert("Stock Insuficiente", "", "warning")
 
 
         if (from === 'productCard') {
@@ -75,8 +74,8 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser }) => {
             const exists = pendingProducts.some(p => p.id === id)
 
             const newPending = exists
-                ? pendingProducts.map(p => p.id === id ? { ...p, count: cantidad, pending: true } : p)
-                : [...pendingProducts, { ...product, count: cantidad, pending: true }]
+                ? pendingProducts.map(p => p.id === id ? { ...p, count: cant, pending: true } : p)
+                : [...pendingProducts, { ...product, count: cant, pending: true }]
 
             savePending(newPending)
 

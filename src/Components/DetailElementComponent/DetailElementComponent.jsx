@@ -3,14 +3,13 @@ import { Row } from 'react-bootstrap'
 import { DataProductApi } from '../../Context/DataBaseProductApi'
 import { ProductApi } from '../../Context/ProductControlApi'
 import ProductCardComponentDetail from '../ProductCardComponentDetail/ProductCardComponentDetail'
-import Swal from 'sweetalert2'
 import { toast, Slide, ToastContainer } from 'react-toastify';
 
 
 const DetailElementComponent = ({ detailElementName, from }) => {
 
     const { getAllProducts } = useContext(DataProductApi)
-    const { orderByName, loginUser, setLoginUser } = useContext(ProductApi)
+    const { orderByName, loginUser, setLoginUser, aplicateSweetAlert } = useContext(ProductApi)
 
     const [detailElement, setDetailElement] = useState([])
     const [pendingProducts, setPendingProducts] = useState(loginUser.userPendingProd ?? [])
@@ -159,13 +158,7 @@ const DetailElementComponent = ({ detailElementName, from }) => {
         });
     }
 
-    const aplicateSweetAlert = (title, text, icon) => {
-        Swal.fire({
-            title: title,
-            text: text,
-            icon: icon
-        });
-    }
+
 
 
 

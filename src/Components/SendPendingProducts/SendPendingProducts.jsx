@@ -1,12 +1,11 @@
 import React, { useContext, useState } from 'react'
 import { Button } from 'react-bootstrap'
 import { ProductApi } from '../../Context/ProductControlApi'
-import Swal from 'sweetalert2'
 
 
 const SendPendingProducts = () => {
 
-    const { loginUser, setLoginUser } = useContext(ProductApi)
+    const { loginUser, setLoginUser, aplicateSweetAlert } = useContext(ProductApi)
 
     const { userPendingProd } = loginUser
 
@@ -17,47 +16,58 @@ const SendPendingProducts = () => {
 
     const handlePendingProducts = () => {
 
-        Swal.fire({
-            title: "Enviar orden?",
-            text: "",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#17a2b8",
-            cancelButtonColor: "#868e96",
-            confirmButtonText: "Enviar"
-        }).then((result) => {
-            if (result.isConfirmed) Swal.fire({
-                title: "Enviado!",
-                text: "Revisá la pantalla inicial para conocer el estado de las ordenes.",
-                icon: "success"
-            });
+        if (userPendingProd.length !== 0) {
+
+            Swal.fire({
+                title: "Enviar orden?",
+                text: "",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#17a2b8",
+                cancelButtonColor: "#868e96",
+                confirmButtonText: "Enviar"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Enviado!",
+                        text: "Revisá la pantalla inicial para conocer el estado de las ordenes.",
+                        icon: "success",
+                        confirmButtonColor: "#17a2b8",
+                    });
 
 
-            const fechaFormateada = new Intl.DateTimeFormat('es-ES', {
-                day: '2-digit',
-                month: '2-digit',
-                year: 'numeric'
-            }).format(new Date());
 
-            const pendingOrder = [
-                {
-                    "orderId": Math.floor(Math.random() * 90),
-                    "orderStatus": "En Preparación",
-                    "date": fechaFormateada,
-                    "userOrder": `${loginUser.name}`,
-                    "orderArray": userPendingProd
+
+
+                    const fechaFormateada = new Intl.DateTimeFormat('es-ES', {
+                        day: '2-digit',
+                        month: '2-digit',
+                        year: 'numeric'
+                    }).format(new Date());
+
+                    const pendingOrder = [
+                        {
+                            "orderId": Math.floor(Math.random() * 90),
+                            "orderStatus": "En Preparación",
+                            "date": fechaFormateada,
+                            "userOrder": `${loginUser.name}`,
+                            "orderArray": userPendingProd
+                        }
+                    ];
+                    localStorage.setItem('pendingOrder', JSON.stringify([...oldDeliveredProd, ...pendingOrder]))
+
+
+                    const deletePendingProdAndaddingDeliveredProd = { ...loginUser, userDeliveredProd: [...oldDeliveredProd, ...pendingOrder], userPendingProd: [] }
+
+                    localStorage.setItem('userPass', JSON.stringify(deletePendingProdAndaddingDeliveredProd))
+                    //en vez de estar guardando en el localStorage del usuario, podria buscar en pendingOrder y ver si coincide la persona que envio la orden, y el usuario que esta logueado en HOME
+                    setLoginUser(deletePendingProdAndaddingDeliveredProd)
                 }
-            ];
-            localStorage.setItem('pendingOrder', JSON.stringify([...oldDeliveredProd, ...pendingOrder]))
 
-
-            const deletePendingProdAndaddingDeliveredProd = { ...loginUser, userDeliveredProd: [...oldDeliveredProd, ...pendingOrder], userPendingProd: [] }
-
-            localStorage.setItem('userPass', JSON.stringify(deletePendingProdAndaddingDeliveredProd))
-            //en vez de estar guardando en el localStorage del usuario, podria buscar en pendingOrder y ver si coincide la persona que envio la orden, y el usuario que esta logueado en HOME
-            setLoginUser(deletePendingProdAndaddingDeliveredProd)
-
-        });
+            });
+        } else {
+            aplicateSweetAlert("No hay productos pendientes", "", "warning")
+        }
 
     }
 

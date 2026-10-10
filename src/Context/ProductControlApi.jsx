@@ -1,4 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react'
+import Swal from 'sweetalert2'
+
 
 export const ProductApi = createContext()
 
@@ -31,8 +33,16 @@ const ProductControlApi = ({ children }) => {
         );
     }
 
+    const aplicateSweetAlert = (title, text, icon) => {
+        Swal.fire({
+            title: title,
+            text: text,
+            icon: icon
+        });
+    }
+
     return (
-        <ProductApi.Provider value={{ test, loginUser, setLoginUser, orderByName }}>
+        <ProductApi.Provider value={{ test, loginUser, setLoginUser, orderByName, aplicateSweetAlert }}>
             {children}
         </ProductApi.Provider>
     )
