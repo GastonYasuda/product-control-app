@@ -10,8 +10,8 @@
 
 ## 🎯 Objetivo
 
-El proyecto busca mejorar la comunicación entre los empleados del salón
-y el encargado del depósito, permitiendo gestionar pedidos de mercadería
+El proyecto busca mejorar la comunicación entre el personal del salón
+y el personal del depósito, permitiendo gestionar pedidos de mercadería
 de manera centralizada.
 
 ## 👥 Usuarios
