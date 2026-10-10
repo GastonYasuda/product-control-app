@@ -3,6 +3,7 @@ import { Row } from 'react-bootstrap'
 import { DataProductApi } from '../../Context/DataBaseProductApi';
 import { ProductApi } from '../../Context/ProductControlApi';
 import ProductCardComponentDetail from '../ProductCardComponentDetail/ProductCardComponentDetail';
+import { toast, Slide, ToastContainer } from 'react-toastify';
 
 const ProductCardComponent = ({ searchProductArray, from, loginUser }) => {
     const { getAllProducts } = useContext(DataProductApi)
@@ -72,16 +73,11 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser }) => {
         if (from === 'productCard') {
 
             const exists = pendingProducts.some(p => p.id === id)
-            //  console.log(exists);
 
             const newPending = exists
                 ? pendingProducts.map(p => p.id === id ? { ...p, count: cantidad, pending: true } : p)
                 : [...pendingProducts, { ...product, count: cantidad, pending: true }]
 
-
-            //   console.log('nuevo array para guardar en local', newPending);
-            // localStorage.setItem('userPass', JSON.stringify({ ...loginUser, userPendingProd: newPending }))
-            // setPendingProducts(newPending)
             savePending(newPending)
 
             mergeProdFunc(getAllProducts, newPending)
@@ -97,9 +93,6 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser }) => {
 
             savePending(productMerged)
 
-            // setPendingProducts(productMerged)
-            // localStorage.setItem('userPass', JSON.stringify({ ...loginUser, userPendingProd: productMerged }))
-
 
             const searchProductArrayUpdated = searchProductArray.map(p =>
                 productMerged.find(pp => pp.id === p.id) ?? p
@@ -107,6 +100,18 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser }) => {
             setShowProducts(orderByName(searchProductArrayUpdated))
 
         }
+
+        toast.success(`Agregaste ${count} unidades de ${product.name} a pendientes`, {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Slide,
+        });
     }
 
 
@@ -115,32 +120,47 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser }) => {
 
         savePending(newPending)
 
-        // setPendingProducts(newPending)
-        // localStorage.setItem('userPass', JSON.stringify({ ...loginUser, userPendingProd: newPending }))
+
 
         if (from === 'productCard') {
             mergeProdFunc(getAllProducts, newPending)
         } else if (from === 'searchBar') {
             setShowProducts(orderByName(
                 searchProductArray.map(p =>
-                    newPending.find(pp => pp.id === p.id)      // si sigue pendiente, la versión pendiente
-                    ?? getAllProducts.find(gp => gp.id === p.id) // si no, la versión limpia
+                    newPending.find(pp => pp.id === p.id)
+                    ?? getAllProducts.find(gp => gp.id === p.id)
                     ?? p
                 )
             ))
         }
+        const erasedProduct = pendingProducts.find(p => p.id === id)
+        toast.warn(`Quitaste ${erasedProduct.name} de pendientes`, {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Slide,
+        });
     }
 
 
 
     return (
-        <Row xs={2} md={4} className="productsCardContainer g-4 mx-auto justify-content-center" >
-            {
-                showProducts.map((product, i) => (
-                    <ProductCardComponentDetail product={product} key={product.id} deleteOrder={deleteOrder} addToOrder={addToOrder} variant={variant} setVariant={setVariant} from={from} />
-                ))
-            }
-        </Row>
+        <>
+            <Row xs={2} md={4} className="productsCardContainer g-4 mx-auto justify-content-center" >
+                {
+                    showProducts.map((product, i) => (
+                        <ProductCardComponentDetail product={product} key={product.id} deleteOrder={deleteOrder} addToOrder={addToOrder} variant={variant} setVariant={setVariant} from={from} />
+                    ))
+                }
+            </Row>
+            <ToastContainer />
+        </>
+
     )
 }
 

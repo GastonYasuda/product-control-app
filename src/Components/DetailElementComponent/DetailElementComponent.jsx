@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Button, Card, Col, Row, Form, Spinner } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Row } from 'react-bootstrap'
 import { DataProductApi } from '../../Context/DataBaseProductApi'
 import { ProductApi } from '../../Context/ProductControlApi'
 import ProductCardComponentDetail from '../ProductCardComponentDetail/ProductCardComponentDetail'
 import Swal from 'sweetalert2'
+import { toast, Slide, ToastContainer } from 'react-toastify';
 
 
 const DetailElementComponent = ({ detailElementName, from }) => {
@@ -23,16 +23,14 @@ const DetailElementComponent = ({ detailElementName, from }) => {
         if (from === 'category') {
             const selectedCategory = getAllProducts.filter(prod => prod.category.name === detailElementName)
             setDetailElement(selectedCategory)
-            //  console.log(selectedCategory)
             mergeProdFunc(selectedCategory)
 
 
         } else if (from === 'supplier') {
-            //    console.log('from', from);
 
             const selectedSupplier = getAllProducts.filter(prod => prod.supplier.name === detailElementName)
             setDetailElement(selectedSupplier)
-            //  console.log(selectedSupplier)
+
             mergeProdFunc(selectedSupplier)
 
         } else if (from === 'orderList') {
@@ -100,15 +98,10 @@ const DetailElementComponent = ({ detailElementName, from }) => {
         const exists = pendingProducts.some(p => p.id === id)
 
         const productMerged = exists
-            ? pendingProducts.map(p => p.id === id ? { ...p, count: cantidad, pending: true } : p)
-            : [...pendingProducts, { ...product, count: cantidad, pending: true }]
+            ? pendingProducts.map(p => p.id === id ? { ...p, count: cant, pending: true } : p)
+            : [...pendingProducts, { ...product, count: cant, pending: true }]
 
         savePending(productMerged)
-        // console.log('productMerged', productMerged);
-
-        //  console.log(detailElement);
-
-
 
         const searchProductArrayUpdated = detailElement.map(p =>
             productMerged.find(pp => pp.id === p.id) ?? p
@@ -117,6 +110,17 @@ const DetailElementComponent = ({ detailElementName, from }) => {
 
         setShowProducts(orderByName(searchProductArrayUpdated))
 
+        toast.success(`Agregaste ${count} unidades de ${product.name} a pendientes`, {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Slide,
+        });
     }
 
 
@@ -141,6 +145,18 @@ const DetailElementComponent = ({ detailElementName, from }) => {
             )
         ))
 
+        const erasedProduct = pendingProducts.find(p => p.id === id)
+        toast.warn(`Quitaste ${erasedProduct.name} de pendientes`, {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Slide,
+        });
     }
 
     const aplicateSweetAlert = (title, text, icon) => {
@@ -155,15 +171,16 @@ const DetailElementComponent = ({ detailElementName, from }) => {
 
     return (
 
+        <>
+            <Row className="productsCardContainer g-4 mx-auto justify-content-center" >
 
-        <Row className="productsCardContainer g-4 mx-auto justify-content-center" >
-
-            {showProducts.map((product, i) => (
-                <ProductCardComponentDetail product={product} key={product.id} deleteOrder={deleteOrder} addToOrder={addToOrder} variant={variant} setVariant={setVariant} from={from} />
-            ))
-            }
-        </Row>
-
+                {showProducts.map((product, i) => (
+                    <ProductCardComponentDetail product={product} key={product.id} deleteOrder={deleteOrder} addToOrder={addToOrder} variant={variant} setVariant={setVariant} from={from} />
+                ))
+                }
+            </Row>
+            <ToastContainer />
+        </>
 
     )
 }
