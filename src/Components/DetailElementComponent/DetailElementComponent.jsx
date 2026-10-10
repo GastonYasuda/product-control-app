@@ -130,8 +130,8 @@ const DetailElementComponent = ({ detailElementName, from }) => {
     const savePending = (newPending) => {
         const updatedUser = { ...loginUser, userPendingProd: newPending }
         setPendingProducts(newPending)
-        setLoginUser(updatedUser)                                   // actualiza la app
-        localStorage.setItem('userPass', JSON.stringify(updatedUser)) // persiste
+        setLoginUser(updatedUser)
+        localStorage.setItem('userPass', JSON.stringify(updatedUser))
     }
 
 
@@ -142,8 +142,8 @@ const DetailElementComponent = ({ detailElementName, from }) => {
 
         setShowProducts(orderByName(
             detailElement.map(p =>
-                newPending.find(pp => pp.id === p.id)      // si sigue pendiente, la versión pendiente
-                ?? getAllProducts.find(gp => gp.id === p.id) // si no, la versión limpia
+                newPending.find(pp => pp.id === p.id)
+                ?? getAllProducts.find(gp => gp.id === p.id)
                 ?? p
             )
         ))

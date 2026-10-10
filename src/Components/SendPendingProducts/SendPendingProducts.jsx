@@ -15,7 +15,6 @@ const SendPendingProducts = () => {
     //lo mando a localStorage, mas adelante tiene que enviarse a la DB
 
 
-
     const handlePendingProducts = () => {
 
         Swal.fire({
@@ -29,7 +28,7 @@ const SendPendingProducts = () => {
         }).then((result) => {
             if (result.isConfirmed) Swal.fire({
                 title: "Enviado!",
-                text: "*aca poner el codigo que manda las cosas* Revisá la pantalla inicial para conocer el estado de la orden.",
+                text: "Revisá la pantalla inicial para conocer el estado de las ordenes.",
                 icon: "success"
             });
 
