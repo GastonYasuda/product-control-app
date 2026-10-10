@@ -89,22 +89,15 @@ const DetailElementComponent = ({ detailElementName, from }) => {
 
     const addToOrder = (id, count) => {
 
-        const cantidad = Number(count)
+        const cant = Number(count)
         const product = getAllProducts.find(p => p.id === id)
 
         if (!product) return
-        if (!Number.isInteger(cantidad) || cantidad <= 0) return aplicateSweetAlert('The Internet?', "that thing", "question")
-        // alert('Ingresá una cantidad válida')
-        if (cantidad > product.stock) return aplicateSweetAlert('The Internet?', "that thing", "question")
-        //     Swal.fire({
-        //     title: "The Internet?",
-        //     text: "That thing is still around?",
-        //     icon: "question"
-        // });
-        //  console.log(product.name);
-        const exists = pendingProducts.some(p => p.id === id)
-        //  console.log(exists);
 
+        if (!Number.isInteger(cant) || cant <= 0) return aplicateSweetAlert("Cantidad Erronea", "Ingrese un número mayor a 0", "warning")
+        if (cant > product.stock) return aplicateSweetAlert("Stock Insuficiente", "", "warning")
+
+        const exists = pendingProducts.some(p => p.id === id)
 
         const productMerged = exists
             ? pendingProducts.map(p => p.id === id ? { ...p, count: cantidad, pending: true } : p)
@@ -151,8 +144,7 @@ const DetailElementComponent = ({ detailElementName, from }) => {
     }
 
     const aplicateSweetAlert = (title, text, icon) => {
-        alert('Ingresá una cantidad válida')
-        if (cantidad > product.stock) return Swal.fire({
+        Swal.fire({
             title: title,
             text: text,
             icon: icon
