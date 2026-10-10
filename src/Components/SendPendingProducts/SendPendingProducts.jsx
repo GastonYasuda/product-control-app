@@ -28,6 +28,7 @@ const SendPendingProducts = () => {
                 confirmButtonColor: "#17a2b8",
                 cancelButtonColor: "#868e96",
                 confirmButtonText: "Enviar"
+
             }).then((result) => {
                 if (result.isConfirmed) {
                     Swal.fire({

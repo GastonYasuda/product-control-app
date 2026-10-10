@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import OrderDetailInfoCard from '../OrderDetailInfoCard/OrderDetailInfoCard';
 import { Dropdown } from 'react-bootstrap';
+import Swal from 'sweetalert2'
+
 
 const OrderDetailInfo = ({ idOrderDetail }) => {
 
@@ -23,21 +25,39 @@ const OrderDetailInfo = ({ idOrderDetail }) => {
 
     const handleChangeOrderStatus = (newStatus) => {
 
-        // Cambiamos el estado visual
-        setOrderStatus(newStatus);
+        console.log('aca', newStatus);
 
-        // Actualizamos el array completo
-        const updatedOrders = getPendingOrders.map(order =>
-            order.orderId === Number(idOrderDetail)
-                ? {
-                    ...order,
-                    orderStatus: newStatus
-                }
-                : order
-        );
+        Swal.fire({
+            title: "Desea cambiar el estado de la orden?",
+            text: `De "${orderStatus}" a "${newStatus}"`,
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#17a2b8",
+            cancelButtonColor: "#868e96",
+            confirmButtonText: "Cambiar"
 
-        // Guardamos nuevamente en localStorage
-        localStorage.setItem("pendingOrder", JSON.stringify(updatedOrders));
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                // Cambiamos el estado visual
+                setOrderStatus(newStatus);
+
+                // Actualizamos el array completo
+                const updatedOrders = getPendingOrders.map(order =>
+                    order.orderId === Number(idOrderDetail)
+                        ? {
+                            ...order,
+                            orderStatus: newStatus
+                        }
+                        : order
+                );
+
+                // Guardamos nuevamente en localStorage
+                localStorage.setItem("pendingOrder", JSON.stringify(updatedOrders));
+
+            }
+        })
+
     };
 
 
@@ -53,9 +73,9 @@ const OrderDetailInfo = ({ idOrderDetail }) => {
                 <h6 className='flex-fill mb-0'>
                     {selectOrder?.date}
                 </h6>
+
                 {userRol === 'Depósito' ?
                     <Dropdown className='navBar_container_item mt-3'>
-
 
                         <Dropdown.Toggle
                             variant="success"
