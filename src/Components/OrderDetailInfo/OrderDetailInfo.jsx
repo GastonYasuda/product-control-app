@@ -1,19 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import OrderDetailInfoCard from '../OrderDetailInfoCard/OrderDetailInfoCard';
-import { Dropdown } from 'react-bootstrap';
+import { Button, Dropdown } from 'react-bootstrap';
 import Swal from 'sweetalert2'
-
+import { ProductApi } from '../../Context/ProductControlApi';
 
 const OrderDetailInfo = ({ idOrderDetail }) => {
+    const { aplicateSweetAlert } = useContext(ProductApi)
 
     const userOrders = JSON.parse(localStorage.getItem('userPass')) || []
     const userRol = userOrders.rol
 
+    const [pendingOrders, setPendingOrders] = useState(() => {
+        return JSON.parse(localStorage.getItem("pendingOrder")) || [];
+    });
 
-    const getPendingOrders =
-        JSON.parse(localStorage.getItem("pendingOrder")) || [];
-
-    const selectOrder = getPendingOrders.find(
+    const selectOrder = pendingOrders.find(
         order => order.orderId === Number(idOrderDetail)
     );
 
@@ -21,42 +22,65 @@ const OrderDetailInfo = ({ idOrderDetail }) => {
         selectOrder?.orderStatus || "En Preparación"
     );
 
-
-
     const handleChangeOrderStatus = (newStatus) => {
 
-        console.log('aca', newStatus);
+        const allChecked = selectOrder.orderArray.filter(p => p.checked === true)
 
-        Swal.fire({
-            title: "Desea cambiar el estado de la orden?",
-            text: `"${orderStatus}" a "${newStatus}"`,
-            icon: "question",
-            showCancelButton: true,
-            confirmButtonColor: "#17a2b8",
-            cancelButtonColor: "#868e96",
-            confirmButtonText: "Cambiar"
+        if (allChecked.length === selectOrder.orderArray.length) {
 
-        }).then((result) => {
-            if (result.isConfirmed) {
+            Swal.fire({
+                title: "Desea cambiar el estado de la orden?",
+                text: `"${orderStatus}" a "${newStatus}"`,
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonColor: "#17a2b8",
+                cancelButtonColor: "#868e96",
+                confirmButtonText: "Cambiar"
+            })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        setOrderStatus(newStatus);
 
-                // Cambiamos el estado visual
-                setOrderStatus(newStatus);
+                        const updatedOrders = pendingOrders.map(order =>
+                            order.orderId === Number(idOrderDetail)
+                                ? { ...order, orderStatus: newStatus }
+                                : order
+                        );
 
-                // Actualizamos el array completo
-                const updatedOrders = getPendingOrders.map(order =>
-                    order.orderId === Number(idOrderDetail)
-                        ? {
-                            ...order,
-                            orderStatus: newStatus
-                        }
-                        : order
-                );
+                        setPendingOrders(updatedOrders);
+                        localStorage.setItem("pendingOrder", JSON.stringify(updatedOrders));
+                    }
+                })
 
-                // Guardamos nuevamente en localStorage
-                localStorage.setItem("pendingOrder", JSON.stringify(updatedOrders));
+        } else {
+            Swal.fire({
+                title: "Productos sin tildar",
+                text: `Desea cambiar el estado igual?`,
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#17a2b8",
+                cancelButtonColor: "#868e96",
+                confirmButtonText: "Aceptar"
+            })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        setOrderStatus(newStatus);
 
-            }
-        })
+                        const updatedOrders = pendingOrders.map(order =>
+                            order.orderId === Number(idOrderDetail)
+                                ? { ...order, orderStatus: newStatus }
+                                : order
+                        );
+
+                        setPendingOrders(updatedOrders);
+                        localStorage.setItem("pendingOrder", JSON.stringify(updatedOrders));
+                    }
+                })
+
+
+        }
+
+
 
     };
 
@@ -139,8 +163,13 @@ const OrderDetailInfo = ({ idOrderDetail }) => {
                 }
             </section>
 
+            <Button onClick={() => { testButton() }}>test</Button>
+
             <OrderDetailInfoCard
-                orderArray={selectOrder?.orderArray}
+                orderArray={selectOrder?.orderArray || []}
+                getPendingOrders={pendingOrders}
+                selectOrder={selectOrder}
+                setPendingOrders={setPendingOrders}
             />
 
         </div>

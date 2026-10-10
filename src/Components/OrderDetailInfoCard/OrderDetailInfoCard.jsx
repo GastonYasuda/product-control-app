@@ -1,12 +1,34 @@
-import React from 'react'
+const OrderDetailInfoCard = ({ orderArray, getPendingOrders, selectOrder, setPendingOrders }) => {
 
-const OrderDetailInfoCard = ({ orderArray }) => {
+    const handleCheckProduct = (id) => {
+        const checkedProduct = orderArray.map(p =>
+            p.id === id ? { ...p, checked: !p.checked } : p
+        );
+
+        const updatedPendingOrders = getPendingOrders.map(orden =>
+            orden.orderId === selectOrder.orderId
+                ? { ...orden, orderArray: checkedProduct }
+                : orden
+        );
+
+        if (setPendingOrders) {
+            setPendingOrders(updatedPendingOrders);
+        }
+
+        localStorage.setItem("pendingOrder", JSON.stringify(updatedPendingOrders));
+    }
 
 
     return (
         <>
-            {orderArray.map((order =>
+            {orderArray.map((order) => (
                 <div key={order.id} className='w-100 d-flex flex-row rounded bg-light mx-auto my-3 card align-items-center' style={{ height: '96px' }}>
+                    <input
+                        type='checkbox'
+                        // Aseguramos un valor booleano por si order.checked viene undefined/null
+                        checked={order.checked ?? false}
+                        onChange={() => handleCheckProduct(order.id)}
+                    />
 
                     <img src={order.image} className='w-25 h-100 object-fit-contain rounded flex-1' alt={`${order.name} img`} />
 
@@ -20,4 +42,4 @@ const OrderDetailInfoCard = ({ orderArray }) => {
     )
 }
 
-export default OrderDetailInfoCard
+export default OrderDetailInfoCard;
