@@ -1,6 +1,8 @@
 import React, { useContext, useState } from 'react'
 import { Button } from 'react-bootstrap'
 import { ProductApi } from '../../Context/ProductControlApi'
+import Swal from 'sweetalert2'
+
 
 
 const SendPendingProducts = () => {
