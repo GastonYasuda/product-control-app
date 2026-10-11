@@ -1,3 +1,6 @@
+import './orderDetailInfoCard.css'
+
+
 const OrderDetailInfoCard = ({ orderArray, getPendingOrders, selectOrder, setPendingOrders }) => {
 
     const handleCheckProduct = (id) => {
@@ -23,12 +26,24 @@ const OrderDetailInfoCard = ({ orderArray, getPendingOrders, selectOrder, setPen
         <>
             {orderArray.map((order) => (
                 <div key={order.id} className='w-100 d-flex flex-row rounded bg-light mx-auto my-3 card align-items-center' style={{ height: '96px' }}>
-                    <input
-                        type='checkbox'
-                        // Aseguramos un valor booleano por si order.checked viene undefined/null
-                        checked={order.checked ?? false}
-                        onChange={() => handleCheckProduct(order.id)}
-                    />
+
+                    {/* <input
+                            type='checkbox'
+                            className="tgl tgl-ios" id="cb2-7"
+                            checked={order.checked ?? false}
+                            onChange={() => handleCheckProduct(order.id)}
+                        /> */}
+
+                    <div className="checkbox-wrapper-40 mx-2">
+                        <input type="checkbox"
+                            className="tgl tgl-ios" id="cb2-7"
+                            checked={order.checked ?? false}
+                            onChange={() => handleCheckProduct(order.id)} />
+                        <span className="checkbox"></span>
+                    </div>
+
+
+
 
                     <img src={order.image} className='w-25 h-100 object-fit-contain rounded flex-1' alt={`${order.name} img`} />
 

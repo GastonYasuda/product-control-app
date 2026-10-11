@@ -2,10 +2,9 @@ import React, { useContext, useState } from 'react'
 import OrderDetailInfoCard from '../OrderDetailInfoCard/OrderDetailInfoCard';
 import { Button, Dropdown } from 'react-bootstrap';
 import Swal from 'sweetalert2'
-import { ProductApi } from '../../Context/ProductControlApi';
+
 
 const OrderDetailInfo = ({ idOrderDetail }) => {
-    const { aplicateSweetAlert } = useContext(ProductApi)
 
     const userOrders = JSON.parse(localStorage.getItem('userPass')) || []
     const userRol = userOrders.rol
@@ -162,8 +161,6 @@ const OrderDetailInfo = ({ idOrderDetail }) => {
                     </span>
                 }
             </section>
-
-            <Button onClick={() => { testButton() }}>test</Button>
 
             <OrderDetailInfoCard
                 orderArray={selectOrder?.orderArray || []}
