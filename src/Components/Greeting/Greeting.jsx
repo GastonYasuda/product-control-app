@@ -1,5 +1,3 @@
-import React, { useEffect } from 'react'
-import { Button } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
 import SendPendingProducts from '../SendPendingProducts/SendPendingProducts'
 
