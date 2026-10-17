@@ -58,7 +58,7 @@ const MainCard = ({ cardName }) => {
             {elementsArray.length > 0 ?
                 elementsArray.map((selectElement, i) => (
                     <Col key={i}>
-                        <Card className="h-100 d-flex justify-content-space-between">
+                        <Card className="d-flex justify-content-space-between">
                             <Link to={`/${cardName}/${selectElement.name}`}>
 
                                 <div className='homeCardImage d-flex justify-content-center align-items-center'>
@@ -69,14 +69,10 @@ const MainCard = ({ cardName }) => {
                                         :
                                         <img src={selectElement.img} className='w-75' />
                                     }
-
-
                                 </div>
 
-
-
                                 <Card.Body>
-                                    <div className='text-center mt-3 text-black'>
+                                    <div className='text-center text-black'>
                                         <h5>{selectElement.name}</h5>
                                     </div>
                                 </Card.Body>

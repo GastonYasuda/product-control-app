@@ -167,6 +167,7 @@ const OrderDetailInfo = ({ idOrderDetail }) => {
                 getPendingOrders={pendingOrders}
                 selectOrder={selectOrder}
                 setPendingOrders={setPendingOrders}
+                userRol={userRol}
             />
 
         </div>

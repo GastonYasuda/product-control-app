@@ -1,7 +1,7 @@
 import './orderDetailInfoCard.css'
 
 
-const OrderDetailInfoCard = ({ orderArray, getPendingOrders, selectOrder, setPendingOrders }) => {
+const OrderDetailInfoCard = ({ orderArray, getPendingOrders, selectOrder, setPendingOrders, userRol }) => {
 
     const handleCheckProduct = (id) => {
         const checkedProduct = orderArray.map(p =>
@@ -34,15 +34,15 @@ const OrderDetailInfoCard = ({ orderArray, getPendingOrders, selectOrder, setPen
                             onChange={() => handleCheckProduct(order.id)}
                         /> */}
 
-                    <div className="checkbox-wrapper-40 mx-2">
-                        <input type="checkbox"
-                            className="tgl tgl-ios" id="cb2-7"
-                            checked={order.checked ?? false}
-                            onChange={() => handleCheckProduct(order.id)} />
-                        <span className="checkbox"></span>
-                    </div>
-
-
+                    {userRol === 'deposito' &&
+                        <div className="checkbox-wrapper-40 mx-2">
+                            <input type="checkbox"
+                                className="tgl tgl-ios" id="cb2-7"
+                                checked={order.checked ?? false}
+                                onChange={() => handleCheckProduct(order.id)} />
+                            <span className="checkbox"></span>
+                        </div>
+                    }
 
 
                     <img src={order.image} className='w-25 h-100 object-fit-contain rounded flex-1' alt={`${order.name} img`} />
