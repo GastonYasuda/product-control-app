@@ -4,7 +4,6 @@ export const DataProductApi = createContext()
 
 const DataBaseProductApi = ({ children }) => {
 
-    // const urlAllProducts = 'https://6a8cdd7663f113bab0b8788d.mockapi.io/product
 
     const [getAllProducts, setGetAllProducts] = useState([])
 
@@ -18,10 +17,9 @@ const DataBaseProductApi = ({ children }) => {
     }
 
 
-
     const getAllProductsFromDB = async () => {
         try {
-            const response = await fetch('https://6a8cdd7663f113bab0b8788d.mockapi.io/product')
+            const response = await fetch('http://localhost:3000/products')
             if (response.ok) {
                 const data = await response.json()
                 setGetAllProducts([...getAllProducts, ...data])

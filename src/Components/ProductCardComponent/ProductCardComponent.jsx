@@ -87,7 +87,7 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser }) => {
             const exists = pendingProducts.some(p => p.id === id)
 
             const productMerged = exists
-                ? pendingProducts.map(p => p.id === id ? { ...p, count: cantidad, pending: true } : p)
+                ? pendingProducts.map(p => p.id === id ? { ...p, count: cant, pending: true } : p)
                 : [...pendingProducts, { ...product, count: cant, pending: true }]
 
             savePending(productMerged)

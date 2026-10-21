@@ -34,7 +34,7 @@ const OrderDetailInfoCard = ({ orderArray, getPendingOrders, selectOrder, setPen
                             onChange={() => handleCheckProduct(order.id)}
                         /> */}
 
-                    {userRol === 'deposito' &&
+                    {userRol === 'Depósito' &&
                         <div className="checkbox-wrapper-40 mx-2">
                             <input type="checkbox"
                                 className="tgl tgl-ios" id="cb2-7"

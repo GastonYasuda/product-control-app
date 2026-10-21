@@ -4,26 +4,7 @@
         "name": "Gaston",
         "pass": "gas",
         "rol": "Depósito",
-        "userPendingProd": [
-            {
-                "id": "1",
-                "name": "Vaso Pampa",
-                "category": {
-                    "name": "Bazar",
-                    "img": "sell"
-                },
-                "supplier": {
-                    "name": "Durax",
-                    "img": "https://http2.mlstatic.com/D_NQ_NP_796251-MLA78218162873_082024-O.webp"
-                },
-                "image": "https://grisellbazar.com.ar/wp-content/uploads/2025/11/VASO-PAMPA.jpg",
-                "code": 1234,
-                "count": 45,
-                "price": 958,
-                "stock": 54,
-                "pending": true
-            }
-        ],
+        "userPendingProd": [],
         "userDeliveredProd": []
     },
     {
@@ -31,90 +12,8 @@
         "name": "Daiana",
         "pass": "da",
         "rol": "Salón",
-        "userPendingProd": [
-            {
-                "id": "13",
-                "name": "Auto Escarabajo",
-                "category": {
-                    "name": "Jugueteria",
-                    "img": "toys"
-                },
-                "supplier": {
-                    "name": "Toy Shop",
-                    "img": "https://img.magnific.com/vector-gratis/diseno-fuente-word-toy-shop-muchos-juguetes_1308-42318.jpg?semt=ais_hybrid&w=740&q=80"
-                },
-                "image": "https://acdn-us.mitiendanube.com/stores/003/673/840/products/ikken36-d318060cc986d7465217151929954075-1024-1024.webp",
-                "code": 443,
-                "count": 11,
-                "price": 640,
-                "stock": 75,
-                "pending": true
-            },
-            {
-                "id": "14",
-                "name": "Esfera Dron",
-                "category": {
-                    "name": "Jugueteria",
-                    "img": "toys"
-                },
-                "supplier": {
-                    "name": "Toy Shop",
-                    "img": "https://img.magnific.com/vector-gratis/diseno-fuente-word-toy-shop-muchos-juguetes_1308-42318.jpg?semt=ais_hybrid&w=740&q=80"
-                },
-                "image": "https://http2.mlstatic.com/D_NQ_NP_2X_759584-MLA110037419158_042026-F.webp",
-                "code": 443,
-                "count": 22,
-                "price": 640,
-                "stock": 75,
-                "pending": true
-            }
-        ],
-        "userDeliveredProd": [
-            {
-                "orderId": "877",
-                "orderStatus": "En Preparación",
-                "date": " 2026-10-01T01: 43: 42.645Z",
-                "userOrder": "Daiana",
-                "orderArray": [
-                    {
-                        "id": "20",
-                        "name": "Luminox Impreso Fangio",
-                        "category": {
-                            "name": "Bazar",
-                            "img": "sell"
-                        },
-                        "supplier": {
-                            "name": "Lumilagro",
-                            "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdisFCMqAmUSsUZeyxhdit7LLXtyHfbhi2BHE7g5Ti3eM1mmygIYGYZyCF&s=10"
-                        },
-                        "image": "https://www.lumilagro.com.ar/wp-content/uploads/2025/01/Fangio-1-.webp",
-                        "code": 443,
-                        "count": 0,
-                        "price": 640,
-                        "stock": 75,
-                        "pending": false
-                    },
-                    {
-                        "id": "15",
-                        "name": "Formula 1 A525",
-                        "category": {
-                            "name": "Jugueteria",
-                            "img": "toys"
-                        },
-                        "supplier": {
-                            "name": "Toy Shop",
-                            "img": "https://img.magnific.com/vector-gratis/diseno-fuente-word-toy-shop-muchos-juguetes_1308-42318.jpg?semt=ais_hybrid&w=740&q=80"
-                        },
-                        "image": "https://http2.mlstatic.com/D_NQ_NP_2X_667274-CBT104322313217_012026-F.webp",
-                        "code": 443,
-                        "count": 0,
-                        "price": 640,
-                        "stock": 75,
-                        "pending": false
-                    }
-                ]
-            }
-        ]
+        "userPendingProd": [],
+        "userDeliveredProd": []
     },
     {
         "id": 3,
