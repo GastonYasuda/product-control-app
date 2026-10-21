@@ -17,8 +17,9 @@ const Home = () => {
         const getUser = JSON.parse(localStorage.getItem("userPass"))
         setLoginUser(getUser);
 
-    }, [])
+        console.log(loginUser);
 
+    }, [])
 
 
     return (
@@ -27,7 +28,7 @@ const Home = () => {
             {loginUser !== null &&
                 <>
                     <section className='fixed-top headerComponent'>
-                        < Greeting userName={loginUser.name} userRol={loginUser.rol} />
+                        < Greeting userName={loginUser.user_name} userRol={loginUser.user_rol} />
 
 
                         <div className='d-block d-lg-none'>

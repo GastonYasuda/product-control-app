@@ -1,16 +1,19 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './navbarMobile.css'
 import { Link, useNavigate } from 'react-router-dom'
 import Dropdown from 'react-bootstrap/Dropdown';
+import { ProductApi } from '../../Context/ProductControlApi';
 
 
 const NavBarMobile = () => {
+    const { setLoginUser } = useContext(ProductApi)
 
     const navigate = useNavigate()
 
     const cleanLoginStorage = () => {
 
         localStorage.setItem('userPass', JSON.stringify([]))
+        setLoginUser([])
         navigate('/login');
     }
 

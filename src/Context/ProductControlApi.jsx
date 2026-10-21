@@ -9,6 +9,8 @@ const ProductControlApi = ({ children }) => {
     const [loginUser, setLoginUser] = useState(JSON.parse(localStorage.getItem('userPass')))
 
 
+
+
     useEffect(() => {
 
         if (loginUser === null || loginUser.length === 0) {
@@ -17,14 +19,41 @@ const ProductControlApi = ({ children }) => {
             setLoginUser(JSON.parse(localStorage.getItem('userPass')))
         }
 
-
     }, [])
 
 
-    const test = () => {
-        console.log('Probando si anda');
+    const getUsersData = async (user, password) => {
 
+        try {
+            const response = await fetch('http://localhost:3000/users')
+            if (response.ok) {
+                const data = await response.json()
+                //    console.log(data);
+                const validateUserPass = data.find(eachUser => eachUser.user_name.toLocaleLowerCase() === user && eachUser.user_pass.toLocaleLowerCase() === password)
+                //   console.log(validateUserPass);
+
+                if (validateUserPass) {
+                    localStorage.setItem('userPass', JSON.stringify(validateUserPass))
+                    setLoginUser(validateUserPass);
+                } else {
+                    aplicateSweetAlert("Usuario o Contraseña incorrecta!", "Ingrese nuevamente su usuario y contraseña", "warning")
+                }
+
+            } else {
+                throw new Error("Error al intentar obtener productos");
+
+            }
+        }
+        catch (error) {
+            console.error(error)
+        }
     }
+
+
+
+
+
+
 
 
     const orderByName = (productoArray) => {
@@ -42,7 +71,7 @@ const ProductControlApi = ({ children }) => {
     }
 
     return (
-        <ProductApi.Provider value={{ test, loginUser, setLoginUser, orderByName, aplicateSweetAlert }}>
+        <ProductApi.Provider value={{ getUsersData, loginUser, setLoginUser, orderByName, aplicateSweetAlert }}>
             {children}
         </ProductApi.Provider>
     )

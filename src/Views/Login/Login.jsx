@@ -2,14 +2,13 @@ import React, { useContext, useEffect, useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import './login.css'
-import users from '../../../src/assets/users.json'
+// import users from '../../../src/assets/users.json'
 import { useNavigate } from 'react-router-dom';
 import { ProductApi } from '../../Context/ProductControlApi';
 
 const Login = () => {
 
-    const { aplicateSweetAlert } = useContext(ProductApi)
-    const [almostLogged, setAlmostLogged] = useState(JSON.parse(localStorage.getItem("userPass")))
+    const { getUsersData, loginUser } = useContext(ProductApi)
 
 
     const [user, setUser] = useState('')
@@ -18,39 +17,27 @@ const Login = () => {
 
     useEffect(() => {
 
-        if (almostLogged !== null) {
-            almostLogged.length !== 0 ? navigate('/home') : navigate('/login')
+        if (loginUser !== null) {
+            loginUser.length !== 0 ? navigate('/home') : navigate('/login')
         } else {
             localStorage.setItem('userPass', JSON.stringify([]))
         }
+        console.log(loginUser);
 
-    }, [])
+    }, [loginUser])
+
+
 
 
 
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        getUsersData(user, password)
 
         console.log('Usuario:', user)
         console.log('Password:', password)
-
-        const validateUserPass = users.find(eachUser => eachUser.name.toLocaleLowerCase() === user && eachUser.pass.toLocaleLowerCase() === password)
-
-        if (validateUserPass === undefined) {
-            localStorage.setItem('userPass', JSON.stringify([]))
-            setUser('')
-            setPassword('')
-
-            aplicateSweetAlert("Usuario o Contraseña incorrecta!", "Ingrese nuevamente su usuario y contraseña", "warning")
-
-        } else {
-
-            localStorage.setItem('userPass', JSON.stringify(validateUserPass))
-            console.log(validateUserPass);
-
-            navigate('/home')
-        }
+        loginUser.length > 0 && navigate('/home')
 
     }
 
