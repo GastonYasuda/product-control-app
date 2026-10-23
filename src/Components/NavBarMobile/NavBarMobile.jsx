@@ -48,7 +48,7 @@ const NavBarMobile = () => {
                 <span className='navbar_txt'>Proveedor</span>
             </Link>
 
-            <Link to={'/order'} className='navBar_container_item text-secondary'>
+            <Link to={'/pending'} className='navBar_container_item text-secondary'>
                 <span className="material-symbols-outlined navbar_icon">
                     order_approve
                 </span>

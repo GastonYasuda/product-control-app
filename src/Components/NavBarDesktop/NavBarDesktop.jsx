@@ -37,7 +37,7 @@ const NavBarDesktop = () => {
                         <span className='ms-1'>Proveedor</span>
                     </Link>
 
-                    <Link to={'/order'} className='ms-4 d-flex flex-row align-items-center text-light'>
+                    <Link to={'/pending'} className='ms-4 d-flex flex-row align-items-center text-light'>
                         <span className="material-symbols-outlined">
                             order_approve
                         </span>
