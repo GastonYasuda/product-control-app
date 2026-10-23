@@ -16,7 +16,7 @@ const Order = () => {
         <div className='mt-5'>
             <section className='fixed-top headerComponent'>
                 {loginUser &&
-                    <Greeting userName={loginUser.name} userRol={loginUser.rol} />
+                    <Greeting userName={loginUser.user_name} userRol={loginUser.user_rol} />
                 }
                 <div className='d-block d-lg-none'>
                     <SearchBar />

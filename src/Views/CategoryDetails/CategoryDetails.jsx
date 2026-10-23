@@ -16,7 +16,7 @@ const CategoryDetails = () => {
         <div className='mt-5'>
             <section className='fixed-top headerComponent'>
                 {loginUser &&
-                    <Greeting userName={loginUser.name} userRol={loginUser.rol} />
+                    <Greeting userName={loginUser.user_name} userRol={loginUser.user_rol} />
                 }
 
                 <div className='d-block d-lg-none'>
@@ -26,7 +26,7 @@ const CategoryDetails = () => {
 
             <h4 className='mt-5 text-start ps-3'> {idCategory}</h4>
 
-            <DetailElementComponent detailElementName={idCategory} from={'category'} />
+            <DetailElementComponent from={'category'} detailElementName={idCategory} />
 
             <NavBar />
 

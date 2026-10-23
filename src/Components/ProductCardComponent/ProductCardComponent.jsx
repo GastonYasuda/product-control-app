@@ -12,21 +12,25 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser }) => {
 
 
     const [showProducts, setShowProducts] = useState([])
-    const [pendingProducts, setPendingProducts] = useState(loginUser.userPendingProd ?? [])
+    const [pendingProducts, setPendingProducts] = useState(loginUser.pending_orders ?? [])
 
     const [variant, setVariant] = useState('')
 
 
-    const { userPendingProd } = loginUser
+    const { pending_orders } = loginUser
 
     useEffect(() => {
 
 
-        const pending = userPendingProd ?? []
+
+        const pending = pending_orders ?? []
         setPendingProducts(pending)
+        console.log(pending);
+
 
         if (from === 'productCard') {
             mergeProdFunc(getAllProducts, pending)
+
         } else if (from === 'searchBar') {
             setShowProducts(orderByName(
                 searchProductArray.map(p =>
@@ -36,11 +40,11 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser }) => {
                 )
             ))
         }
-    }, [getAllProducts, searchProductArray, userPendingProd])
+    }, [getAllProducts, searchProductArray, pending_orders])
 
 
     const savePending = (newPending) => {
-        const updatedUser = { ...loginUser, userPendingProd: newPending }
+        const updatedUser = { ...loginUser, pending_orders: newPending }
         setPendingProducts(newPending)
         setLoginUser(updatedUser)                                   // actualiza la app
         localStorage.setItem('userPass', JSON.stringify(updatedUser)) // persiste
@@ -49,11 +53,11 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser }) => {
     const mergeProdFunc = (array1, array2) => {
         const mergedProducts = [
             ...new Map(
-                [...array1, ...array2].map(product => [product.id, product])
+                [...array1, ...array2].map(product => [product.product_id, product])
             ).values()
         ];
         console.log('productos para mostrar en pantalla', mergedProducts);
-        setShowProducts(orderByName(mergedProducts))
+        setShowProducts((mergedProducts))
     }
 
 
@@ -153,7 +157,9 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser }) => {
             <Row xs={2} md={4} className="productsCardContainer g-4 mx-auto justify-content-center" >
                 {
                     showProducts.map((product, i) => (
-                        <ProductCardComponentDetail product={product} key={product.id} deleteOrder={deleteOrder} addToOrder={addToOrder} variant={variant} setVariant={setVariant} from={from} />
+                        <section key={i}>
+                            <ProductCardComponentDetail product={product} key={product.id} deleteOrder={deleteOrder} addToOrder={addToOrder} variant={variant} setVariant={setVariant} from={from} />
+                        </section>
                     ))
                 }
             </Row>

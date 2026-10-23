@@ -11,13 +11,16 @@ import ProductCardComponent from '../../Components/ProductCardComponent/ProductC
 
 
 const ProductsCards = () => {
-    const { desdeDB, getAllProducts } = useContext(DataProductApi)
+    const { getAllProducts } = useContext(DataProductApi)
     const { loginUser } = useContext(ProductApi)
 
     const [loading, setLoading] = useState(false)
 
 
     useEffect(() => {
+
+        console.log(loginUser)
+
 
         if (getAllProducts.length === 0) {
             setLoading(true)
@@ -35,7 +38,7 @@ const ProductsCards = () => {
             <section className='fixed-top headerComponent'>
 
                 {loginUser &&
-                    <Greeting userName={loginUser.name} userRol={loginUser.rol} />
+                    <Greeting userName={loginUser.user_name} userRol={loginUser.user_rol} />
                 }
 
                 <div className='d-block d-lg-none'>

@@ -6,20 +6,21 @@ import './mainCard.css'
 
 const MainCard = ({ cardName }) => {
 
-    const { getAllProducts } = useContext(DataProductApi)
+    //const { getAllProducts } = useContext(DataProductApi)
     const [elementsArray, setElementsArray] = useState([])
 
     useEffect(() => {
+        getAllCategorySupplier(cardName)
 
-        if (getAllProducts.length > 0) {
+        if (elementsArray.length > 0) {
             if (cardName === 'category') {
                 const uniqueCategory = [
                     ...new Map(
-                        getAllProducts.map(prod => [
+                        elementsArray.map(prod => [
                             prod.category.name,
                             {
-                                name: prod.category.name,
-                                img: prod.category.img
+                                name: prod.category_name,
+                                img: prod.category_img
                             }
                         ])
                     ).values()
@@ -27,17 +28,17 @@ const MainCard = ({ cardName }) => {
 
 
                 setElementsArray(uniqueCategory);
-                // console.log(uniqueCategory);
+
 
 
             } else if (cardName === 'supplier') {
                 const uniqueSuplier = [
                     ...new Map(
-                        getAllProducts.map(prod => [
-                            prod.supplier.name,
+                        elementsArray.map(prod => [
+                            prod.supplier_name,
                             {
-                                name: prod.supplier.name,
-                                img: prod.supplier.img
+                                name: prod.supplier_name,
+                                img: prod.supplier_img
                             }
                         ])
                     ).values()
@@ -45,9 +46,22 @@ const MainCard = ({ cardName }) => {
 
                 setElementsArray(uniqueSuplier);
             }
+
         }
 
-    }, [getAllProducts])
+    }, [])
+
+
+    const getAllCategorySupplier = async (card_name) => {
+        const response = await fetch(`http://localhost:3000/${card_name}`)
+        if (response.ok) {
+            const data = await response.json()
+            setElementsArray(data)
+        } else {
+            throw new Error("Error al intentar obtener datos");
+
+        }
+    }
 
 
 
@@ -59,21 +73,20 @@ const MainCard = ({ cardName }) => {
                 elementsArray.map((selectElement, i) => (
                     <Col key={i}>
                         <Card className="d-flex justify-content-space-between">
-                            <Link to={`/${cardName}/${selectElement.name}`}>
-
+                            <Link to={`/${cardName}/${selectElement[`${cardName}_name`]}`}>
                                 <div className='homeCardImage d-flex justify-content-center align-items-center'>
                                     {cardName === 'category' ?
                                         <span className="material-symbols-outlined">
-                                            {selectElement.img}
+                                            {selectElement.category_img}
                                         </span>
                                         :
-                                        <img src={selectElement.img} className='w-75' />
+                                        <img src={selectElement.supplier_img} className='w-75' />
                                     }
                                 </div>
 
                                 <Card.Body>
                                     <div className='text-center text-black'>
-                                        <h5>{selectElement.name}</h5>
+                                        <h5>{selectElement.category_name}</h5>
                                     </div>
                                 </Card.Body>
                             </Link>
@@ -86,7 +99,7 @@ const MainCard = ({ cardName }) => {
 
 
 
-        </Row>
+        </Row >
     )
 }
 

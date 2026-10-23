@@ -6,57 +6,54 @@ import ProductCardComponentDetail from '../ProductCardComponentDetail/ProductCar
 import { toast, Slide, ToastContainer } from 'react-toastify';
 
 
-const DetailElementComponent = ({ detailElementName, from }) => {
+const DetailElementComponent = ({ from, detailElementName }) => {
 
     const { getAllProducts } = useContext(DataProductApi)
     const { orderByName, loginUser, setLoginUser, aplicateSweetAlert } = useContext(ProductApi)
 
     const [detailElement, setDetailElement] = useState([])
-    const [pendingProducts, setPendingProducts] = useState(loginUser.userPendingProd ?? [])
+    const [pendingProducts, setPendingProducts] = useState(loginUser.pending_orders ?? [])
     const [showProducts, setShowProducts] = useState([])
 
     const [variant, setVariant] = useState('')
 
     useEffect(() => {
-
-        if (from === 'category') {
-            const selectedCategory = getAllProducts.filter(prod => prod.category.name === detailElementName)
-            setDetailElement(selectedCategory)
-            mergeProdFunc(selectedCategory)
-
-
-        } else if (from === 'supplier') {
-
-            const selectedSupplier = getAllProducts.filter(prod => prod.supplier.name === detailElementName)
-            setDetailElement(selectedSupplier)
-
-            mergeProdFunc(selectedSupplier)
-
-        } else if (from === 'orderList') {
-
-            const getArray = pendingProducts.flatMap(userProduct =>
-                getAllProducts.filter(product => product.id === userProduct.id)
-                    .map(product => ({
-                        ...product,
-                        count: userProduct.count,
-                        pending: userProduct.pending
-                    }))
-            )
-            //   console.log(getArray)
-            setShowProducts(orderByName(getArray))
-        }
-
+        getProductsByItem(from, detailElementName)
 
     }, [getAllProducts, detailElementName, pendingProducts, loginUser])
+
+    const getProductsByItem = async (from, itemId) => {
+        // console.log(from);
+        // console.log(itemId);
+
+        try {
+            const response = await fetch(`http://localhost:3000/${from}/${itemId}`)
+            if (response.ok) {
+                const data = await response.json()
+                console.log(data);
+                setDetailElement(data)
+                setShowProducts(data)
+                // mergeProdFunc(data)
+
+            } else {
+                throw new Error("Error al intentar obtener productos");
+
+            }
+        }
+        catch (error) {
+            console.error(error)
+        }
+    }
 
 
     const mergeProdFunc = (array1) => {
 
         if (from === 'category') {
 
-            const pendingProductsByCategory = pendingProducts.filter(pendingProd => pendingProd.category.name === detailElementName)
-            //   console.log(pendingProductsByCategory);
-            // console.log(array1);
+            const pendingProductsByCategory = pendingProducts.filter(pendingProd => pendingProd.category_name === detailElementName)
+            // console.log(pendingProductsByCategory);
+            // console.log(detailElementName);
+
 
             const mergedProducts = [
                 ...new Map(
@@ -65,7 +62,7 @@ const DetailElementComponent = ({ detailElementName, from }) => {
             ];
             // console.log('mergedProducts2', mergedProducts);
 
-            setShowProducts(orderByName(mergedProducts))
+            setShowProducts((mergedProducts))
 
         } else if (from === 'supplier') {
 
@@ -167,8 +164,10 @@ const DetailElementComponent = ({ detailElementName, from }) => {
         <>
             <Row className="productsCardContainer g-4 mx-auto justify-content-center" >
 
-                {showProducts.map((product, i) => (
-                    <ProductCardComponentDetail product={product} key={product.id} deleteOrder={deleteOrder} addToOrder={addToOrder} variant={variant} setVariant={setVariant} from={from} />
+                {showProducts.map((product) => (
+                    <section key={product.product_id}>
+                        <ProductCardComponentDetail product={product} deleteOrder={deleteOrder} addToOrder={addToOrder} variant={variant} setVariant={setVariant} from={from} />
+                    </section>
                 ))
                 }
             </Row>

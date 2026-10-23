@@ -20,47 +20,47 @@ const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, variant,
 
 
     return (
-        <Col>
+        <Col >
             <Card className={`w-100 h-100 d-flex cardComponent--${variant}`}>
                 {product.pending && <span className='pendientStyle position-absolute top-0 badge bg-warning p-2 mt-2'>Pendiente</span>}
 
-                <Link to={`/product/${product.name}`}>
+                <Link to={`/product/${product.product_name}`}>
                     <div className='w-100 m-auto homeCardImage'>
-                        <img src={product.image} className='w-100 h-100 object-fit-contain' alt={`${product.name} img`} />
+                        <img src={product.product_img} className='w-100 h-100 object-fit-contain' alt={`${product.product_img} img`} />
                     </div>
                 </Link>
 
                 <Card.Body className='d-flex flex-column justify-content-between'>
                     <div className='text-start d-flex flex-column'>
                         <div>
-                            <h6>{product.name}</h6>
-                            <p>{product.supplier.name}</p>
+                            <h6>{product.category.category_name}</h6>
+                            <p>{product.supplier.supplier_name}</p>
                         </div>
                     </div>
 
                     <div>
                         <div className='w-100 d-flex flex-column justify-content-between'>
-                            <span className='text-start'>Cod: {product.code}</span>
+                            <span className='text-start'>Cod: {product.product_sku}</span>
                             <section className='d-flex justify-content-between'>
-                                <span className='fw-semibold'>${product.price}</span>
-                                <span>Stock: {product.stock}</span>
+                                <span className='fw-semibold'>${product.product_price}</span>
+                                <span>Stock: {product.product_stock}</span>
                             </section>
                         </div>
                         <Form className='d-flex flex-column mt-2'>
                             <Form.Control
                                 type="number"
-                                placeholder={product.count}
+                                placeholder={product.product_count}
                                 value={inputCount}
                                 onChange={(e) => setInputCount(e.target.value)}
                             />
                             <section className='d-flex mt-3'>
-                                <Button type="button" variant='secondary' className='w-50 me-2' onClick={() => { deleteOrder(product.id) }}>
+                                <Button type="button" variant='secondary' className='w-50 me-2' onClick={() => { deleteOrder(product.product_id) }}>
                                     <span className="material-symbols-outlined">
                                         remove_shopping_cart
                                     </span>
                                 </Button>
 
-                                <Button variant="info" className='w-50 me-2' onClick={() => { addToOrder(product.id, inputCount); setInputCount(''); }}>
+                                <Button variant="info" className='w-50 me-2' onClick={() => { addToOrder(product.product_id, inputCount); setInputCount(''); }}>
                                     <span className="material-symbols-outlined text-light">
                                         add_shopping_cart
                                     </span>
