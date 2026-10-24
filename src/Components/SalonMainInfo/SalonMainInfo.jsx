@@ -5,19 +5,44 @@ import { ProductApi } from '../../Context/ProductControlApi'
 
 const MainInfo = () => {
     const { loginUser } = useContext(ProductApi)
+    const [userOrder, setUserOrder] = useState([])
+
+
+    // const userOrders = JSON.parse(localStorage.getItem('pendingOrder')) || []
+    // const orders = loginUser?.name
+    //     ? userOrders.filter(o => o.userOrder === loginUser.name)
+    //     : []
+
+    useEffect(() => {
+        getUserOrders()
+    }, [])
+
+    const getUserOrders = async () => {
+        try {
+            const response = await fetch(`http://localhost:3000/users/${loginUser.user_id}/orders`)
+            if (response.ok) {
+                const data = await response.json()
+                console.log(data);
+                setUserOrder(data)
+
+
+            } else {
+                throw new Error("Error al intentar obtener productos");
+
+            }
+        }
+        catch (error) {
+            console.error(error)
+        }
+    }
 
 
 
-    const userOrders = JSON.parse(localStorage.getItem('pendingOrder')) || []
-    const orders = loginUser?.name
-        ? userOrders.filter(o => o.userOrder === loginUser.name)
-        : []
 
 
-
-    const onProcessCount = orders.filter(order => order.orderStatus === 'En Preparación')
-    const preparedCount = orders.filter(order => order.orderStatus === 'Preparado')
-    const deliveredCount = orders.filter(order => order.orderStatus === 'Entregado')
+    const onProcessCount = userOrder.filter(order => order.status_name === 'En Preparación')
+    const preparedCount = userOrder.filter(order => order.status_name === 'Preparado')
+    const deliveredCount = userOrder.filter(order => order.status_name === 'Entregado')
 
     const salonCards = [
         {
@@ -35,29 +60,9 @@ const MainInfo = () => {
         }
     ]
 
-    useEffect(() => {
-
-        console.log(loginUser.orders);
-        //   getUserOrders()
-    }, [])
-
-    const getUserOrders = async () => {
-        try {
-            const response = await fetch(`http://localhost:3000/users/${loginUser.user_id}/orders`)
-            if (response.ok) {
-                const data = await response.json()
-                console.log(data);
 
 
-            } else {
-                throw new Error("Error al intentar obtener productos");
 
-            }
-        }
-        catch (error) {
-            console.error(error)
-        }
-    }
 
     return (
         <div className="mt-5">

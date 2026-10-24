@@ -9,17 +9,29 @@ import DepoMainInfo from '../../Components/DepoMainInfo/DepoMainInfo';
 
 const Home = () => {
 
-    const { loginUser, setLoginUser } = useContext(ProductApi)
+    const { loginUser } = useContext(ProductApi)
+
+    // const getUserOrder = async (userId) => {
+    //     try {
+    //         const response = await fetch(`http://localhost:3000/users/${userId}/orders`)
+    //         if (response.ok) {
+    //             const data = await response.json()
+    //             console.log(data);
+
+    //         } else {
+    //             throw new Error("Error al intentar obtener productos");
+    //         }
+    //     }
+    //     catch (error) {
+    //         console.error(error)
+    //     }
+    // }
+
+
+    // getUserOrder(loginUser.user_id)
 
 
 
-    useEffect(() => {
-        const getUser = JSON.parse(localStorage.getItem("userPass"))
-        setLoginUser(getUser);
-
-        console.log(loginUser);
-
-    }, [])
 
 
     return (
@@ -42,9 +54,9 @@ const Home = () => {
                 </>
 
             }
-            <div className="d-none d-lg-block">
+            {/* <div className="d-none d-lg-block">
                 <NavBarDesktop />
-            </div>
+            </div> */}
 
             <div className="d-block d-lg-none">
                 <NavBarMobile />

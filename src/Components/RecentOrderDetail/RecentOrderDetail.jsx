@@ -4,9 +4,8 @@ import { ProductApi } from '../../Context/ProductControlApi'
 
 const RecentOrderDetail = ({ orderData }) => {
 
-    const { formatDate } = useContext(ProductApi)
-    const userOrders = JSON.parse(localStorage.getItem('userPass')) || []
-    const userRol = userOrders.user_rol
+    const { formatDate, loginUser } = useContext(ProductApi)
+    const userRol = loginUser.user_rol
 
     return (
         <Link to={`/orderDetail/${orderData.order_id}`} className='text-reset card m-3 py-2'>

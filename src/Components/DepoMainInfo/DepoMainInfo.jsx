@@ -7,12 +7,17 @@ const DepoMainInfo = () => {
 
     const [allOrders, setAllorders] = useState([])
 
+    useEffect(() => {
+        getAllOrders()
+    }, [])
+
+
     const getAllOrders = async () => {
         try {
             const response = await fetch(`http://localhost:3000/orders`)
             if (response.ok) {
                 const data = await response.json()
-                // console.log(data);
+                console.log(data);
                 setAllorders(data)
 
             } else {
@@ -26,12 +31,11 @@ const DepoMainInfo = () => {
     }
 
 
-
     const onProcessCount = allOrders.filter(order => order.status_name === 'En Preparación')
     const preparedCount = allOrders.filter(order => order.status_name === 'Preparado')
     const deliveredCount = allOrders.filter(order => order.status_name === 'Entregado')
 
-    getAllOrders()
+
     // useEffect(() => {
     // console.log('onProcessCount', onProcessCount);
     // console.log('preparedCount', preparedCount)
