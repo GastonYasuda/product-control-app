@@ -1,177 +1,128 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import OrderDetailInfoCard from '../OrderDetailInfoCard/OrderDetailInfoCard';
-import { Button, Dropdown } from 'react-bootstrap';
+import { Dropdown } from 'react-bootstrap';
 import Swal from 'sweetalert2'
+import { ProductApi } from '../../Context/ProductControlApi';
 
+// ⚠️ Verificá estos ids contra tu tabla `status`
+const STATUSES = [
+    { id: 1, name: "En Preparación" },
+    { id: 2, name: "Preparado" },
+    { id: 3, name: "Entregado" },
+];
+
+const statusClass = (name) =>
+    name === 'Entregado' ? 'bg-secondary'
+        : name === 'Preparado' ? 'bg-success'
+            : 'bg-info';
 
 const OrderDetailInfo = ({ idOrderDetail }) => {
+    const { loginUser, formatDate } = useContext(ProductApi);
+    const userRol = loginUser.user_rol;
 
-    const userOrders = JSON.parse(localStorage.getItem('userPass')) || []
-    const userRol = userOrders.rol
+    const [orderUser, setOrderUser] = useState(null);
 
-    const [pendingOrders, setPendingOrders] = useState(() => {
-        return JSON.parse(localStorage.getItem("pendingOrder")) || [];
-    });
-
-    const selectOrder = pendingOrders.find(
-        order => order.orderId === Number(idOrderDetail)
-    );
-
-    const [orderStatus, setOrderStatus] = useState(
-        selectOrder?.orderStatus || "En Preparación"
-    );
-
-    const handleChangeOrderStatus = (newStatus) => {
-
-        const allChecked = selectOrder.orderArray.filter(p => p.checked === true)
-
-        if (allChecked.length === selectOrder.orderArray.length) {
-
-            Swal.fire({
-                title: "Desea cambiar el estado de la orden?",
-                text: `"${orderStatus}" a "${newStatus}"`,
-                icon: "question",
-                showCancelButton: true,
-                confirmButtonColor: "#17a2b8",
-                cancelButtonColor: "#868e96",
-                confirmButtonText: "Cambiar"
-            })
-                .then((result) => {
-                    if (result.isConfirmed) {
-                        setOrderStatus(newStatus);
-
-                        const updatedOrders = pendingOrders.map(order =>
-                            order.orderId === Number(idOrderDetail)
-                                ? { ...order, orderStatus: newStatus }
-                                : order
-                        );
-
-                        setPendingOrders(updatedOrders);
-                        localStorage.setItem("pendingOrder", JSON.stringify(updatedOrders));
-                    }
-                })
-
-        } else {
-            Swal.fire({
-                title: "Productos sin tildar",
-                text: `Desea cambiar el estado igual?`,
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#17a2b8",
-                cancelButtonColor: "#868e96",
-                confirmButtonText: "Aceptar"
-            })
-                .then((result) => {
-                    if (result.isConfirmed) {
-                        setOrderStatus(newStatus);
-
-                        const updatedOrders = pendingOrders.map(order =>
-                            order.orderId === Number(idOrderDetail)
-                                ? { ...order, orderStatus: newStatus }
-                                : order
-                        );
-
-                        setPendingOrders(updatedOrders);
-                        localStorage.setItem("pendingOrder", JSON.stringify(updatedOrders));
-                    }
-                })
-
-
+    const getOneOrder = async (orderId) => {
+        try {
+            const response = await fetch(`http://localhost:3000/orders/${orderId}`);
+            if (!response.ok) throw new Error(`Error al intentar obtener orden con id ${orderId}`);
+            const data = await response.json();
+            setOrderUser(data);
+        } catch (error) {
+            console.error(error);
         }
-
-
-
     };
 
+    useEffect(() => {
+        if (idOrderDetail) getOneOrder(idOrderDetail);
+    }, [idOrderDetail]);
+
+    const updateStatus = async (status) => {
+        try {
+            const response = await fetch(`http://localhost:3000/orders/${orderUser.order_id}/status`, {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ order_status: status.id }),
+            });
+            if (!response.ok) {
+                const err = await response.json();
+                throw new Error(err.error);
+            }
+            await getOneOrder(orderUser.order_id); // recargo con los datos reales
+        } catch (error) {
+            console.error(error);
+            Swal.fire("Error", "No se pudo cambiar el estado", "error");
+        }
+    };
+
+    const handleChangeOrderStatus = async (status) => {
+        const currentStatus = orderUser.status_name;
+        if (status.name === currentStatus) return;
+
+        const products = orderUser.ordered_products || [];
+        const allChecked = products.every((p) => p.product_checked);
+
+        const result = await Swal.fire({
+            title: allChecked ? "¿Desea cambiar el estado de la orden?" : "Productos sin tildar",
+            text: allChecked
+                ? `"${currentStatus}" a "${status.name}"`
+                : "¿Desea cambiar el estado igual?",
+            icon: allChecked ? "question" : "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#17a2b8",
+            cancelButtonColor: "#868e96",
+            confirmButtonText: allChecked ? "Cambiar" : "Aceptar",
+        });
+
+        if (result.isConfirmed) updateStatus(status);
+    };
+
+    if (!orderUser) return <p className='mt-5 text-center'>Cargando...</p>;
 
     return (
         <div className='mt-5 text-start px-3'>
-
             <section className='d-flex align-items-center mb-4'>
+                <h6 className='flex-fill mb-0'>Pedido #{orderUser.order_id}</h6>
+                <h6 className='flex-fill mb-0'>{formatDate(orderUser.order_date)}</h6>
 
-                <h6 className='flex-fill mb-0'>
-                    Pedido #{selectOrder?.orderId}
-                </h6>
-
-                <h6 className='flex-fill mb-0'>
-                    {selectOrder?.date}
-                </h6>
-
-                {userRol === 'Depósito' ?
+                {userRol === 'deposito' ? (
                     <Dropdown className='navBar_container_item mt-3'>
-
                         <Dropdown.Toggle
                             variant="success"
                             id="dropdown-basic"
-                            className={`d-flex algin-items-center 
-                            ${orderStatus === 'Entregado'
-                                    ? 'bg-secondary'
-                                    : orderStatus === 'Preparado'
-                                        ? 'bg-success'
-                                        : 'bg-info'}
-                                `}
+                            className={`d-flex align-items-center ${statusClass(orderUser.status_name)}`}
                         >
-                            {orderStatus}
-
-                            <span className="material-symbols-outlined mt-1 ps-1">
-                                stat_minus_1
-                            </span>
+                            {orderUser.status_name}
+                            <span className="material-symbols-outlined mt-1 ps-1">stat_minus_1</span>
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu className='mt-5 rounded'>
-
-                            <Dropdown.Item
-                                className='dropdown-menu-txt pt-2'
-                                onClick={() =>
-                                    handleChangeOrderStatus("En Preparación")
-                                }
-                            >
-                                En Preparación
-                            </Dropdown.Item>
-
-                            <Dropdown.Item
-                                className='dropdown-menu-txt pt-2'
-                                onClick={() =>
-                                    handleChangeOrderStatus("Preparado")
-                                }
-                            >
-                                Preparado
-                            </Dropdown.Item>
-
-                            <Dropdown.Item
-                                className='dropdown-menu-txt pt-2'
-                                onClick={() =>
-                                    handleChangeOrderStatus("Entregado")
-                                }
-                            >
-                                Entregado
-                            </Dropdown.Item>
-
+                            {STATUSES.map((s) => (
+                                <Dropdown.Item
+                                    key={s.id}
+                                    className='dropdown-menu-txt pt-2'
+                                    onClick={() => handleChangeOrderStatus(s)}
+                                >
+                                    {s.name}
+                                </Dropdown.Item>
+                            ))}
                         </Dropdown.Menu>
-
                     </Dropdown>
-                    :
-                    <span className={`${orderStatus === 'Entregado'
-                        ? 'bg-secondary'
-                        : orderStatus === 'Preparado'
-                            ? 'bg-success'
-                            : 'bg-info'
-                        } text-white rounded py-2 text-center lh-1 flex-fill`}>
-                        {orderStatus}
+                ) : (
+                    <span className={`${statusClass(orderUser.status_name)} text-white rounded py-2 text-center lh-1 flex-fill`}>
+                        {orderUser.status_name}
                     </span>
-                }
+                )}
             </section>
 
             <OrderDetailInfoCard
-                orderArray={selectOrder?.orderArray || []}
-                getPendingOrders={pendingOrders}
-                selectOrder={selectOrder}
-                setPendingOrders={setPendingOrders}
+                orderArray={orderUser.ordered_products || []}
+                selectOrder={orderUser}
+                setOrderUser={setOrderUser}
                 userRol={userRol}
             />
-
         </div>
-    )
-}
+    );
+};
 
-export default OrderDetailInfo
+export default OrderDetailInfo;

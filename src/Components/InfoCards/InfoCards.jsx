@@ -3,6 +3,7 @@ import Card from 'react-bootstrap/Card';
 import './infoCard.css';
 
 const InfoCards = ({ cardParams }) => {
+
     return (
         <div className='infoCard_component mt-5'>
 

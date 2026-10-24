@@ -35,6 +35,30 @@ const MainInfo = () => {
         }
     ]
 
+    useEffect(() => {
+
+        console.log(loginUser.orders);
+        //   getUserOrders()
+    }, [])
+
+    const getUserOrders = async () => {
+        try {
+            const response = await fetch(`http://localhost:3000/users/${loginUser.user_id}/orders`)
+            if (response.ok) {
+                const data = await response.json()
+                console.log(data);
+
+
+            } else {
+                throw new Error("Error al intentar obtener productos");
+
+            }
+        }
+        catch (error) {
+            console.error(error)
+        }
+    }
+
     return (
         <div className="mt-5">
             <InfoCards cardParams={salonCards} />

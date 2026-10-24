@@ -12,8 +12,6 @@ const OrderDetail = () => {
 
     const { idOrderDetail } = useParams()
 
-    console.log(idOrderDetail);
-
 
     return (
         <div className='mt-5'>

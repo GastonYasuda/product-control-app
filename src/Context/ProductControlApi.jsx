@@ -40,7 +40,7 @@ const ProductControlApi = ({ children }) => {
                 }
 
             } else {
-                throw new Error("Error al intentar obtener productos");
+                throw new Error("Error al intentar obtener usuario");
 
             }
         }
@@ -64,8 +64,15 @@ const ProductControlApi = ({ children }) => {
         });
     }
 
+    const formatDate = (iso) =>
+        new Date(iso).toLocaleDateString("es-AR", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "2-digit",
+        });
+
     return (
-        <ProductApi.Provider value={{ getUsersData, loginUser, setLoginUser, orderByName, aplicateSweetAlert }}>
+        <ProductApi.Provider value={{ getUsersData, loginUser, setLoginUser, orderByName, aplicateSweetAlert, formatDate }}>
             {children}
         </ProductApi.Provider>
     )

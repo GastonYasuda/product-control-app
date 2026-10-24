@@ -3,10 +3,8 @@ import noProductImg from '../../assets/noProducts.png'
 
 const RecentOrders = ({ preparedCount, deliveredCount, onProcessCount }) => {
 
-    console.log(onProcessCount);
-    console.log(preparedCount);
-
-
+    // console.log(onProcessCount);
+    // console.log(preparedCount);
 
     return (
         <div className='mt-3'>
