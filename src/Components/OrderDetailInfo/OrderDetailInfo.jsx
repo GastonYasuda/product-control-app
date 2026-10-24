@@ -4,12 +4,6 @@ import { Dropdown } from 'react-bootstrap';
 import Swal from 'sweetalert2'
 import { ProductApi } from '../../Context/ProductControlApi';
 
-// ⚠️ Verificá estos ids contra tu tabla `status`
-const STATUSES = [
-    { id: 1, name: "En Preparación" },
-    { id: 2, name: "Preparado" },
-    { id: 3, name: "Entregado" },
-];
 
 const statusClass = (name) =>
     name === 'Entregado' ? 'bg-secondary'
@@ -21,6 +15,22 @@ const OrderDetailInfo = ({ idOrderDetail }) => {
     const userRol = loginUser.user_rol;
 
     const [orderUser, setOrderUser] = useState(null);
+
+    const [statuses, setStatuses] = useState([]);
+
+    useEffect(() => {
+        const getStatuses = async () => {
+            try {
+                const response = await fetch("http://localhost:3000/status");
+                if (!response.ok) throw new Error("Error al obtener estados");
+                setStatuses(await response.json());
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        getStatuses();
+    }, []);
+
 
     const getOneOrder = async (orderId) => {
         try {
@@ -42,7 +52,7 @@ const OrderDetailInfo = ({ idOrderDetail }) => {
             const response = await fetch(`http://localhost:3000/orders/${orderUser.order_id}/status`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ order_status: status.id }),
+                body: JSON.stringify({ order_status: status.status_id }),
             });
             if (!response.ok) {
                 const err = await response.json();
@@ -65,7 +75,7 @@ const OrderDetailInfo = ({ idOrderDetail }) => {
         const result = await Swal.fire({
             title: allChecked ? "¿Desea cambiar el estado de la orden?" : "Productos sin tildar",
             text: allChecked
-                ? `"${currentStatus}" a "${status.name}"`
+                ? `"${currentStatus}" a "${status.status_name}"`
                 : "¿Desea cambiar el estado igual?",
             icon: allChecked ? "question" : "warning",
             showCancelButton: true,
@@ -80,7 +90,7 @@ const OrderDetailInfo = ({ idOrderDetail }) => {
     if (!orderUser) return <p className='mt-5 text-center'>Cargando...</p>;
 
     return (
-        <div className='mt-5 text-start px-3'>
+        <div className='mt-5 mb-5 text-start px-3'>
             <section className='d-flex align-items-center mb-4'>
                 <h6 className='flex-fill mb-0'>Pedido #{orderUser.order_id}</h6>
                 <h6 className='flex-fill mb-0'>{formatDate(orderUser.order_date)}</h6>
@@ -97,13 +107,13 @@ const OrderDetailInfo = ({ idOrderDetail }) => {
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu className='mt-5 rounded'>
-                            {STATUSES.map((s) => (
+                            {statuses.map((s) => (
                                 <Dropdown.Item
-                                    key={s.id}
+                                    key={s.status_id}
                                     className='dropdown-menu-txt pt-2'
                                     onClick={() => handleChangeOrderStatus(s)}
                                 >
-                                    {s.name}
+                                    {s.status_name}
                                 </Dropdown.Item>
                             ))}
                         </Dropdown.Menu>

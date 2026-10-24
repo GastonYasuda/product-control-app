@@ -10,9 +10,8 @@ const RecentOrderDetail = ({ orderData }) => {
 
     return (
         <Link to={`/orderDetail/${orderData.order_id}`} className='text-reset card m-3 py-2'>
-            <div className='h-100 d-flex rounded bg-light
-        align-items-center'>
-                <span className='flex-fill'>#{orderData.order_id}</span>
+            <div className='h-100 d-flex rounded bg-light justify-content-end align-items-center'>
+                <span className='flex-fill orderDataId'>#{orderData.order_id}</span>
                 <span className={`${orderData.status_name === 'Entregado'
                     ? 'bg-secondary'
                     : orderData.status_name === 'Preparado'

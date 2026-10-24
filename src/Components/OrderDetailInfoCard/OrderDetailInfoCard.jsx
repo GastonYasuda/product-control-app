@@ -6,7 +6,7 @@ const OrderDetailInfoCard = ({ orderArray, selectOrder, setOrderUser, userRol })
         console.log("ordered_product_id:", orderedProductId, "order_id:", selectOrder.order_id);
         const previousOrder = selectOrder;
 
-        // 1. actualizo la UI al instante
+        //actualizo
         const updatedProducts = orderArray.map((p) =>
             p.ordered_product_id === orderedProductId
                 ? { ...p, product_checked: checked }
@@ -14,7 +14,7 @@ const OrderDetailInfoCard = ({ orderArray, selectOrder, setOrderUser, userRol })
         );
         setOrderUser({ ...selectOrder, ordered_products: updatedProducts });
 
-        // 2. guardo en el back solo el producto que cambió
+        //guardo en el back solo el producto que cambio
         try {
             const response = await fetch(`http://localhost:3000/orders/${selectOrder.order_id}`, {
                 method: "PATCH",
@@ -32,7 +32,7 @@ const OrderDetailInfoCard = ({ orderArray, selectOrder, setOrderUser, userRol })
             }
         } catch (error) {
             console.error(error);
-            // 3. si falla, vuelvo al estado anterior
+            // si falla, vuelve al estado anterior
             setOrderUser(previousOrder);
         }
     };
