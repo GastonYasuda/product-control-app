@@ -33,8 +33,8 @@ const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, variant,
                 <Card.Body className='d-flex flex-column justify-content-between'>
                     <div className='text-start d-flex flex-column'>
                         <div>
-                            <h6>{product.category.category_name}</h6>
-                            <p>{product.supplier.supplier_name}</p>
+                            <h6>{product.category_name}</h6>
+                            <p>{product.supplier_name}</p>
                         </div>
                     </div>
 
