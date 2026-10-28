@@ -6,51 +6,65 @@ import ProductCardComponentDetail from '../ProductCardComponentDetail/ProductCar
 import { toast, Slide, ToastContainer } from 'react-toastify';
 
 
-const DetailElementComponent = ({ from, detailElementName }) => {
+const DetailElementComponent = ({ from, detailElementName, allPendings, detailElement }) => {
 
     const { getAllProducts } = useContext(DataProductApi)
     const { orderByName, loginUser, setLoginUser, aplicateSweetAlert } = useContext(ProductApi)
 
-    const [detailElement, setDetailElement] = useState([])
-    const [pendingProducts, setPendingProducts] = useState(loginUser.pending_orders ?? [])
+
+
     const [showProducts, setShowProducts] = useState([])
+    const [pendingBadge, setPendingBadge] = useState(false)
+    const [inputCount, setInputCount] = useState('0')
+
+
 
     const [variant, setVariant] = useState('')
 
+
+
+
     useEffect(() => {
-        getProductsByItem(from, detailElementName)
 
-    }, [getAllProducts, detailElementName, pendingProducts, loginUser])
+        if (allPendings !== undefined && detailElement.length !== 0) {
+            test()
 
-    const getProductsByItem = async (from, itemId) => {
-        // console.log(from);
-        // console.log(itemId);
+        }
 
-        try {
-            const response = await fetch(`http://localhost:3000/${from}/${itemId}`)
-            if (response.ok) {
-                const data = await response.json()
-                console.log(data);
-                setDetailElement(data)
-                //     setShowProducts(data)
-                mergeProdFunc(data)
 
-            } else {
-                throw new Error("Error al intentar obtener productos");
 
+    }, [allPendings, detailElement])
+
+
+    const test = () => {
+        const nuevoProducto = detailElement.map(de => {
+            const pendiente = allPendings.find(
+                ap => Number(ap.product_id) === Number(de.product_id)
+            );
+
+            if (pendiente) {
+                return {
+                    ...de,
+                    product_count: pendiente.pending_order_quantity
+                };
             }
-        }
-        catch (error) {
-            console.error(error)
-        }
-    }
+
+            return de;
+        });
+
+        console.log(nuevoProducto);
+        setShowProducts(nuevoProducto)
+
+
+    };
+
 
 
     const mergeProdFunc = (array1) => {
 
         if (from === 'category') {
 
-            const pendingProductsByCategory = pendingProducts.filter(pendingProd => pendingProd.category_name === detailElementName)
+            const pendingProductsByCategory = allPendings.filter(pendingProd => pendingProd.category_name === detailElementName)
             // console.log(pendingProductsByCategory);
             // console.log(detailElementName);
 
@@ -66,7 +80,7 @@ const DetailElementComponent = ({ from, detailElementName }) => {
 
         } else if (from === 'supplier') {
 
-            const pendingProductsBySupplier = pendingProducts.filter(pendingProd => pendingProd.supplier.name === detailElementName)
+            const pendingProductsBySupplier = allPendings.filter(pendingProd => pendingProd.supplier.name === detailElementName)
 
             const mergedProducts = [
                 ...new Map(
@@ -91,11 +105,11 @@ const DetailElementComponent = ({ from, detailElementName }) => {
         if (!Number.isInteger(cant) || cant <= 0) return aplicateSweetAlert("Cantidad Erronea", "Ingrese un número mayor a 0", "warning")
         if (cant > product.stock) return aplicateSweetAlert("Stock Insuficiente", "", "warning")
 
-        const exists = pendingProducts.some(p => p.id === id)
+        const exists = allPendings.some(p => p.id === id)
 
         const productMerged = exists
-            ? pendingProducts.map(p => p.id === id ? { ...p, count: cant, pending: true } : p)
-            : [...pendingProducts, { ...product, count: cant, pending: true }]
+            ? allPendings.map(p => p.id === id ? { ...p, count: cant, pending: true } : p)
+            : [...allPendings, { ...product, count: cant, pending: true }]
 
         savePending(productMerged)
 
@@ -129,7 +143,7 @@ const DetailElementComponent = ({ from, detailElementName }) => {
 
 
     const deleteOrder = (id) => {
-        const newPending = pendingProducts.filter(p => p.id !== id)
+        const newPending = allPendings.filter(p => p.id !== id)
 
         savePending(newPending)
 
@@ -141,7 +155,7 @@ const DetailElementComponent = ({ from, detailElementName }) => {
             )
         ))
 
-        const erasedProduct = pendingProducts.find(p => p.id === id)
+        const erasedProduct = allPendings.find(p => p.id === id)
         toast.warn(`Quitaste ${erasedProduct.name} de pendientes`, {
             position: "top-right",
             autoClose: 2000,

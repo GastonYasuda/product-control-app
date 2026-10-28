@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom'
 import SearchBar from '../../Components/SearchBar/SearchBar'
 import NavBar from '../../Components/NavBar/NavBar'
 import DetailElementComponent from '../../Components/DetailElementComponent/DetailElementComponent'
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import Greeting from '../../Components/Greeting/Greeting'
 import { ProductApi } from '../../Context/ProductControlApi'
 
@@ -10,6 +10,56 @@ const CategoryDetails = () => {
     const { loginUser } = useContext(ProductApi)
 
     const { idCategory } = useParams()
+    const [detailElement, setDetailElement] = useState([])
+    // const [pendingProducts, setPendingProducts] = useState(loginUser.pending_orders ?? [])
+    const [allPendings, setAllPendings] = useState();
+
+    useEffect(() => {
+        getProductsByItem(idCategory)
+        getUserPending()
+    }, [])
+
+    const getUserPending = async () => {
+        try {
+            const response = await fetch(`http://localhost:3000/users/${loginUser.user_id}/pending`)
+            if (response.ok) {
+                const data = await response.json()
+                //   console.log('lo q tengo ahora', data);
+                setAllPendings(data)
+
+
+            } else {
+                throw new Error("Error al intentar obtener usuario");
+
+            }
+        }
+        catch (error) {
+            console.error(error)
+        }
+    }
+
+
+
+    const getProductsByItem = async (itemId) => {
+
+        try {
+            const response = await fetch(`http://localhost:3000/category/${itemId}`)
+            if (response.ok) {
+                const data = await response.json()
+                console.log('prod de la cat', data);
+                setDetailElement(data)
+                // mergeProdFunc(data)
+
+            } else {
+                throw new Error("Error al intentar obtener productos");
+
+            }
+        }
+        catch (error) {
+            console.error(error)
+        }
+    }
+
 
 
     return (
@@ -26,7 +76,10 @@ const CategoryDetails = () => {
 
             <h4 className='mt-5 text-start ps-3'> {idCategory}</h4>
 
-            <DetailElementComponent from={'category'} detailElementName={idCategory} />
+            <DetailElementComponent from={'category'}
+                detailElementName={idCategory}
+                allPendings={allPendings}
+                detailElement={detailElement} />
 
             <NavBar />
 

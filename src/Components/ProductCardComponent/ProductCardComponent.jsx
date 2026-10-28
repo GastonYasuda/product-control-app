@@ -87,7 +87,7 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser }) => {
 
 
         } else if (from === 'searchBar') {
-            console.log(product.name);
+            //  console.log(product.name);
             const exists = pendingProducts.some(p => p.id === id)
 
             const productMerged = exists
