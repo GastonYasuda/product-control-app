@@ -75,9 +75,11 @@ const CategoryDetails = () => {
 
             <h4 className='mt-5 text-start ps-3'> {idCategory}</h4>
 
-            <DetailElementComponent from={'category'}
+            <DetailElementComponent
+                from={'category'}
                 detailElementName={idCategory}
                 allPendings={allPendings}
+                setAllPendings={setAllPendings}
                 detailElement={detailElement} />
 
             <NavBar />

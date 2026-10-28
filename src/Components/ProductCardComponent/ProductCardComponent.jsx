@@ -301,14 +301,21 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings
             transition: Slide,
         });
     }
-
+    //original
     return (
         <>
             <Row xs={2} md={4} className="productsCardContainer g-4 mx-auto justify-content-center" >
                 {
                     showProducts.map((product, i) => (
                         <section key={i}>
-                            <ProductCardComponentDetail product={product} key={product.id} deleteOrder={deleteOrder} addToOrder={addToOrder} variant={variant} setVariant={setVariant} from={from} />
+                            <ProductCardComponentDetail
+                                product={product}
+                                key={product.id}
+                                deleteOrder={deleteOrder}
+                                addToOrder={addToOrder}
+                                variant={variant}
+                                setVariant={setVariant}
+                                from={from} />
                         </section>
                     ))
                 }
