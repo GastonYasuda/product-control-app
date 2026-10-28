@@ -3,14 +3,14 @@ import SendPendingProducts from '../SendPendingProducts/SendPendingProducts'
 
 const Greeting = ({ userName, userRol }) => {
 
-    const { order } = useParams()
+    const { idPending } = useParams()
 
     return (
         <div className='mb-2 ps-3 text-start'>
             <h5>Hola {userName} 👋</h5>
             <p>{userRol}</p>
 
-            {order === 'order' && <SendPendingProducts />
+            {idPending === 'pending' && <SendPendingProducts />
             }
         </div>
     )

@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import './order.css'
 import SearchBar from '../../Components/SearchBar/SearchBar'
 import NavBar from '../../Components/NavBar/NavBar'
@@ -9,8 +9,35 @@ import noProductImg from '../../assets/noProducts.png'
 
 const Order = () => {
     const { loginUser } = useContext(ProductApi)
-    const pendingProducts = loginUser?.userPendingProd ?? []
-    const count = pendingProducts.length
+    // const pendingProducts = loginUser?.userPendingProd ?? []
+
+    // const [detailElement, setDetailElement] = useState([])
+    const [allPendings, setAllPendings] = useState([]);
+    const count = allPendings.length
+
+    useEffect(() => {
+        getUserPending()
+    }, [])
+
+    const getUserPending = async () => {
+        try {
+            const response = await fetch(`http://localhost:3000/users/${loginUser.user_id}/pending`)
+            if (response.ok) {
+                const data = await response.json()
+                //  console.log('lo q tengo ahora', data);
+                setAllPendings(data)
+
+
+            } else {
+                throw new Error("Error al intentar obtener usuario");
+
+            }
+        }
+        catch (error) {
+            console.error(error)
+        }
+    }
+
 
     return (
         <div className='mt-5'>
@@ -29,7 +56,12 @@ const Order = () => {
                         {count} {count === 1 ? 'Producto Pendiente' : 'Productos Pendientes'}
                     </h4>
                     <section className='orderMainComponent'>
-                        <DetailElementComponent from={'orderList'} />
+                        <DetailElementComponent
+                            from={'pendingProductList'}
+                            allPendings={allPendings}
+                            setAllPendings={setAllPendings}
+                        // detailElement={detailElement}
+                        />
                     </section>
                 </>
                 :

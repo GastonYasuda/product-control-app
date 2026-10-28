@@ -4,6 +4,7 @@ import { DataProductApi } from '../../Context/DataBaseProductApi'
 import { ProductApi } from '../../Context/ProductControlApi'
 import ProductCardComponentDetail from '../ProductCardComponentDetail/ProductCardComponentDetail'
 import { toast, Slide, ToastContainer } from 'react-toastify';
+import Swal from 'sweetalert2'
 
 
 const DetailElementComponent = ({ from, allPendings, setAllPendings, detailElement }) => {
@@ -25,55 +26,68 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
 
 
     useEffect(() => {
+        // console.log(detailElement);
 
-        console.log(detailElement);
+        if (from !== 'pendingProductList') {
 
+            if (allPendings !== undefined && detailElement.length !== 0) {
 
-        if (allPendings !== undefined && detailElement.length !== 0) {
-            mergeDetailElementAllPending(allPendings)
+                mergeDetailElementAllPending(allPendings)
+            }
+
+        } else {
+
+            funcionParaOrder(allPendings)
+
         }
 
-        // if (allPendings) {
-        //     if (from === 'category') {
-        //         // mergeProdFunc(getAllProducts, pending)
-        //         mergeDetailElementAllPending(allPendings)
-        //         console.log(allPendings);
+
+    }, [allPendings, getAllProducts])
+
+    const funcionParaOrder = (arrayAdd) => {
+        const newProductsArray = arrayAdd.map(pending => {
+            const product = getAllProducts.find(
+                p => Number(p.product_id) === Number(pending.product_id)
+            );
+
+            if (!product) return null;
+
+            return {
+                ...product,
+                product_count: pending.pending_order_quantity,
+                pending: true
+            };
+        }).filter(Boolean);
 
 
-        //     } else if (from === 'searchBar') {
-        //         setShowProducts(
-        //             searchProductArray.map(p =>
-        //                 pending.find(pp => pp.id === p.id)
-        //                 ?? getAllProducts.find(gp => gp.id === p.id)
-        //                 ?? p
+        setShowProducts(newProductsArray)
+    }
 
-        //             ))
-        //     }
-        // }
-
-
-
-    }, [allPendings, detailElement])
 
 
     const mergeDetailElementAllPending = (allPendingProducts) => {
-        const nuevoProducto = detailElement.map(de => {
-            const pendiente = allPendingProducts.find(
-                ap => Number(ap.product_id) === Number(de.product_id)
+        console.log(detailElement);
+
+        // if (!Array.isArray(detailElement)) {
+        //     console.error("detailElement no es un array:", detailElement);
+        //     return;
+        // }
+
+        const pendientes = Array.isArray(allPendingProducts)
+            ? allPendingProducts
+            : [];
+
+        const nuevoProducto = detailElement.map(product => {
+            const pendiente = pendientes.find(
+                p => Number(p.product_id) === Number(product.product_id)
             );
 
-            if (pendiente) {
-                return {
-                    ...de,
-                    product_count: pendiente.pending_order_quantity,
-                    pending: true
-                };
-            }
-
             return {
-                ...de,
-                product_count: 0,
-                pending: false
+                ...product,
+                product_count: pendiente
+                    ? pendiente.pending_order_quantity
+                    : 0,
+                pending: Boolean(pendiente),
             };
         });
 
@@ -81,27 +95,6 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
     };
 
 
-    // const mergeDetailElementAllPending = () => {
-    //     const nuevoProducto = detailElement.map(de => {
-    //         const pendiente = allPendings.find(
-    //             ap => Number(ap.product_id) === Number(de.product_id)
-    //         );
-
-    //         if (pendiente) {
-    //             return {
-    //                 ...de,
-    //                 product_count: pendiente.pending_order_quantity,
-    //                 pending: true
-    //             };
-    //         }
-
-    //         return de;
-    //     });
-
-    //     console.log(nuevoProducto);
-    //     setShowProducts(nuevoProducto)
-
-    // };
 
     const addToOrder = async (id_product, count) => {
         const quantity = Number(count);
@@ -185,50 +178,20 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
         };
         //console.log(updatedPendings);
         setAllPendings(updatedPendings);
-        mergeDetailElementAllPending(updatedPendings);
+
+        if (from !== 'pendingProductList') {
+
+            mergeDetailElementAllPending(updatedPendings);
+        } else {
+            console.log(updatedPendings);
+
+            funcionParaOrder(updatedPendings)
+        }
         localStorage.setItem("userPass", JSON.stringify(updatedUser));
 
     };
 
 
-
-    // const addToOrder = (id, count) => {
-
-    //     const cant = Number(count)
-    //     const product = getAllProducts.find(p => p.id === id)
-
-    //     if (!product) return
-
-    //     if (!Number.isInteger(cant) || cant <= 0) return aplicateSweetAlert("Cantidad Erronea", "Ingrese un número mayor a 0", "warning")
-    //     if (cant > product.stock) return aplicateSweetAlert("Stock Insuficiente", "", "warning")
-
-    //     const exists = allPendings.some(p => p.id === id)
-
-    //     const productMerged = exists
-    //         ? allPendings.map(p => p.id === id ? { ...p, count: cant, pending: true } : p)
-    //         : [...allPendings, { ...product, count: cant, pending: true }]
-
-    //     savePending(productMerged)
-
-    //     const searchProductArrayUpdated = detailElement.map(p =>
-    //         productMerged.find(pp => pp.id === p.id) ?? p
-    //     )
-    //     //  console.log('searchProductArrayUpdated', searchProductArrayUpdated);
-
-    //     setShowProducts(orderByName(searchProductArrayUpdated))
-
-    //     toast.success(`Agregaste ${count} unidades de ${product.name} a pendientes`, {
-    //         position: "top-right",
-    //         autoClose: 2000,
-    //         hideProgressBar: false,
-    //         closeOnClick: false,
-    //         pauseOnHover: true,
-    //         draggable: true,
-    //         progress: undefined,
-    //         theme: "dark",
-    //         transition: Slide,
-    //     });
-    // }
 
 
 
@@ -325,7 +288,16 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
 
             // 5. Actualizar la interfaz
             setAllPendings(newPendingArray);
-            mergeDetailElementAllPending(newPendingArray);
+
+
+
+            if (from !== 'pendingProductList') {
+
+                mergeDetailElementAllPending(newPendingArray);
+            } else {
+
+                funcionParaOrder(newPendingArray)
+            }
 
             // setPendingBadge(false);
             setInputCount("");

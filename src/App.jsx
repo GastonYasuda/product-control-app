@@ -32,7 +32,7 @@ function App() {
         <Route path='/category/:idCategory' element={<CategoryDetails />} />
         <Route path='/supplier' element={<Supplier />} />
         <Route path='/supplier/:idSupplier' element={<SupplierDetail />} />
-        <Route path='/pending' element={<Order />} />
+        <Route path='/:idPending' element={<Order />} />
         <Route path='/searchResult' element={<SearchResults />} />
         <Route path='/searchResults/:idSearchResults' element={<SearchResults />} />
         <Route path='/orderDetail/:idOrderDetail' element={<OrderDetail />} />

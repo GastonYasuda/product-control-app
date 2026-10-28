@@ -20,10 +20,7 @@ const ProductsCards = () => {
 
 
     useEffect(() => {
-
-
         getUserPending()
-
 
         if (getAllProducts.length === 0) {
             setLoading(true)
@@ -31,7 +28,6 @@ const ProductsCards = () => {
         } else {
             setLoading(false)
         }
-
 
     }, [getAllProducts])
 
