@@ -5,8 +5,8 @@ import ProductDetail from './Views/ProductDetail/ProductDetail'
 import Order from './Views/Order/Order'
 import Category from './Views/Category/Category'
 import CategoryDetails from './Views/CategoryDetails/CategoryDetails'
-import Suppier from './Views/Suppier/Suppier'
-import SuppierDetail from './Views/SuppierDetail/SuppierDetail'
+import Supplier from './Views/Supplier/Supplier'
+import SupplierDetail from './Views/SupplierDetail/SupplierDetail'
 import ProductsCards from './Views/ProductsCards/ProductsCards'
 import { useContext, useEffect, useState } from 'react'
 import SearchResults from './Views/SearchResults/SearchResults'
@@ -30,8 +30,8 @@ function App() {
         <Route path='/product/:idProduct' element={<ProductDetail />} />
         <Route path='/category' element={<Category />} />
         <Route path='/category/:idCategory' element={<CategoryDetails />} />
-        <Route path='/supplier' element={<Suppier />} />
-        <Route path='/supplier/:idSupplier' element={<SuppierDetail />} />
+        <Route path='/supplier' element={<Supplier />} />
+        <Route path='/supplier/:idSupplier' element={<SupplierDetail />} />
         <Route path='/pending' element={<Order />} />
         <Route path='/searchResult' element={<SearchResults />} />
         <Route path='/searchResults/:idSearchResults' element={<SearchResults />} />
