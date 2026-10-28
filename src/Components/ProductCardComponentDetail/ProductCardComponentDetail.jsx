@@ -10,6 +10,7 @@ const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, variant,
 
     useEffect(() => {
 
+        console.log(product);
 
         if (from === 'category' || from === 'supplier' || from === 'productCard') {
             setVariant('vertical')
@@ -22,9 +23,9 @@ const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, variant,
     return (
         <Col >
             <Card className={`w-100 h-100 d-flex cardComponent--${variant}`}>
-                {product.pending && <span className='pendientStyle position-absolute top-0 badge bg-warning p-2 mt-2'>Pendiente</span>}
+                {/* {product.pending && <span className='pendientStyle position-absolute top-0 badge bg-warning p-2 mt-2'>Pendiente</span>} */}
 
-                <Link to={`/product/${product.product_name}`}>
+                <Link to={`/product/${product.product_id}`}>
                     <div className='w-100 m-auto homeCardImage'>
                         <img src={product.product_img} className='w-100 h-100 object-fit-contain' alt={`${product.product_img} img`} />
                     </div>

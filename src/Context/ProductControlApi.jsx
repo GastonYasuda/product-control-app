@@ -50,6 +50,7 @@ const ProductControlApi = ({ children }) => {
     }
 
 
+
     const orderByName = (productoArray) => {
         return [...productoArray].sort((a, b) =>
             a.name.localeCompare(b.name)
@@ -70,6 +71,12 @@ const ProductControlApi = ({ children }) => {
             month: "2-digit",
             year: "2-digit",
         });
+
+
+    // showTostify("success", "Producto guardado correctamente");
+    // showTostify("error", "Ocurrió un error");
+    // showTostify("warning", "Revisá los datos");
+    // showTostify("info", "Pedido actualizado");
 
     return (
         <ProductApi.Provider value={{ getUsersData, loginUser, setLoginUser, orderByName, aplicateSweetAlert, formatDate }}>

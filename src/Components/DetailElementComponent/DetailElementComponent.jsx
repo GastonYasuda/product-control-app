@@ -32,8 +32,8 @@ const DetailElementComponent = ({ from, detailElementName }) => {
                 const data = await response.json()
                 console.log(data);
                 setDetailElement(data)
-                setShowProducts(data)
-                // mergeProdFunc(data)
+                //     setShowProducts(data)
+                mergeProdFunc(data)
 
             } else {
                 throw new Error("Error al intentar obtener productos");
