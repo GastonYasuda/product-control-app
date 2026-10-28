@@ -15,11 +15,14 @@ const ProductsCards = () => {
     const { loginUser } = useContext(ProductApi)
 
     const [loading, setLoading] = useState(false)
+    const [allPendings, setAllPendings] = useState();
+
 
 
     useEffect(() => {
 
-        console.log(loginUser)
+
+        getUserPending()
 
 
         if (getAllProducts.length === 0) {
@@ -31,6 +34,27 @@ const ProductsCards = () => {
 
 
     }, [getAllProducts])
+
+
+
+    const getUserPending = async () => {
+        try {
+            const response = await fetch(`http://localhost:3000/users/${loginUser.user_id}/pending`)
+            if (response.ok) {
+                const data = await response.json()
+                setAllPendings(data)
+
+
+            } else {
+                throw new Error("Error al intentar obtener usuario");
+
+            }
+        }
+        catch (error) {
+            console.error(error)
+        }
+    }
+
 
 
     return (
@@ -56,6 +80,9 @@ const ProductsCards = () => {
                     <ProductCardComponent
                         from={'productCard'}
                         loginUser={loginUser}
+                        allPendings={allPendings}
+                        setAllPendings={setAllPendings}
+
                     />
             }
 

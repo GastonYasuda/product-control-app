@@ -11,7 +11,6 @@ const CategoryDetails = () => {
 
     const { idCategory } = useParams()
     const [detailElement, setDetailElement] = useState([])
-    // const [pendingProducts, setPendingProducts] = useState(loginUser.pending_orders ?? [])
     const [allPendings, setAllPendings] = useState();
 
     useEffect(() => {

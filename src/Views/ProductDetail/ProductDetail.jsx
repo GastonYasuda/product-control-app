@@ -23,7 +23,6 @@ const ProductDetail = () => {
     const [allPendings, setAllPendings] = useState();
 
 
-    const [pendingBadge, setPendingBadge] = useState(false)
     const [inputCount, setInputCount] = useState('0')
 
     const userId = loginUser.user_id
@@ -94,11 +93,12 @@ const ProductDetail = () => {
                 pending: true,
             });
 
-            setPendingBadge(true);
+            // setPendingBadge(true);
 
             setInputCount(
                 String(pendingProduct.pending_order_quantity)
             );
+
         } else {
             setShowProduct({
                 ...selectedProduct,
@@ -106,7 +106,7 @@ const ProductDetail = () => {
                 pending: false,
             });
 
-            setPendingBadge(false);
+            // setPendingBadge(false);
             setInputCount("");
         }
     }, [getAllProducts, idProduct, loginUser]);
@@ -171,7 +171,7 @@ const ProductDetail = () => {
             : [
                 ...allPendings,
                 {
-                    pending_order_user: userId,
+
                     product_id: Number(id_product),
                     pending_order_quantity: quantity,
                 },
@@ -180,7 +180,7 @@ const ProductDetail = () => {
         // 6. Actualizar los estados de React
         setAllPendings(updatedPendings);
 
-        setPendingBadge(true);
+
         setShowProduct({
             ...product,
             product_count: quantity,
@@ -276,7 +276,7 @@ const ProductDetail = () => {
             localStorage.setItem("userPass", JSON.stringify(newUserArray));
 
             // 5. Actualizar la interfaz
-            setPendingBadge(false);
+            // setPendingBadge(false);
             setInputCount("");
 
             setShowProduct(prev =>
@@ -339,9 +339,8 @@ const ProductDetail = () => {
                             <img src={showProduct.product_img} className='h-100 object-fit-contain' alt={`${showProduct.product_name} img`} />
                         </div>
 
-                        {pendingBadge && <span className='position-absolute top-0 end-0 badge bg-warning p-2 mt-1 me-1'>Pendiente</span>}
+                        {showProduct.pending && <span className='position-absolute top-0 end-0 badge bg-warning p-2 mt-1 me-1'>Pendiente</span>}
 
-                        {/* {showProduct.pending && <span className='position-absolute top-0 end-0 badge bg-warning p-2 mt-1 me-1'>Pendiente</span>} */}
 
                         <div className="m-auto p-3">
 

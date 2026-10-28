@@ -14,7 +14,7 @@ const DetailElementComponent = ({ from, detailElementName, allPendings, detailEl
 
 
     const [showProducts, setShowProducts] = useState([])
-    const [pendingBadge, setPendingBadge] = useState(false)
+    // const [pendingBadge, setPendingBadge] = useState(false)
     const [inputCount, setInputCount] = useState('0')
 
 
@@ -27,8 +27,7 @@ const DetailElementComponent = ({ from, detailElementName, allPendings, detailEl
     useEffect(() => {
 
         if (allPendings !== undefined && detailElement.length !== 0) {
-            test()
-
+            mergeDetailElementAllPending()
         }
 
 
@@ -36,7 +35,7 @@ const DetailElementComponent = ({ from, detailElementName, allPendings, detailEl
     }, [allPendings, detailElement])
 
 
-    const test = () => {
+    const mergeDetailElementAllPending = () => {
         const nuevoProducto = detailElement.map(de => {
             const pendiente = allPendings.find(
                 ap => Number(ap.product_id) === Number(de.product_id)
@@ -45,7 +44,8 @@ const DetailElementComponent = ({ from, detailElementName, allPendings, detailEl
             if (pendiente) {
                 return {
                     ...de,
-                    product_count: pendiente.pending_order_quantity
+                    product_count: pendiente.pending_order_quantity,
+                    pending: true
                 };
             }
 
@@ -55,44 +55,10 @@ const DetailElementComponent = ({ from, detailElementName, allPendings, detailEl
         console.log(nuevoProducto);
         setShowProducts(nuevoProducto)
 
-
     };
 
 
 
-    const mergeProdFunc = (array1) => {
-
-        if (from === 'category') {
-
-            const pendingProductsByCategory = allPendings.filter(pendingProd => pendingProd.category_name === detailElementName)
-            // console.log(pendingProductsByCategory);
-            // console.log(detailElementName);
-
-
-            const mergedProducts = [
-                ...new Map(
-                    [...array1, ...pendingProductsByCategory].map(product => [product.id, product])
-                ).values()
-            ];
-            // console.log('mergedProducts2', mergedProducts);
-
-            setShowProducts((mergedProducts))
-
-        } else if (from === 'supplier') {
-
-            const pendingProductsBySupplier = allPendings.filter(pendingProd => pendingProd.supplier.name === detailElementName)
-
-            const mergedProducts = [
-                ...new Map(
-                    [...array1, ...pendingProductsBySupplier].map(product => [product.id, product])
-                ).values()
-            ];
-            //   console.log('mergedProducts2', mergedProducts);
-
-            setShowProducts(orderByName(mergedProducts))
-        }
-
-    }
 
 
     const addToOrder = (id, count) => {

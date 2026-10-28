@@ -8,22 +8,22 @@ const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, variant,
 
     const [inputCount, setInputCount] = useState('')
 
-    useEffect(() => {
 
-        //  console.log(product);
+    useEffect(() => {
 
         if (from === 'category' || from === 'supplier' || from === 'productCard') {
             setVariant('vertical')
         } else {
             setVariant('horizontal')
         }
+
     }, [variant])
 
 
     return (
         <Col >
             <Card className={`w-100 h-100 d-flex cardComponent--${variant}`}>
-                {/* {product.pending && <span className='pendientStyle position-absolute top-0 badge bg-warning p-2 mt-2'>Pendiente</span>} */}
+                {product.pending && <span className='position-absolute top-0 end-0 badge bg-warning p-2 mt-1 me-1'>Pendiente</span>}
 
                 <Link to={`/product/${product.product_id}`}>
                     <div className='w-100 m-auto homeCardImage'>
@@ -34,8 +34,10 @@ const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, variant,
                 <Card.Body className='d-flex flex-column justify-content-between'>
                     <div className='text-start d-flex flex-column'>
                         <div>
-                            <h6>{product.category_name}</h6>
-                            <p>{product.supplier_name}</p>
+                            <h6>{product.product_name}</h6>
+
+                            <p>{product.category.category_name}</p>
+                            <p>{product.supplier.supplier_name}</p>
                         </div>
                     </div>
 
@@ -55,7 +57,7 @@ const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, variant,
                                 onChange={(e) => setInputCount(e.target.value)}
                             />
                             <section className='d-flex mt-3'>
-                                <Button type="button" variant='secondary' className='w-50 me-2' onClick={() => { deleteOrder(product.product_id) }}>
+                                <Button type="button" variant='secondary' className='w-50 me-2' onClick={() => { deleteOrder(product.product_id, product.product_name) }}>
                                     <span className="material-symbols-outlined">
                                         remove_shopping_cart
                                     </span>
