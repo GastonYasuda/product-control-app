@@ -17,7 +17,9 @@ const Order = () => {
 
     useEffect(() => {
         getUserPending()
-    }, [])
+    }, [allPendings])
+
+    //tengo que actualizar userPass con pending_orders vacio
 
     const getUserPending = async () => {
         try {
@@ -49,6 +51,7 @@ const Order = () => {
                     <SearchBar />
                 </div>
             </section>
+
 
             {count > 0 ?
                 <>

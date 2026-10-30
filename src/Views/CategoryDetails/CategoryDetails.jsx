@@ -26,7 +26,6 @@ const CategoryDetails = () => {
                 //   console.log('lo q tengo ahora', data);
                 setAllPendings(data)
 
-
             } else {
                 throw new Error("Error al intentar obtener usuario");
 

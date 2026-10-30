@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Button } from 'react-bootstrap'
 import { ProductApi } from '../../Context/ProductControlApi'
 import Swal from 'sweetalert2'
@@ -9,16 +9,111 @@ const SendPendingProducts = () => {
 
     const { loginUser, setLoginUser, aplicateSweetAlert } = useContext(ProductApi)
 
-    const { userPendingProd } = loginUser
 
-    const [oldDeliveredProd, setOldDeliveredProd] = useState(JSON.parse(localStorage.getItem("pendingOrder")) || [])
+    // const [oldDeliveredProd, setOldDeliveredProd] = useState(JSON.parse(localStorage.getItem("pendingOrder")) || [])
 
     //lo mando a localStorage, mas adelante tiene que enviarse a la DB
+
+    const [getPendingOrder, setGetPendingOrder] = useState([])
+
+    useEffect(() => {
+        getUserPending()
+    }, [])
+
+
+    // const getUser = async () => {
+
+    //     try {
+    //         const response = await fetch(`http://localhost:3000/users/${loginUser.user_id}`)
+    //         if (response.ok) {
+    //             const data = await response.json()
+    //             console.log(data);
+
+    //             localStorage.setItem('userPass', JSON.stringify(data))
+
+
+
+    //         } else {
+    //             throw new Error("Error al intentar obtener usuario");
+
+    //         }
+    //     }
+    //     catch (error) {
+    //         console.error(error)
+    //     }
+    // }
+
+
+    const getUserPending = async () => {
+        try {
+            const response = await fetch(`http://localhost:3000/users/${loginUser.user_id}/pending`)
+            if (response.ok) {
+                const data = await response.json()
+                console.log('lo q tengo ahora', data);
+                setGetPendingOrder(data)
+
+
+            } else {
+                throw new Error("Error al intentar obtener usuario");
+
+            }
+        }
+        catch (error) {
+            console.error(error)
+        }
+    }
+
+
+    const deletePendingOrderDB = async () => {
+        try {
+            const response = await fetch(
+                `http://localhost:3000/users/${loginUser.user_id}/delete-pending`,
+                {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+
+            if (!response.ok) {
+                const err = await response.json().catch(() => ({}));
+                throw new Error(err.error || `HTTP ${response.status}`);
+            }
+
+        } catch (error) {
+            console.error("Error al eliminar pendientes:", error);
+
+        }
+    }
+
+
+    const sendOrder = async (userId, body) => {
+        const response = await fetch(
+            `http://localhost:3000/users/${userId}/addOrder`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(body),
+
+            }
+        );
+        if (!response.ok) {
+            const err = await response.json().catch(() => ({}));
+            throw new Error(err.error || `HTTP ${response.status}`);
+        }
+
+    }
+
+
+
 
 
     const handlePendingProducts = () => {
 
-        if (userPendingProd.length !== 0) {
+        if (getPendingOrder.length !== 0) {
 
             Swal.fire({
                 title: "Enviar orden?",
@@ -39,32 +134,32 @@ const SendPendingProducts = () => {
                     });
 
 
+                    const nuevoArray = getPendingOrder.map(product => ({
+                        product_id: product.product_id,
+                        quantity: Number(product.pending_order_quantity)
+                    }));
+
+                    console.log('getPendingOrder', getPendingOrder);
+
+                    const pendingProductsToSend = {
+                        "products": nuevoArray
+                    }
+                    console.log('nuevoArray', nuevoArray);
+
+                    console.log(pendingProductsToSend);
+                    sendOrder(loginUser.user_id, pendingProductsToSend)
+
+                    deletePendingOrderDB()
+
+                    // 7. Actualizar localStorage
+                    const updatedUser = {
+                        ...loginUser,
+                        pending_orders: [],
+                    };
+
+                    localStorage.setItem("userPass", JSON.stringify(updatedUser));
 
 
-
-                    const fechaFormateada = new Intl.DateTimeFormat('es-ES', {
-                        day: '2-digit',
-                        month: '2-digit',
-                        year: 'numeric'
-                    }).format(new Date());
-
-                    const pendingOrder = [
-                        {
-                            "orderId": Math.floor(Math.random() * 90),
-                            "orderStatus": "En Preparación",
-                            "date": fechaFormateada,
-                            "userOrder": `${loginUser.name}`,
-                            "orderArray": userPendingProd
-                        }
-                    ];
-                    localStorage.setItem('pendingOrder', JSON.stringify([...oldDeliveredProd, ...pendingOrder]))
-
-
-                    const deletePendingProdAndaddingDeliveredProd = { ...loginUser, userDeliveredProd: [...oldDeliveredProd, ...pendingOrder], userPendingProd: [] }
-
-                    localStorage.setItem('userPass', JSON.stringify(deletePendingProdAndaddingDeliveredProd))
-                    //en vez de estar guardando en el localStorage del usuario, podria buscar en pendingOrder y ver si coincide la persona que envio la orden, y el usuario que esta logueado en HOME
-                    setLoginUser(deletePendingProdAndaddingDeliveredProd)
                 }
 
             });
