@@ -8,10 +8,6 @@ const MainInfo = () => {
     const [userOrder, setUserOrder] = useState([])
 
 
-    // const userOrders = JSON.parse(localStorage.getItem('pendingOrder')) || []
-    // const orders = loginUser?.name
-    //     ? userOrders.filter(o => o.userOrder === loginUser.name)
-    //     : []
 
     useEffect(() => {
         getUserOrders()

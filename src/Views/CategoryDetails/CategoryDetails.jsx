@@ -16,7 +16,7 @@ const CategoryDetails = () => {
     useEffect(() => {
         getProductsByItem(idCategory)
         getUserPending()
-    }, [])
+    }, [idCategory])
 
     const getUserPending = async () => {
         try {

@@ -7,41 +7,15 @@ import Swal from 'sweetalert2'
 
 const SendPendingProducts = () => {
 
-    const { loginUser, setLoginUser, aplicateSweetAlert } = useContext(ProductApi)
+    const { loginUser, aplicateSweetAlert } = useContext(ProductApi)
+    const [getPendingOrder, setGetPendingOrder] = useState([])
 
-
-    // const [oldDeliveredProd, setOldDeliveredProd] = useState(JSON.parse(localStorage.getItem("pendingOrder")) || [])
 
     //lo mando a localStorage, mas adelante tiene que enviarse a la DB
 
-    const [getPendingOrder, setGetPendingOrder] = useState([])
-
     useEffect(() => {
-        getUserPending()
-    }, [])
-
-
-    // const getUser = async () => {
-
-    //     try {
-    //         const response = await fetch(`http://localhost:3000/users/${loginUser.user_id}`)
-    //         if (response.ok) {
-    //             const data = await response.json()
-    //             console.log(data);
-
-    //             localStorage.setItem('userPass', JSON.stringify(data))
-
-
-
-    //         } else {
-    //             throw new Error("Error al intentar obtener usuario");
-
-    //         }
-    //     }
-    //     catch (error) {
-    //         console.error(error)
-    //     }
-    // }
+        if (getPendingOrder.length < 0) { getUserPending() }
+    }, [getPendingOrder])
 
 
     const getUserPending = async () => {

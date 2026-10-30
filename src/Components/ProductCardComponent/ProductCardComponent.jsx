@@ -44,17 +44,6 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings
     }, [getAllProducts, searchProductArray, allPendings])
 
 
-    // const savePending = (newPending) => {
-    //     const updatedUser = { ...loginUser, pending_orders: newPending }
-    //     console.log(updatedUser);
-    //     console.log(newPending);
-
-
-    //     //  setPendingProducts(newPending)
-    //     //     setLoginUser(updatedUser)                                   // actualiza la app
-    //     // localStorage.setItem('userPass', JSON.stringify(updatedUser)) // persiste
-    // }
-
 
     const mergeDetailElementAllPending = (allPendingProducts) => {
         const nuevoProducto = getAllProducts.map(de => {
