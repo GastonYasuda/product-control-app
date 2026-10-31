@@ -15,7 +15,7 @@ const CategoryDetails = () => {
 
     useEffect(() => {
         getProductsByItem(idCategory)
-        getUserPending()
+
     }, [idCategory])
 
     const getUserPending = async () => {
@@ -47,7 +47,7 @@ const CategoryDetails = () => {
                 console.log('prod de la cat', data);
                 setDetailElement(data)
                 // mergeProdFunc(data)
-
+                getUserPending()
             } else {
                 throw new Error("Error al intentar obtener productos");
 

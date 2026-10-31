@@ -14,8 +14,8 @@ const SendPendingProducts = () => {
     //lo mando a localStorage, mas adelante tiene que enviarse a la DB
 
     useEffect(() => {
-        if (getPendingOrder.length < 0) { getUserPending() }
-    }, [getPendingOrder])
+        getUserPending()
+    }, [])
 
 
     const getUserPending = async () => {

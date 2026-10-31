@@ -41,7 +41,7 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings
                     ))
             }
         }
-    }, [getAllProducts, searchProductArray, allPendings])
+    }, [getAllProducts, searchProductArray, allPendings, loginUser])
 
 
 
