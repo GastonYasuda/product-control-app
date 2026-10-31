@@ -23,9 +23,8 @@
 .navBar_container_item {
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-    flex-grow: 1;
+    /* flex-grow: 1; */
     height: 100%;
     text-decoration: none;
 }
@@ -51,9 +50,9 @@
 .dropdown-menu {
     transform: translate3d(10px, -65px, 0px) !important;
     text-align: end !important;
-    background: rgba(15, 15, 15, 0.9) !important;
-    /* -webkit-backdrop-filter: blur(5px) !important;
-        backdrop-filter: blur(6px) !important; */
+    background: rgba(15, 15, 15, 0.5) !important;
+    -webkit-backdrop-filter: blur(5px) !important;
+    backdrop-filter: blur(6px) !important;
 }
 
 .dropdown-menu-txt {
@@ -66,4 +65,8 @@
 
 .dropdown-item:hover {
     background-color: #000000 !important;
+}
+
+.dropdown-item {
+    filter: drop-shadow(-2px 2px 5px #000000)
 }

@@ -7,6 +7,7 @@ export const ProductApi = createContext()
 const ProductControlApi = ({ children }) => {
 
     const [loginUser, setLoginUser] = useState(JSON.parse(localStorage.getItem('userPass')))
+    const [statuses, setStatuses] = useState([]);
 
 
 
@@ -18,7 +19,7 @@ const ProductControlApi = ({ children }) => {
         } else if (loginUser !== null) {
             setLoginUser(JSON.parse(localStorage.getItem('userPass')))
         }
-
+        getStatuses();
     }, [])
 
 
@@ -73,13 +74,24 @@ const ProductControlApi = ({ children }) => {
         });
 
 
+    const getStatuses = async () => {
+        try {
+            const response = await fetch("http://localhost:3000/status");
+            if (!response.ok) throw new Error("Error al obtener estados");
+            setStatuses(await response.json());
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+
     // showTostify("success", "Producto guardado correctamente");
     // showTostify("error", "Ocurrió un error");
     // showTostify("warning", "Revisá los datos");
     // showTostify("info", "Pedido actualizado");
 
     return (
-        <ProductApi.Provider value={{ getUsersData, loginUser, setLoginUser, orderByName, aplicateSweetAlert, formatDate }}>
+        <ProductApi.Provider value={{ getUsersData, loginUser, setLoginUser, orderByName, aplicateSweetAlert, formatDate, statuses }}>
             {children}
         </ProductApi.Provider>
     )

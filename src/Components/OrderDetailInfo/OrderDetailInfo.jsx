@@ -11,25 +11,10 @@ const statusClass = (name) =>
             : 'bg-info';
 
 const OrderDetailInfo = ({ idOrderDetail }) => {
-    const { loginUser, formatDate } = useContext(ProductApi);
+    const { loginUser, formatDate, statuses } = useContext(ProductApi);
     const userRol = loginUser.user_rol;
 
     const [orderUser, setOrderUser] = useState(null);
-
-    const [statuses, setStatuses] = useState([]);
-
-    useEffect(() => {
-        const getStatuses = async () => {
-            try {
-                const response = await fetch("http://localhost:3000/status");
-                if (!response.ok) throw new Error("Error al obtener estados");
-                setStatuses(await response.json());
-            } catch (error) {
-                console.error(error);
-            }
-        };
-        getStatuses();
-    }, []);
 
 
     const getOneOrder = async (orderId) => {

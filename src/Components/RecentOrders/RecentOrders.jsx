@@ -1,15 +1,24 @@
 import RecentOrderDetail from '../RecentOrderDetail/RecentOrderDetail';
 import noProductImg from '../../assets/noProducts.png';
 import './recentOrders.css'
+import { Button } from 'react-bootstrap';
+import { useState } from 'react';
+import FilterComponent from '../FilterComponent/FilterComponent';
 
 const RecentOrders = ({ preparedCount, deliveredCount, onProcessCount }) => {
 
     // console.log(onProcessCount);
     // console.log(preparedCount);
+    const [showFilter, setFilter] = useState('Todos')
+
+
 
     return (
         <div className='mt-3 recentOrdersStyle'>
-            <h4 className='mt-3 text-start ps-3'>Pedidos Recientes</h4>
+            <section className='px-3 d-flex justify-content-between align-items-center'>
+                <h4 className='mt-3 text-start'>Pedidos Recientes</h4>
+                <FilterComponent setFilter={setFilter} showFilter={showFilter} />
+            </section>
 
             {onProcessCount.length === 0 &&
                 preparedCount.length === 0 &&
@@ -22,18 +31,18 @@ const RecentOrders = ({ preparedCount, deliveredCount, onProcessCount }) => {
                 </section>
                 :
                 <>
-                    {onProcessCount.length !== 0 && onProcessCount.map(((process, i) =>
+                    {(showFilter.status_name === "En Preparación" || showFilter === "Todos") && onProcessCount.map(((process, i) =>
                         <RecentOrderDetail orderData={process} key={i} />
                     ))}
 
-                    {preparedCount.length !== 0 && preparedCount.map(((processingOrder, i) =>
+                    {(showFilter.status_name === "Preparado" || showFilter === "Todos") && preparedCount.map(((processingOrder, i) =>
                         <RecentOrderDetail orderData={processingOrder} key={i} />
 
                     ))}
 
-                    {deliveredCount.length !== 0 && deliveredCount.map((deliveredOrder, i) =>
+                    {(showFilter.status_name === "Entregado" || showFilter === "Todos") && deliveredCount.map(((deliveredOrder, i) =>
                         <RecentOrderDetail orderData={deliveredOrder} key={i} />
-                    )}
+                    ))}
                 </>
             }
 
