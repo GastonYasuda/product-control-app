@@ -20,6 +20,7 @@ const ProductsCards = () => {
 
 
     useEffect(() => {
+
         getUserPending()
 
         if (getAllProducts.length === 0) {
@@ -35,7 +36,7 @@ const ProductsCards = () => {
 
     const getUserPending = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/users/${loginUser.user_id}/pending`)
+            const response = await fetch(`http://localhost:3000/users/${loginUser.id}/pending`)
             if (response.ok) {
                 const data = await response.json()
                 setAllPendings(data)
@@ -58,7 +59,7 @@ const ProductsCards = () => {
             <section className='fixed-top headerComponent'>
 
                 {loginUser &&
-                    <Greeting userName={loginUser.user_name} userRol={loginUser.user_rol} />
+                    <Greeting userName={loginUser.name} userRol={loginUser.rol} />
                 }
 
                 <div className='d-block d-lg-none'>

@@ -202,7 +202,7 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
 
         try {
             const response = await fetch(
-                `http://localhost:3000/users/${loginUser.user_id}/pending`,
+                `http://localhost:3000/users/${loginUser.id}/pending`,
                 {
                     method: "PUT",
                     headers: {
@@ -253,7 +253,7 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
 
         try {
             const response = await fetch(
-                `http://localhost:3000/users/${loginUser.user_id}/delete-pending/${productId}`,
+                `http://localhost:3000/users/${loginUser.id}/delete-pending/${productId}`,
                 {
                     method: "DELETE",
                     headers: {

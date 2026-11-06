@@ -40,7 +40,7 @@ const Home = () => {
             {loginUser !== null &&
                 <>
                     <section className='fixed-top headerComponent'>
-                        < Greeting userName={loginUser.user_name} userRol={loginUser.user_rol} />
+                        <Greeting userName={loginUser.name} userRol={loginUser.rol} />
 
 
                         <div className='d-block d-lg-none'>

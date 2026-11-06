@@ -25,13 +25,12 @@ const ProductDetail = () => {
 
     const [inputCount, setInputCount] = useState('0')
 
-    const userId = loginUser.user_id
 
 
 
     const getUserPending = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/users/${userId}/pending`)
+            const response = await fetch(`http://localhost:3000/users/${loginUser.id}/pending`)
             if (response.ok) {
                 const data = await response.json()
                 console.log(data);
@@ -320,7 +319,7 @@ const ProductDetail = () => {
             <section className='fixed-top headerComponent'>
 
                 {loginUser !== null &&
-                    <Greeting userName={loginUser.user_name} userRol={loginUser.user_rol} />
+                    <Greeting userName={loginUser.name} userRol={loginUser.rol} />
                 }
 
                 <div className='d-block d-lg-none'>

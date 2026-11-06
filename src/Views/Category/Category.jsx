@@ -16,7 +16,7 @@ const Category = () => {
         <div className='mt-5'>
             <section className='fixed-top headerComponent'>
                 {loginUser &&
-                    <Greeting userName={loginUser.user_name} userRol={loginUser.user_rol} />
+                    <Greeting userName={loginUser.name} userRol={loginUser.rol} />
                 }
 
                 <div className='d-block d-lg-none'>

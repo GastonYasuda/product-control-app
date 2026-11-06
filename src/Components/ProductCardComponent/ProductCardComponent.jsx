@@ -159,13 +159,13 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings
 
 
     const savePending = async (body, productName) => {
-        console.log(loginUser.user_id);
+        console.log(loginUser.id);
         console.log(productName);
 
 
         try {
             const response = await fetch(
-                `http://localhost:3000/users/${loginUser.user_id}/pending`,
+                `http://localhost:3000/users/${loginUser.id}/pending`,
                 {
                     method: "PUT",
                     headers: {
@@ -208,7 +208,7 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings
 
         try {
             const response = await fetch(
-                `http://localhost:3000/users/${loginUser.user_id}/delete-pending/${productId}`,
+                `http://localhost:3000/users/${loginUser.id}/delete-pending/${productId}`,
                 {
                     method: "DELETE",
                     headers: {
