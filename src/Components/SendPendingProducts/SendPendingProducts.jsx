@@ -121,7 +121,7 @@ const SendPendingProducts = () => {
                     console.log('nuevoArray', nuevoArray);
 
                     console.log(pendingProductsToSend);
-                    sendOrder(loginUser.id, pendingProductsToSend)
+                    sendOrder(loginUser.user_id, pendingProductsToSend)
 
                     deletePendingOrderDB()
 
