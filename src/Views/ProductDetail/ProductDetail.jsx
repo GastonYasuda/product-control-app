@@ -30,7 +30,7 @@ const ProductDetail = () => {
 
     const getUserPending = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/users/${loginUser.id}/pending`)
+            const response = await fetch(`http://localhost:3000/users/${loginUser.user_id}/pending`)
             if (response.ok) {
                 const data = await response.json()
                 console.log(data);
@@ -319,7 +319,7 @@ const ProductDetail = () => {
             <section className='fixed-top headerComponent'>
 
                 {loginUser !== null &&
-                    <Greeting userName={loginUser.name} userRol={loginUser.rol} />
+                    <Greeting userName={loginUser.user_name} userRol={loginUser.user_rol} />
                 }
 
                 <div className='d-block d-lg-none'>

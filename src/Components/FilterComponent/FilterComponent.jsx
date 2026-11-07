@@ -7,7 +7,6 @@ const FilterComponent = ({ setFilter, showFilter }) => {
     const { statuses } = useContext(ProductApi);
 
 
-    console.log(showFilter.status_name);
 
     const statusClass = (name) =>
         name === 'Entregado' ? 'bg-secondary'

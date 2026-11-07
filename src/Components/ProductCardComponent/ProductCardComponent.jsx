@@ -165,7 +165,7 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings
 
         try {
             const response = await fetch(
-                `http://localhost:3000/users/${loginUser.id}/pending`,
+                `http://localhost:3000/users/${loginUser.user_id}/pending`,
                 {
                     method: "PUT",
                     headers: {
@@ -208,7 +208,7 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings
 
         try {
             const response = await fetch(
-                `http://localhost:3000/users/${loginUser.id}/delete-pending/${productId}`,
+                `http://localhost:3000/users/${loginUser.user_id}/delete-pending/${productId}`,
                 {
                     method: "DELETE",
                     headers: {

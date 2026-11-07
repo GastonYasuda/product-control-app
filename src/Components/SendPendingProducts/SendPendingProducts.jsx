@@ -20,7 +20,7 @@ const SendPendingProducts = () => {
 
     const getUserPending = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/users/${loginUser.id}/pending`)
+            const response = await fetch(`http://localhost:3000/users/${loginUser.user_id}/pending`)
             if (response.ok) {
                 const data = await response.json()
                 console.log('lo q tengo ahora', data);
@@ -41,7 +41,7 @@ const SendPendingProducts = () => {
     const deletePendingOrderDB = async () => {
         try {
             const response = await fetch(
-                `http://localhost:3000/users/${loginUser.id}/delete-pending`,
+                `http://localhost:3000/users/${loginUser.user_id}/delete-pending`,
                 {
                     method: "DELETE",
                     headers: {

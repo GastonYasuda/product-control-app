@@ -28,6 +28,8 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
     useEffect(() => {
         // console.log(detailElement);
 
+
+
         if (from !== 'pendingProductList') {
 
             if (allPendings !== undefined && detailElement.length !== 0) {
@@ -42,7 +44,7 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
         }
 
 
-    }, [allPendings, getAllProducts])
+    }, [allPendings, getAllProducts, detailElement])
 
     const funcionParaOrder = (arrayAdd) => {
         const newProductsArray = arrayAdd.map(pending => {
@@ -202,7 +204,7 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
 
         try {
             const response = await fetch(
-                `http://localhost:3000/users/${loginUser.id}/pending`,
+                `http://localhost:3000/users/${loginUser.user_id}/pending`,
                 {
                     method: "PUT",
                     headers: {
@@ -253,7 +255,7 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
 
         try {
             const response = await fetch(
-                `http://localhost:3000/users/${loginUser.id}/delete-pending/${productId}`,
+                `http://localhost:3000/users/${loginUser.user_id}/delete-pending/${productId}`,
                 {
                     method: "DELETE",
                     headers: {

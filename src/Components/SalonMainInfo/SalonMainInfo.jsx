@@ -15,7 +15,7 @@ const MainInfo = () => {
 
     const getUserOrders = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/users/${loginUser.id}/orders`)
+            const response = await fetch(`http://localhost:3000/users/${loginUser.user_id}/orders`)
             if (response.ok) {
                 const data = await response.json()
                 console.log(data);
