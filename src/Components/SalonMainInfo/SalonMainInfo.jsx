@@ -2,35 +2,36 @@ import React, { useContext, useEffect, useState } from 'react'
 import InfoCards from '../InfoCards/InfoCards'
 import RecentOrders from '../RecentOrders/RecentOrders'
 import { ProductApi } from '../../Context/ProductControlApi'
+import { DataProductApi } from '../../Context/DataBaseProductApi'
 
 const MainInfo = () => {
     const { loginUser } = useContext(ProductApi)
-    const [userOrder, setUserOrder] = useState([])
+    const { getUserOrders, userOrder } = useContext(DataProductApi)
 
 
 
     useEffect(() => {
-        getUserOrders()
+        getUserOrders(loginUser)
     }, [])
 
-    const getUserOrders = async () => {
-        try {
-            const response = await fetch(`http://localhost:3000/users/${loginUser.user_id}/orders`)
-            if (response.ok) {
-                const data = await response.json()
-                console.log(data);
-                setUserOrder(data)
+    // const getUserOrders = async () => {
+    //     try {
+    //         const response = await fetch(`http://localhost:3000/users/${loginUser.user_id}/orders`)
+    //         if (response.ok) {
+    //             const data = await response.json()
+    //             console.log(data);
+    //             setUserOrder(data)
 
 
-            } else {
-                throw new Error("Error al intentar obtener productos");
+    //         } else {
+    //             throw new Error("Error al intentar obtener productos");
 
-            }
-        }
-        catch (error) {
-            console.error(error)
-        }
-    }
+    //         }
+    //     }
+    //     catch (error) {
+    //         console.error(error)
+    //     }
+    // }
 
 
 

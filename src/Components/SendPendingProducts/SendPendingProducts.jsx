@@ -2,20 +2,26 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Button } from 'react-bootstrap'
 import { ProductApi } from '../../Context/ProductControlApi'
 import Swal from 'sweetalert2'
+import { DataProductApi } from '../../Context/DataBaseProductApi'
 
 
 
 const SendPendingProducts = () => {
 
     const { loginUser, aplicateSweetAlert } = useContext(ProductApi)
+    const { getUserOrders, userOrder } = useContext(DataProductApi)
+
     const [getPendingOrder, setGetPendingOrder] = useState([])
+
 
 
     //lo mando a localStorage, mas adelante tiene que enviarse a la DB
 
     useEffect(() => {
         getUserPending()
-    }, [])
+        console.log(userOrder);
+
+    }, [userOrder])
 
 
     const getUserPending = async () => {
@@ -126,10 +132,17 @@ const SendPendingProducts = () => {
                     deletePendingOrderDB()
 
                     // 7. Actualizar localStorage
+                    getUserOrders(loginUser)
+
+
+                    console.log(userOrder);
+
                     const updatedUser = {
                         ...loginUser,
                         pending_orders: [],
                     };
+                    console.log(updatedUser);
+
 
                     localStorage.setItem("userPass", JSON.stringify(updatedUser));
 

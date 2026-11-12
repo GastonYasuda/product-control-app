@@ -5,11 +5,14 @@ export const DataProductApi = createContext()
 const DataBaseProductApi = ({ children }) => {
 
 
+
     const [getAllProducts, setGetAllProducts] = useState([])
+    const [userOrder, setUserOrder] = useState([])
+
 
     useEffect(() => {
         getAllProductsFromDB()
-    }, [])
+    }, [userOrder])
 
     const desdeDB = () => {
         console.log('probando desde desdeDB');
@@ -35,8 +38,25 @@ const DataBaseProductApi = ({ children }) => {
 
     }
 
-    const userPendingProducts = async () => {
+    const getUserOrders = async (loginUser) => {
+        console.log(loginUser);
 
+        try {
+            const response = await fetch(`http://localhost:3000/users/${loginUser.user_id}/orders`)
+            if (response.ok) {
+                const data = await response.json()
+                console.log(data);
+                setUserOrder(data)
+
+
+            } else {
+                throw new Error("Error al intentar obtener productos");
+
+            }
+        }
+        catch (error) {
+            console.error(error)
+        }
     }
 
 
@@ -48,7 +68,7 @@ const DataBaseProductApi = ({ children }) => {
     const deleteOneElementFromDB = () => { }
 
     return (
-        <DataProductApi.Provider value={{ desdeDB, getAllProducts }}>
+        <DataProductApi.Provider value={{ desdeDB, getAllProducts, getUserOrders, userOrder }}>
             {children}
         </DataProductApi.Provider>
     )
