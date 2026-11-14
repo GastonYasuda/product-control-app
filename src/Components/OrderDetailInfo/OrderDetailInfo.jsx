@@ -38,6 +38,9 @@ const OrderDetailInfo = ({ idOrderDetail }) => {
         if (allChecked && orderUser.status_name === 'En Preparación') {
 
             handleChangeOrderStatus({ status_id: 2, status_name: 'Preparado' })
+
+            ////////////////////////////////////////////
+            //aca tengo que creaar la funcion para que reste en la db
         }
     }, [idOrderDetail, allChecked]);
 
