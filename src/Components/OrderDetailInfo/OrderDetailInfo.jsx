@@ -5,6 +5,7 @@ import Swal from 'sweetalert2'
 import { ProductApi } from '../../Context/ProductControlApi';
 
 
+
 const statusClass = (name) =>
     name === 'Entregado' ? 'bg-secondary'
         : name === 'Preparado' ? 'bg-success'
@@ -15,6 +16,7 @@ const OrderDetailInfo = ({ idOrderDetail }) => {
     const userRol = loginUser.user_rol;
 
     const [orderUser, setOrderUser] = useState(null);
+    const [allChecked, setAllChecked] = useState(false)
 
 
     const getOneOrder = async (orderId) => {
@@ -30,7 +32,14 @@ const OrderDetailInfo = ({ idOrderDetail }) => {
 
     useEffect(() => {
         if (idOrderDetail) getOneOrder(idOrderDetail);
-    }, [idOrderDetail]);
+
+
+
+        if (allChecked && orderUser.status_name === 'En Preparación') {
+
+            handleChangeOrderStatus({ status_id: 2, status_name: 'Preparado' })
+        }
+    }, [idOrderDetail, allChecked]);
 
     const updateStatus = async (status) => {
         try {
@@ -51,28 +60,31 @@ const OrderDetailInfo = ({ idOrderDetail }) => {
     };
 
     const handleChangeOrderStatus = async (status) => {
+        console.log(status);
+
         const currentStatus = orderUser.status_name;
-        if (status.name === currentStatus) return;
+        if (status.status_name === currentStatus) return;
 
         const products = orderUser.ordered_products || [];
-        const allChecked = products.every((p) => p.product_checked);
+        const allCheck = products.every((p) => p.product_checked);
 
         const result = await Swal.fire({
-            title: allChecked ? "¿Desea cambiar el estado de la orden?" : "Productos sin tildar",
-            text: allChecked
+            title: allCheck ? "¿Desea cambiar el estado de la orden?" : "Productos sin tildar",
+            text: allCheck
                 ? `"${currentStatus}" a "${status.status_name}"`
                 : "¿Desea cambiar el estado igual?",
-            icon: allChecked ? "question" : "warning",
+            icon: allCheck ? "question" : "warning",
             showCancelButton: true,
             confirmButtonColor: "#17a2b8",
             cancelButtonColor: "#868e96",
-            confirmButtonText: allChecked ? "Cambiar" : "Aceptar",
+            confirmButtonText: allCheck ? "Cambiar" : "Aceptar",
         });
 
         if (result.isConfirmed) updateStatus(status);
     };
 
     if (!orderUser) return <p className='mt-5 text-center'>Cargando...</p>;
+
 
     return (
         <div className='mt-5 mb-5 text-start px-3'>
@@ -115,7 +127,9 @@ const OrderDetailInfo = ({ idOrderDetail }) => {
                 selectOrder={orderUser}
                 setOrderUser={setOrderUser}
                 userRol={userRol}
+                setAllChecked={setAllChecked}
             />
+
         </div>
     );
 };

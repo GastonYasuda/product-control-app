@@ -48,7 +48,7 @@ const ProductDetail = () => {
         if (!selectedProduct) {
             setShowProduct(undefined);
             setPendingBadge(false);
-            setInputCount("");
+            setInputCount('');
             return;
         }
 
@@ -79,7 +79,7 @@ const ProductDetail = () => {
             });
 
             // setPendingBadge(false);
-            setInputCount("");
+            setInputCount('');
         }
     }, [getAllProducts, idProduct, loginUser]);
 
@@ -186,7 +186,7 @@ const ProductDetail = () => {
 
         localStorage.setItem("userPass", JSON.stringify(updatedUser));
 
-        setInputCount("");
+        setInputCount('');
     };
 
 
@@ -194,7 +194,7 @@ const ProductDetail = () => {
     const savePending = async (body, productName) => {
         try {
             const response = await fetch(
-                `http://localhost:3000/users/${userId}/pending`,
+                `http://localhost:3000/users/${loginUser.user_id}/pending`,
                 {
                     method: "PUT",
                     headers: {
@@ -235,7 +235,7 @@ const ProductDetail = () => {
     const deleteOrder = async (productId, productName) => {
         try {
             const response = await fetch(
-                `http://localhost:3000/users/${userId}/delete-pending/${productId}`,
+                `http://localhost:3000/users/${loginUser.user_id}/delete-pending/${productId}`,
                 {
                     method: "DELETE",
                     headers: {
@@ -268,7 +268,7 @@ const ProductDetail = () => {
 
             // 5. Actualizar la interfaz
             // setPendingBadge(false);
-            setInputCount("");
+            setInputCount('');
 
             setShowProduct(prev =>
                 prev ? { ...prev, product_count: undefined, pending: false } : prev

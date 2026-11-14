@@ -1,6 +1,23 @@
+import { useEffect } from 'react';
 import './orderDetailInfoCard.css'
 
-const OrderDetailInfoCard = ({ orderArray, selectOrder, setOrderUser, userRol }) => {
+const OrderDetailInfoCard = ({ orderArray, selectOrder, setOrderUser, userRol, setAllChecked }) => {
+
+    // console.log(orderArray.length);
+    // console.log(orderArray);
+    useEffect(() => {
+
+        const test = orderArray.filter(oa => oa.product_checked === true)
+        //  console.log(test);
+        if (test.length === orderArray.length) {
+            console.log('todos chequeados');
+            setAllChecked(true)
+        } else {
+            setAllChecked(false)
+        }
+    }, [orderArray])
+
+
 
     const handleCheckProduct = async (orderedProductId, checked) => {
         console.log("ordered_product_id:", orderedProductId, "order_id:", selectOrder.order_id);
@@ -64,7 +81,7 @@ const OrderDetailInfoCard = ({ orderArray, selectOrder, setOrderUser, userRol })
 
                     <section className='pt-2 ps-4'>
                         <h6 className='mb-1'>{order.product_name}</h6>
-                        <p className='mb-0'>Pedido: {order.ordered_quantity}</p>
+                        <p className='mb-0'>Pedido: {order.ordered_quantity} u.</p>
                     </section>
                 </div>
             ))}
