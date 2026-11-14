@@ -27,45 +27,33 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings
         if (allPendings) {
             if (from === 'productCard') {
                 // mergeProdFunc(getAllProducts, pending)
-                mergeDetailElementAllPending(allPendings)
-                console.log(allPendings);
+                mergeDetailElementAllPending(getAllProducts)
+                // console.log(allPendings);
 
 
             } else if (from === 'searchBar') {
-                setShowProducts(
-                    searchProductArray.map(p =>
-                        pending.find(pp => pp.id === p.id)
-                        ?? getAllProducts.find(gp => gp.id === p.id)
-                        ?? p
+                // setShowProducts(searchProductArray)
+                // mergeDetailElementAllPending(searchProductArray, allPendings)
+                // console.log(allPendings);
+                // console.log(searchProductArray);
 
-                    ))
+                mergeDetailElementAllPending(searchProductArray)
+
             }
         }
     }, [getAllProducts, searchProductArray, allPendings, loginUser])
 
 
 
-    const mergeDetailElementAllPending = (allPendingProducts) => {
-        const nuevoProducto = getAllProducts.map(de => {
-            const pendiente = allPendingProducts.find(
+    const mergeDetailElementAllPending = (mergeProductsArray) => {
+        const nuevoProducto = mergeProductsArray.map(de => {
+            const pendiente = allPendings.find(
                 ap => Number(ap.product_id) === Number(de.product_id)
             );
-
-            if (pendiente) {
-                return {
-                    ...de,
-                    product_count: pendiente.pending_order_quantity,
-                    pending: true
-                };
-            }
-
-            return {
-                ...de,
-                product_count: 0,
-                pending: false
-            };
+            return pendiente
+                ? { ...de, product_count: pendiente.pending_order_quantity, pending: true }
+                : { ...de, product_count: 0, pending: false };
         });
-
         setShowProducts(nuevoProducto);
     };
 
@@ -141,7 +129,7 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings
             product_count: quantity,
             pending: true,
         }
-        console.log(newArrayAdded);
+        // console.log(newArrayAdded);
 
         //   setShowProducts(newArrayAdded);
 
@@ -150,17 +138,20 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings
             ...loginUser,
             pending_orders: updatedPendings,
         };
-        //console.log(updatedPendings);
+        // console.log(updatedPendings);
         setAllPendings(updatedPendings);
-        mergeDetailElementAllPending(updatedPendings);
+        from === 'productCard' ?
+            mergeDetailElementAllPending(getAllProducts)
+            :
+            mergeDetailElementAllPending(searchProductArray)
         localStorage.setItem("userPass", JSON.stringify(updatedUser));
 
     };
 
 
     const savePending = async (body, productName) => {
-        console.log(loginUser.id);
-        console.log(productName);
+        // console.log(loginUser.user_id);
+        //console.log(productName);
 
 
         try {
@@ -188,7 +179,7 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings
             return true;
 
         } catch (error) {
-            console.error("Error al guardar el pendiente:", error);
+            //  console.error("Error al guardar el pendiente:", error);
 
             Swal.fire(
                 "Error",
@@ -203,8 +194,8 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings
 
 
     const deleteOrder = async (productId, productName) => {
-        console.log('productId', productId);
-        console.log('productName', productName);
+        // console.log('productId', productId);
+        // console.log('productName', productName);
 
         try {
             const response = await fetch(
@@ -229,7 +220,7 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings
 
             // 2. Actualizar el estado de todos los pendientes
             //   setAllPendings(newPendingArray);
-            console.log(newPendingArray);//hasta aca ok
+            //  console.log(newPendingArray);//hasta aca ok
 
 
 
@@ -243,7 +234,10 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings
 
             // 5. Actualizar la interfaz
             setAllPendings(newPendingArray);
-            mergeDetailElementAllPending(newPendingArray);
+            from === 'productCard' ?
+                mergeDetailElementAllPending(getAllProducts)
+                :
+                mergeDetailElementAllPending(searchProductArray)
 
             // setPendingBadge(false);
             setInputCount("");
@@ -299,7 +293,7 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings
                         <section key={i}>
                             <ProductCardComponentDetail
                                 product={product}
-                                key={product.id}
+                                key={product.product_id}
                                 deleteOrder={deleteOrder}
                                 addToOrder={addToOrder}
                                 variant={variant}
