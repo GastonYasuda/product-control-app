@@ -37,7 +37,7 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
                 mergeDetailElementAllPending(allPendings)
             }
 
-        } else {
+        } else if (from === 'pendingProductList') {
 
             funcionParaOrder(allPendings)
 
@@ -93,7 +93,7 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
             };
         });
 
-        setShowProducts(nuevoProducto);
+        setShowProducts(orderByName(nuevoProducto));
     };
 
 

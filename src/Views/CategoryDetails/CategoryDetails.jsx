@@ -7,7 +7,7 @@ import Greeting from '../../Components/Greeting/Greeting'
 import { ProductApi } from '../../Context/ProductControlApi'
 
 const CategoryDetails = () => {
-    const { loginUser } = useContext(ProductApi)
+    const { loginUser, orderByName } = useContext(ProductApi)
 
     const { idCategory } = useParams()
     const [detailElement, setDetailElement] = useState([])
@@ -23,7 +23,7 @@ const CategoryDetails = () => {
             const response = await fetch(`http://localhost:3000/users/${loginUser.user_id}/pending`)
             if (response.ok) {
                 const data = await response.json()
-                //   console.log('lo q tengo ahora', data);
+                console.log('lo q tengo ahora', data);
                 setAllPendings(data)
 
             } else {
@@ -45,7 +45,7 @@ const CategoryDetails = () => {
             if (response.ok) {
                 const data = await response.json()
                 console.log('prod de la cat', data);
-                setDetailElement(data)
+                setDetailElement(orderByName(data))
                 // mergeProdFunc(data)
                 getUserPending()
             } else {

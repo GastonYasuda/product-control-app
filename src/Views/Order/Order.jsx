@@ -17,7 +17,7 @@ const Order = () => {
 
     useEffect(() => {
         getUserPending()
-    }, [allPendings])
+    }, [])
 
     //tengo que actualizar userPass con pending_orders vacio
 
@@ -28,7 +28,6 @@ const Order = () => {
                 const data = await response.json()
                 //  console.log('lo q tengo ahora', data);
                 setAllPendings(data)
-
 
             } else {
                 throw new Error("Error al intentar obtener usuario");

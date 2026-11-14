@@ -15,37 +15,10 @@ const ProductDetail = () => {
     const { getAllProducts } = useContext(DataProductApi)
     const { loginUser } = useContext(ProductApi)
 
-
     const { idProduct } = useParams()
     const [showProduct, setShowProduct] = useState()
-
-
-    const [allPendings, setAllPendings] = useState();
-
-
+    const [allPendings, setAllPendings] = useState()
     const [inputCount, setInputCount] = useState('0')
-
-
-
-
-    const getUserPending = async () => {
-        try {
-            const response = await fetch(`http://localhost:3000/users/${loginUser.user_id}/pending`)
-            if (response.ok) {
-                const data = await response.json()
-                console.log(data);
-                setAllPendings(data)
-
-
-            } else {
-                throw new Error("Error al intentar obtener usuario");
-
-            }
-        }
-        catch (error) {
-            console.error(error)
-        }
-    }
 
 
     useEffect(() => {
@@ -109,6 +82,25 @@ const ProductDetail = () => {
             setInputCount("");
         }
     }, [getAllProducts, idProduct, loginUser]);
+
+    const getUserPending = async () => {
+        try {
+            const response = await fetch(`http://localhost:3000/users/${loginUser.user_id}/pending`)
+            if (response.ok) {
+                const data = await response.json()
+                console.log(data);
+                setAllPendings(data)
+
+
+            } else {
+                throw new Error("Error al intentar obtener usuario");
+
+            }
+        }
+        catch (error) {
+            console.error(error)
+        }
+    }
 
 
 

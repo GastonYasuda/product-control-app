@@ -8,7 +8,7 @@ import { ProductApi } from '../../Context/ProductControlApi'
 
 
 const SuppierDetail = () => {
-    const { loginUser } = useContext(ProductApi)
+    const { loginUser, orderByName } = useContext(ProductApi)
 
     const { idSupplier } = useParams()
     const [detailElement, setDetailElement] = useState([])
@@ -49,7 +49,7 @@ const SuppierDetail = () => {
             if (response.ok) {
                 const data = await response.json()
                 console.log('prod de la supplier', data);
-                setDetailElement(data)
+                setDetailElement(orderByName(data))
                 // mergeProdFunc(data)
 
             } else {

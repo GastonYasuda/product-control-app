@@ -6,8 +6,8 @@ import ProductCardComponentDetail from '../ProductCardComponentDetail/ProductCar
 import Swal from 'sweetalert2'
 import { toast, Slide, ToastContainer } from 'react-toastify';
 
-const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings, setAllPendings }) => {
-    const { getAllProducts } = useContext(DataProductApi)
+const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings, setAllPendings, getAllProducts }) => {
+    // const { getAllProducts } = useContext(DataProductApi)
     const { orderByName, aplicateSweetAlert } = useContext(ProductApi)
 
 
@@ -24,11 +24,11 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings
         // setPendingProducts(pending)
         // console.log(pending);
 
-        if (allPendings) {
+        if (allPendings && getAllProducts !== 0) {
             if (from === 'productCard') {
                 // mergeProdFunc(getAllProducts, pending)
                 mergeDetailElementAllPending(getAllProducts)
-                // console.log(allPendings);
+                console.log(getAllProducts);
 
 
             } else if (from === 'searchBar') {
@@ -54,7 +54,11 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings
                 ? { ...de, product_count: pendiente.pending_order_quantity, pending: true }
                 : { ...de, product_count: 0, pending: false };
         });
+        console.log(nuevoProducto);
+
         setShowProducts(nuevoProducto);
+        // console.log(orderByName(nuevoProducto));
+        // console.log(nuevoProducto);
     };
 
 
@@ -124,11 +128,11 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings
         // 6. Actualizar los estados de React
         // setAllPendings(updatedPendings);
 
-        const newArrayAdded = {
-            ...product,
-            product_count: quantity,
-            pending: true,
-        }
+        // const newArrayAdded = {
+        //     ...product,
+        //     product_count: quantity,
+        //     pending: true,
+        // }
         // console.log(newArrayAdded);
 
         //   setShowProducts(newArrayAdded);

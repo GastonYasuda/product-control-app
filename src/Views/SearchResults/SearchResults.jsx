@@ -120,9 +120,9 @@ const SearchResults = () => {
                         searchProductArray={searchProductArray}
                         from={'searchBar'}
                         loginUser={loginUser}
-
                         allPendings={allPendings}
                         setAllPendings={setAllPendings}
+                        getAllProducts={getAllProducts}
                     />
             }
 

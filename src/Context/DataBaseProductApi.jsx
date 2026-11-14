@@ -15,7 +15,7 @@ const DataBaseProductApi = ({ children }) => {
     }, [userOrder])
 
     const desdeDB = () => {
-        console.log('probando desde desdeDB');
+        //  console.log('probando desde desdeDB');
 
     }
 
@@ -25,7 +25,8 @@ const DataBaseProductApi = ({ children }) => {
             const response = await fetch('http://localhost:3000/products')
             if (response.ok) {
                 const data = await response.json()
-                setGetAllProducts([...getAllProducts, ...data])
+                //  setGetAllProducts([...getAllProducts, ...data])
+                setGetAllProducts(data)
             } else {
                 throw new Error("Error al intentar obtener productos");
 
@@ -45,7 +46,7 @@ const DataBaseProductApi = ({ children }) => {
             const response = await fetch(`http://localhost:3000/users/${loginUser.user_id}/orders`)
             if (response.ok) {
                 const data = await response.json()
-                console.log(data);
+                // console.log(data);
                 setUserOrder(data)
 
 

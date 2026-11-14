@@ -12,16 +12,15 @@ import ProductCardComponent from '../../Components/ProductCardComponent/ProductC
 
 const ProductsCards = () => {
     const { getAllProducts } = useContext(DataProductApi)
-    const { loginUser } = useContext(ProductApi)
+    const { loginUser, orderByName } = useContext(ProductApi)
 
     const [loading, setLoading] = useState(false)
-    const [allPendings, setAllPendings] = useState();
+    const [allPendings, setAllPendings] = useState([]);
 
 
 
     useEffect(() => {
-
-        getUserPending()
+        allPendings.length === 0 && getUserPending()
 
         if (getAllProducts.length === 0) {
             setLoading(true)
@@ -79,6 +78,7 @@ const ProductsCards = () => {
                         loginUser={loginUser}
                         allPendings={allPendings}
                         setAllPendings={setAllPendings}
+                        getAllProducts={orderByName(getAllProducts)}
 
                     />
             }

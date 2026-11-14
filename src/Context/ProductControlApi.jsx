@@ -52,9 +52,9 @@ const ProductControlApi = ({ children }) => {
 
 
 
-    const orderByName = (productoArray) => {
-        return [...productoArray].sort((a, b) =>
-            a.name.localeCompare(b.name)
+    const orderByName = (productArray) => {
+        return [...productArray].sort((a, b) =>
+            a.product_name.localeCompare(b.product_name)
         );
     }
 
@@ -84,6 +84,12 @@ const ProductControlApi = ({ children }) => {
         }
     };
 
+    const capital = (text) => {
+        const clean = String(text).trim();
+        if (!clean) return '';
+        return clean.charAt(0).toLocaleUpperCase('es') + clean.slice(1).toLocaleLowerCase('es');
+    };
+
 
     // showTostify("success", "Producto guardado correctamente");
     // showTostify("error", "Ocurrió un error");
@@ -91,7 +97,7 @@ const ProductControlApi = ({ children }) => {
     // showTostify("info", "Pedido actualizado");
 
     return (
-        <ProductApi.Provider value={{ getUsersData, loginUser, setLoginUser, orderByName, aplicateSweetAlert, formatDate, statuses }}>
+        <ProductApi.Provider value={{ getUsersData, loginUser, setLoginUser, orderByName, aplicateSweetAlert, formatDate, statuses, capital }}>
             {children}
         </ProductApi.Provider>
     )
