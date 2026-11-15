@@ -21,16 +21,15 @@ const DataBaseProductApi = ({ children }) => {
                 const data = await response.json()
                 //  setGetAllProducts([...getAllProducts, ...data])
                 setGetAllProducts(data)
-            } else {
-                throw new Error("Error al intentar obtener productos");
+                console.log(data);
 
+            } else {
+                throw new Error("Error al intentar obtener productos")
             }
         }
         catch (error) {
             console.error(error)
         }
-
-
     }
 
     const getUserOrders = async (loginUser) => {
@@ -65,6 +64,7 @@ const DataBaseProductApi = ({ children }) => {
     return (
         <DataProductApi.Provider value={{ getAllProductsFromDB, getAllProducts, getUserOrders, userOrder }}>
             {children}
+
         </DataProductApi.Provider>
     )
 }

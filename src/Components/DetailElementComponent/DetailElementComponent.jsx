@@ -30,11 +30,13 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
 
 
 
+
         if (from !== 'pendingProductList') {
 
             if (allPendings !== undefined && detailElement.length !== 0) {
 
                 mergeDetailElementAllPending(allPendings)
+
             }
 
         } else if (from === 'pendingProductList') {

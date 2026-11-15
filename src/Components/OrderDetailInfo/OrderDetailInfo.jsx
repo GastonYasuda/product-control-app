@@ -14,82 +14,62 @@ const statusClass = (name) =>
 
 const OrderDetailInfo = ({ idOrderDetail }) => {
     const { loginUser, formatDate, statuses } = useContext(ProductApi);
-    const { getAllProducts } = useContext(DataProductApi)
+    const { getAllProducts, getAllProductsFromDB } = useContext(DataProductApi)
     const userRol = loginUser.user_rol;
 
     const [orderUser, setOrderUser] = useState(null);
     const [allChecked, setAllChecked] = useState(false)
 
 
+
     useEffect(() => {
         if (idOrderDetail) getOneOrder(idOrderDetail);
+    }, [idOrderDetail]);
 
-
-
-        if (allChecked && orderUser.status_name === 'En Preparación') {
-
-            handleChangeOrderStatus({ status_id: 2, status_name: 'Preparado' })
+    useEffect(() => {
+        if (allChecked && orderUser?.status_name === 'En Preparación') {
+            handleChangeOrderStatus({ status_id: 2, status_name: 'Preparado' });
         }
-    }, [idOrderDetail, allChecked]);
+    }, [allChecked]);
 
 
-    const updateProductStock = () => {
-        const orderedProductsArray = orderUser.ordered_products
+    const updateProductStock = async () => {
+        // 1. Traer el stock REAL de la base, no el del context
+        const res = await fetch('http://localhost:3000/products');
+        if (!res.ok) throw new Error('No se pudo leer el stock actual');
+        const currentProducts = await res.json();
 
-        const stockArray = orderedProductsArray.map(opa => {
-            const product = getAllProducts.find(
-                gap => Number(gap.product_id) === Number(opa.product_id)
+        const stockArray = orderUser.ordered_products.map(opa => {
+            const product = currentProducts.find(
+                p => Number(p.product_id) === Number(opa.product_id)
             );
+            if (!product) throw new Error(`Producto ${opa.product_id} no encontrado`);
 
-            return {
-                product_id: Number(opa.product_id),
-                product_stock: product
-                    ? product.product_stock - Number(opa.ordered_quantity)
-                    : null, // producto no encontrado
-            };
+            const nuevoStock = product.product_stock - Number(opa.ordered_quantity);
+            if (nuevoStock < 0) throw new Error(`Stock insuficiente para ${product.product_name}`);
+
+            return { product_id: Number(opa.product_id), product_stock: nuevoStock };
         });
 
-        console.log(stockArray);
+        // 2. Esperar a que TODOS los PATCH terminen
+        await Promise.all(stockArray.map(patchNewStock));
+
+        // 3. Recién ahora refrescar el context
+        await getAllProductsFromDB();
+    };
 
 
-
-        // const updateCount = orderedProductsArray.filter(gap =>
-        //     getAllProducts.find(opa => opa.product_id === gap.product_id)
-        // )
-
-        //   console.log(updateCount);//este me muestre el array 
-
-        //product_stock tiene que ser el resultado de la resta....
-        // const stockArray = updateCount.map(({ product_id, ordered_quantity }) => ({
-        //     product_id,
-        //     product_stock: ordered_quantity,
-        // }));
-
-        // console.log(stockArray);
-        stockArray.forEach(e => {
-            patchNewStock(e)
+    const patchNewStock = async ({ product_id, product_stock }) => {
+        const response = await fetch(`http://localhost:3000/products/${product_id}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ product_stock }),
         });
-
-    }
-
-    const patchNewStock = async (stockArray) => {
-        console.log(stockArray);
-
-        try {
-            const response = await fetch(`http://localhost:3000/products/${stockArray.product_id}`, {
-                method: "PATCH",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ "product_stock": stockArray.product_stock }),
-            });
-
-            if (!response.ok) {
-                const err = await response.json();
-                throw new Error(err.error);
-            }
-        } catch (error) {
-            console.error(error);
+        if (!response.ok) {
+            const err = await response.json().catch(() => ({}));
+            throw new Error(err.error || `HTTP ${response.status}`);
         }
-    }
+    };
 
     const getOneOrder = async (orderId) => {
         try {
@@ -123,13 +103,11 @@ const OrderDetailInfo = ({ idOrderDetail }) => {
     };
 
     const handleChangeOrderStatus = async (status) => {
-        console.log(status);
-
         const currentStatus = orderUser.status_name;
         if (status.status_name === currentStatus) return;
 
         const products = orderUser.ordered_products || [];
-        const allCheck = products.every((p) => p.product_checked);
+        const allCheck = products.every(p => p.product_checked);
 
         const result = await Swal.fire({
             title: allCheck ? "¿Desea cambiar el estado de la orden?" : "Productos sin tildar",
@@ -143,8 +121,18 @@ const OrderDetailInfo = ({ idOrderDetail }) => {
             confirmButtonText: allCheck ? "Cambiar" : "Aceptar",
         });
 
-        if (result.isConfirmed) updateStatus(status);
-        updateProductStock()
+        if (!result.isConfirmed) return;// cancelar = no hace nada
+
+        try {
+            // descontar stock SOLO en la transición a Preparado
+            if (status.status_name === 'Preparado' && currentStatus === 'En Preparación') {
+                await updateProductStock();
+            }
+            await updateStatus(status);
+        } catch (error) {
+            console.error(error);
+            Swal.fire("Error", error.message, "error");
+        }
     };
 
     if (!orderUser) return <p className='mt-5 text-center'>Cargando...</p>;

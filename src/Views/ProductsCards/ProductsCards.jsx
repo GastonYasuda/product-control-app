@@ -29,7 +29,7 @@ const ProductsCards = () => {
             setLoading(false)
         }
 
-        console.log(getAllProducts);
+        // console.log(getAllProducts);
 
 
     }, [getAllProducts])
@@ -80,7 +80,7 @@ const ProductsCards = () => {
                         loginUser={loginUser}
                         allPendings={allPendings}
                         setAllPendings={setAllPendings}
-                        getAllProducts={orderByName(getAllProducts)}
+                    // getAllProducts={orderByName(getAllProducts)}
                     />
             }
 

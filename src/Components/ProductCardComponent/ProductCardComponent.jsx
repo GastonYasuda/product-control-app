@@ -6,8 +6,9 @@ import ProductCardComponentDetail from '../ProductCardComponentDetail/ProductCar
 import Swal from 'sweetalert2'
 import { toast, Slide, ToastContainer } from 'react-toastify';
 
-const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings, setAllPendings, getAllProducts }) => {
+const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings, setAllPendings }) => {
 
+    const { getAllProducts } = useContext(DataProductApi)
 
 
     const [showProducts, setShowProducts] = useState([])
@@ -16,17 +17,19 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings
 
     const [variant, setVariant] = useState('')
 
-
     useEffect(() => {
         // const pending = pending_orders ?? []
         // setPendingProducts(pending)
         // console.log(pending);
+        console.log(getAllProducts);
 
-        if (allPendings && getAllProducts !== 0) {
+
+
+        if (getAllProducts !== 0) {
             if (from === 'productCard') {
                 // mergeProdFunc(getAllProducts, pending)
                 mergeDetailElementAllPending(getAllProducts)
-                console.log(getAllProducts);
+                console.log(getAllProducts);//no esta actualizado
 
 
             } else if (from === 'searchBar') {
@@ -39,11 +42,15 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings
 
             }
         }
-    }, [getAllProducts, searchProductArray, allPendings, loginUser])
+        showProducts && console.log('showProducts', showProducts);
+
+    }, [getAllProducts, searchProductArray, allPendings, loginUser, from])
 
 
 
     const mergeDetailElementAllPending = (mergeProductsArray) => {
+        console.log(mergeProductsArray);
+
         const nuevoProducto = mergeProductsArray.map(de => {
             const pendiente = allPendings.find(
                 ap => Number(ap.product_id) === Number(de.product_id)
