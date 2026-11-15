@@ -7,8 +7,6 @@ import Swal from 'sweetalert2'
 import { toast, Slide, ToastContainer } from 'react-toastify';
 
 const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings, setAllPendings, getAllProducts }) => {
-    // const { getAllProducts } = useContext(DataProductApi)
-    const { orderByName, aplicateSweetAlert } = useContext(ProductApi)
 
 
 
@@ -154,9 +152,6 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings
 
 
     const savePending = async (body, productName) => {
-        // console.log(loginUser.user_id);
-        //console.log(productName);
-
 
         try {
             const response = await fetch(
@@ -198,8 +193,6 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings
 
 
     const deleteOrder = async (productId, productName) => {
-        // console.log('productId', productId);
-        // console.log('productName', productName);
 
         try {
             const response = await fetch(
@@ -217,18 +210,11 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings
                 throw new Error(err.error || `HTTP ${response.status}`);
             }
 
-            // 1. Crear un nuevo array sin el producto eliminado
             const newPendingArray = allPendings.filter(
                 product => product.product_id !== Number(productId)
             );
 
-            // 2. Actualizar el estado de todos los pendientes
-            //   setAllPendings(newPendingArray);
-            //  console.log(newPendingArray);//hasta aca ok
 
-
-
-            // 4. Actualizar localStorage
             const newUserArray = {
                 ...loginUser,
                 pending_orders: newPendingArray,
@@ -236,14 +222,12 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings
 
             localStorage.setItem("userPass", JSON.stringify(newUserArray));
 
-            // 5. Actualizar la interfaz
             setAllPendings(newPendingArray);
             from === 'productCard' ?
                 mergeDetailElementAllPending(getAllProducts)
                 :
                 mergeDetailElementAllPending(searchProductArray)
 
-            // setPendingBadge(false);
             setInputCount("");
 
             setShowProducts(prev =>

@@ -11,7 +11,7 @@ import ProductCardComponent from '../../Components/ProductCardComponent/ProductC
 
 
 const ProductsCards = () => {
-    const { getAllProducts } = useContext(DataProductApi)
+    const { getAllProductsFromDB, getAllProducts } = useContext(DataProductApi)
     const { loginUser, orderByName } = useContext(ProductApi)
 
     const [loading, setLoading] = useState(false)
@@ -28,6 +28,9 @@ const ProductsCards = () => {
         } else {
             setLoading(false)
         }
+
+        console.log(getAllProducts);
+
 
     }, [getAllProducts])
 
@@ -72,14 +75,12 @@ const ProductsCards = () => {
                 loading ?
                     <Spinner animation="grow" variant="success" className='loadingSpinner' />
                     :
-
                     <ProductCardComponent
                         from={'productCard'}
                         loginUser={loginUser}
                         allPendings={allPendings}
                         setAllPendings={setAllPendings}
                         getAllProducts={orderByName(getAllProducts)}
-
                     />
             }
 

@@ -14,12 +14,6 @@ const DataBaseProductApi = ({ children }) => {
         getAllProductsFromDB()
     }, [userOrder])
 
-    const desdeDB = () => {
-        //  console.log('probando desde desdeDB');
-
-    }
-
-
     const getAllProductsFromDB = async () => {
         try {
             const response = await fetch('http://localhost:3000/products')
@@ -69,7 +63,7 @@ const DataBaseProductApi = ({ children }) => {
     const deleteOneElementFromDB = () => { }
 
     return (
-        <DataProductApi.Provider value={{ desdeDB, getAllProducts, getUserOrders, userOrder }}>
+        <DataProductApi.Provider value={{ getAllProductsFromDB, getAllProducts, getUserOrders, userOrder }}>
             {children}
         </DataProductApi.Provider>
     )

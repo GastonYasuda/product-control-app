@@ -29,35 +29,52 @@ const OrderDetailInfo = ({ idOrderDetail }) => {
         if (allChecked && orderUser.status_name === 'En Preparación') {
 
             handleChangeOrderStatus({ status_id: 2, status_name: 'Preparado' })
-
         }
     }, [idOrderDetail, allChecked]);
 
+
     const updateProductStock = () => {
         const orderedProductsArray = orderUser.ordered_products
-        //   console.log(orderedProductsArray);
-        //   console.log(getAllProducts);
+
+        const stockArray = orderedProductsArray.map(opa => {
+            const product = getAllProducts.find(
+                gap => Number(gap.product_id) === Number(opa.product_id)
+            );
+
+            return {
+                product_id: Number(opa.product_id),
+                product_stock: product
+                    ? product.product_stock - Number(opa.ordered_quantity)
+                    : null, // producto no encontrado
+            };
+        });
+
+        console.log(stockArray);
 
 
-        const updateCount = orderedProductsArray.filter(gap =>
-            getAllProducts.find(opa => opa.product_id === gap.product_id)
-        )
+
+        // const updateCount = orderedProductsArray.filter(gap =>
+        //     getAllProducts.find(opa => opa.product_id === gap.product_id)
+        // )
 
         //   console.log(updateCount);//este me muestre el array 
 
-        const stockArray = updateCount.map(({ product_id, ordered_quantity }) => ({
-            product_id,
-            product_stock: ordered_quantity,
-        }));
+        //product_stock tiene que ser el resultado de la resta....
+        // const stockArray = updateCount.map(({ product_id, ordered_quantity }) => ({
+        //     product_id,
+        //     product_stock: ordered_quantity,
+        // }));
 
         // console.log(stockArray);
-        stockArray.forEach(element => {
-            patchNewStock(element)
+        stockArray.forEach(e => {
+            patchNewStock(e)
         });
 
     }
 
     const patchNewStock = async (stockArray) => {
+        console.log(stockArray);
+
         try {
             const response = await fetch(`http://localhost:3000/products/${stockArray.product_id}`, {
                 method: "PATCH",
