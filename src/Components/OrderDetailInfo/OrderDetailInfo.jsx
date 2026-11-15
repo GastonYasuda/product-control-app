@@ -3,6 +3,7 @@ import OrderDetailInfoCard from '../OrderDetailInfoCard/OrderDetailInfoCard';
 import { Dropdown } from 'react-bootstrap';
 import Swal from 'sweetalert2'
 import { ProductApi } from '../../Context/ProductControlApi';
+import { DataProductApi } from '../../Context/DataBaseProductApi';
 
 
 
@@ -13,11 +14,65 @@ const statusClass = (name) =>
 
 const OrderDetailInfo = ({ idOrderDetail }) => {
     const { loginUser, formatDate, statuses } = useContext(ProductApi);
+    const { getAllProducts } = useContext(DataProductApi)
     const userRol = loginUser.user_rol;
 
     const [orderUser, setOrderUser] = useState(null);
     const [allChecked, setAllChecked] = useState(false)
 
+
+    useEffect(() => {
+        if (idOrderDetail) getOneOrder(idOrderDetail);
+
+
+
+        if (allChecked && orderUser.status_name === 'En Preparación') {
+
+            handleChangeOrderStatus({ status_id: 2, status_name: 'Preparado' })
+
+        }
+    }, [idOrderDetail, allChecked]);
+
+    const updateProductStock = () => {
+        const orderedProductsArray = orderUser.ordered_products
+        //   console.log(orderedProductsArray);
+        //   console.log(getAllProducts);
+
+
+        const updateCount = orderedProductsArray.filter(gap =>
+            getAllProducts.find(opa => opa.product_id === gap.product_id)
+        )
+
+        //   console.log(updateCount);//este me muestre el array 
+
+        const stockArray = updateCount.map(({ product_id, ordered_quantity }) => ({
+            product_id,
+            product_stock: ordered_quantity,
+        }));
+
+        // console.log(stockArray);
+        stockArray.forEach(element => {
+            patchNewStock(element)
+        });
+
+    }
+
+    const patchNewStock = async (stockArray) => {
+        try {
+            const response = await fetch(`http://localhost:3000/products/${stockArray.product_id}`, {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ "product_stock": stockArray.product_stock }),
+            });
+
+            if (!response.ok) {
+                const err = await response.json();
+                throw new Error(err.error);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     const getOneOrder = async (orderId) => {
         try {
@@ -30,19 +85,7 @@ const OrderDetailInfo = ({ idOrderDetail }) => {
         }
     };
 
-    useEffect(() => {
-        if (idOrderDetail) getOneOrder(idOrderDetail);
 
-
-
-        if (allChecked && orderUser.status_name === 'En Preparación') {
-
-            handleChangeOrderStatus({ status_id: 2, status_name: 'Preparado' })
-
-            ////////////////////////////////////////////
-            //aca tengo que creaar la funcion para que reste en la db
-        }
-    }, [idOrderDetail, allChecked]);
 
     const updateStatus = async (status) => {
         try {
@@ -84,6 +127,7 @@ const OrderDetailInfo = ({ idOrderDetail }) => {
         });
 
         if (result.isConfirmed) updateStatus(status);
+        updateProductStock()
     };
 
     if (!orderUser) return <p className='mt-5 text-center'>Cargando...</p>;

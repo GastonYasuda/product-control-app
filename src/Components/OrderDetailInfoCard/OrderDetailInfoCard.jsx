@@ -31,6 +31,8 @@ const OrderDetailInfoCard = ({ orderArray, selectOrder, setOrderUser, userRol, s
         );
         setOrderUser({ ...selectOrder, ordered_products: updatedProducts });
 
+        console.log('id del producto?', selectOrder.ordered_products);
+
         //guardo en el back solo el producto que cambio
         try {
             const response = await fetch(`http://localhost:3000/orders/${selectOrder.order_id}`, {
