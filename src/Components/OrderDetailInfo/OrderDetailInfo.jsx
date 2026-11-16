@@ -119,6 +119,8 @@ const OrderDetailInfo = ({ idOrderDetail }) => {
             confirmButtonColor: "#17a2b8",
             cancelButtonColor: "#868e96",
             confirmButtonText: allCheck ? "Cambiar" : "Aceptar",
+        }).then((result) => {
+            if (result.isConfirmed) Swal.fire("Estado actualizado con éxito!", "", "success");
         });
 
         if (!result.isConfirmed) return;// cancelar = no hace nada
