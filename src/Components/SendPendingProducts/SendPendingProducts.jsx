@@ -13,8 +13,6 @@ const SendPendingProducts = () => {
 
     const [getPendingOrder, setGetPendingOrder] = useState([])
 
-
-
     //lo mando a localStorage, mas adelante tiene que enviarse a la DB
 
     useEffect(() => {
@@ -98,7 +96,7 @@ const SendPendingProducts = () => {
             Swal.fire({
                 title: "Enviar orden?",
                 text: "",
-                icon: "warning",
+                icon: "question",
                 showCancelButton: true,
                 confirmButtonColor: "#17a2b8",
                 cancelButtonColor: "#868e96",
