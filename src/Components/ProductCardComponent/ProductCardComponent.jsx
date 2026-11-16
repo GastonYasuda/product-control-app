@@ -293,7 +293,8 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings
                                 addToOrder={addToOrder}
                                 variant={variant}
                                 setVariant={setVariant}
-                                from={from} />
+                                from={from}
+                                rol={loginUser.user_rol} />
                         </section>
                     ))
                 }

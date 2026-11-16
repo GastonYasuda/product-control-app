@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom'
 
 
-const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, variant, setVariant, from }) => {
+const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, variant, setVariant, from, rol }) => {
 
     const [inputCount, setInputCount] = useState('')
 
@@ -58,6 +58,12 @@ const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, variant,
                                 value={inputCount}
                                 onChange={(e) => setInputCount(e.target.value)}
                             />
+
+
+                            {rol === 'deposito' &&
+                                <Button className='mt-3'>Actualizar</Button>
+                            }
+
                             <section className='d-flex mt-3'>
                                 <Button type="button" variant='secondary' className='w-50 me-2' onClick={() => { deleteOrder(product.product_id, product.product_name) }}>
                                     <span className="material-symbols-outlined">
