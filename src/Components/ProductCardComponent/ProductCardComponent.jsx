@@ -13,6 +13,7 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings
 
     const [showProducts, setShowProducts] = useState([])
     const [inputCount, setInputCount] = useState('0')
+    const [modalShow, setModalShow] = useState(false)
 
 
     const [variant, setVariant] = useState('')
@@ -21,7 +22,7 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings
         // const pending = pending_orders ?? []
         // setPendingProducts(pending)
         // console.log(pending);
-        console.log(getAllProducts);
+        // console.log(getAllProducts);
 
 
 
@@ -29,7 +30,7 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings
             if (from === 'productCard') {
                 // mergeProdFunc(getAllProducts, pending)
                 mergeDetailElementAllPending(getAllProducts)
-                console.log(getAllProducts);//no esta actualizado
+                // console.log(getAllProducts);//no esta actualizado
 
 
             } else if (from === 'searchBar') {
@@ -42,14 +43,13 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings
 
             }
         }
-        showProducts && console.log('showProducts', showProducts);
 
     }, [getAllProducts, searchProductArray, allPendings, loginUser, from])
 
 
 
     const mergeDetailElementAllPending = (mergeProductsArray) => {
-        console.log(mergeProductsArray);
+        // console.log(mergeProductsArray);
 
         const nuevoProducto = mergeProductsArray.map(de => {
             const pendiente = allPendings.find(
@@ -59,7 +59,7 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings
                 ? { ...de, product_count: pendiente.pending_order_quantity, pending: true }
                 : { ...de, product_count: 0, pending: false };
         });
-        console.log(nuevoProducto);
+        // console.log(nuevoProducto);
 
         setShowProducts(nuevoProducto);
         // console.log(orderByName(nuevoProducto));
@@ -255,7 +255,7 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings
             );
 
         } catch (error) {
-            console.error("Error al eliminar el pendiente:", error);
+            //  console.error("Error al eliminar el pendiente:", error);
 
             Swal.fire(
                 "Error al eliminar",
@@ -294,7 +294,8 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings
                                 variant={variant}
                                 setVariant={setVariant}
                                 from={from}
-                                rol={loginUser.user_rol} />
+                                rol={loginUser.user_rol}
+                            />
                         </section>
                     ))
                 }

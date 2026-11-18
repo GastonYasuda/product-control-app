@@ -21,7 +21,7 @@ const DataBaseProductApi = ({ children }) => {
                 const data = await response.json()
                 //  setGetAllProducts([...getAllProducts, ...data])
                 setGetAllProducts(data)
-                console.log(data);
+                // console.log(data);
 
             } else {
                 throw new Error("Error al intentar obtener productos")

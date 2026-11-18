@@ -3,24 +3,32 @@ import { Button, Card, Col, Row } from 'react-bootstrap'
 import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom'
 
+import UpdatePriceStockModal from '../UpdatePriceStockModal/UpdatePriceStockModal';
+
+
 
 const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, variant, setVariant, from, rol }) => {
 
     const [inputCount, setInputCount] = useState('')
 
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
+
+
+    const isVertical = ['category', 'supplier', 'productCard'].includes(from);
     useEffect(() => {
-        //  console.log(product);
+        setVariant(isVertical ? 'vertical' : 'horizontal');
+    }, [from]);
 
+    const updateStockPrice = (id, newPrice, newStock) => {
+        console.log('aca hago el patch',);
+        console.log('id del producto', id);
+        console.log('nuevo precio ', newPrice);
+        console.log('nuevo stock ', newStock);
 
-        if (from === 'category' || from === 'supplier' || from === 'productCard') {
-            setVariant('vertical')
-        } else {
-            setVariant('horizontal')
-        }
-
-    }, [variant, product])
-
+    }
 
     return (
         <Col >
@@ -61,7 +69,19 @@ const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, variant,
 
 
                             {rol === 'deposito' &&
-                                <Button className='mt-3'>Actualizar</Button>
+                                <section className='mt-3'>
+                                    <Button variant="primary" className='w-100' onClick={() => { handleShow() }}>
+                                        Actualizar
+                                    </Button>
+
+                                    <UpdatePriceStockModal
+                                        show={show}
+                                        onHide={handleClose}
+                                        product={product}
+                                        updateStockPrice={updateStockPrice}
+                                    />
+
+                                </section>
                             }
 
                             <section className='d-flex mt-3'>
