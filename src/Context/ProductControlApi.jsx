@@ -84,6 +84,7 @@ const ProductControlApi = ({ children }) => {
         }
     };
 
+
     const capital = (text) => {
         const clean = String(text).trim();
         if (!clean) return '';

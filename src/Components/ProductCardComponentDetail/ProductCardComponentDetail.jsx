@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Button, Card, Col, Row } from 'react-bootstrap'
 import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom'
 
 import UpdatePriceStockModal from '../UpdatePriceStockModal/UpdatePriceStockModal';
+import { ProductApi } from '../../Context/ProductControlApi';
+import { DataProductApi } from '../../Context/DataBaseProductApi';
 
 
 
 const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, variant, setVariant, from, rol }) => {
 
+    const { aplicateSweetAlert } = useContext(ProductApi)
+    const { updateProductInList } = useContext(DataProductApi)
     const [inputCount, setInputCount] = useState('')
 
     const [show, setShow] = useState(false);
@@ -22,14 +26,22 @@ const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, variant,
         setVariant(isVertical ? 'vertical' : 'horizontal');
     }, [from]);
 
-    const updateStockPrice = (id, newPrice, newStock) => {
-        console.log('aca hago el patch',);
-        console.log('id del producto', id);
-        console.log('nuevo precio ', newPrice);
-        console.log('nuevo stock ', newStock);
+    const updateStockPrice = async (id, newPrice, newStock) => {
+        const response = await fetch(`http://localhost:3000/products/${id}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ product_price: newPrice, product_stock: newStock }),
+        });
 
-    }
+        if (!response.ok) {
+            const err = await response.json().catch(() => ({}));
+            throw new Error(err.error || `HTTP ${response.status}`);
+        }
 
+        // Actualiza el estado → React vuelve a renderizar la tarjeta
+        updateProductInList(id, { product_price: newPrice, product_stock: newStock });
+        aplicateSweetAlert('Actualizado correctamente', '', 'success');
+    };
     return (
         <Col >
             <Card className={`w-100 h-100 d-flex cardComponent--${variant}`}>

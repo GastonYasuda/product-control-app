@@ -17,7 +17,7 @@ const UpdatePriceStockModal = ({ show, onHide, product, updateStockPrice }) => {
         }
     }, [show]);
 
-    const handleSave = (e) => {
+    const handleSave = async (e) => {
         e.preventDefault();
 
         // Campo sin tocar = se mantiene el valor actual
@@ -31,12 +31,19 @@ const UpdatePriceStockModal = ({ show, onHide, product, updateStockPrice }) => {
             return setError('El stock debe ser un número entero mayor o igual a 0.');
         }
 
-        updateStockPrice(product.product_id, p, s);
-        onHide();
+        try {
+            await updateStockPrice(product.product_id, p, s);
+            onHide(); // solo se cierra si salió bien
+        } catch (err) {
+            setError(`No se pudo actualizar: ${err.message}`);
+        }
+
+        // updateStockPrice(product.product_id, p, s);
+        // onHide();
     };
 
     return (
-        <Modal show={show} onHide={onHide}>
+        <Modal show={show} onHide={onHide} className='d-flex align-items-center justify-content-center'>
             <Form onSubmit={handleSave}>
                 <Modal.Header closeButton>
                     <Modal.Title>Actualizar {product?.product_name}</Modal.Title>

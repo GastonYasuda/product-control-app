@@ -32,6 +32,15 @@ const DataBaseProductApi = ({ children }) => {
         }
     }
 
+
+    const updateProductInList = (id, changes) => {
+        setGetAllProducts(prev =>
+            prev.map(p =>
+                Number(p.product_id) === Number(id) ? { ...p, ...changes } : p
+            )
+        );
+    };
+
     const getUserOrders = async (loginUser) => {
         console.log(loginUser);
 
@@ -62,7 +71,7 @@ const DataBaseProductApi = ({ children }) => {
     const deleteOneElementFromDB = () => { }
 
     return (
-        <DataProductApi.Provider value={{ getAllProductsFromDB, getAllProducts, getUserOrders, userOrder }}>
+        <DataProductApi.Provider value={{ getAllProductsFromDB, getAllProducts, updateProductInList, getUserOrders, userOrder }}>
             {children}
 
         </DataProductApi.Provider>

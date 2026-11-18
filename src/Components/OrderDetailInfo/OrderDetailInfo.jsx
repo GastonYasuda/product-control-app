@@ -22,6 +22,7 @@ const OrderDetailInfo = ({ idOrderDetail }) => {
 
 
 
+
     useEffect(() => {
         if (idOrderDetail) getOneOrder(idOrderDetail);
     }, [idOrderDetail]);
