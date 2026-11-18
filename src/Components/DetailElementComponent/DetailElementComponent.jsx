@@ -16,8 +16,6 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
 
     const [showProducts, setShowProducts] = useState([])
     // const [pendingBadge, setPendingBadge] = useState(false)
-    const [inputCount, setInputCount] = useState('0')
-
 
 
     const [variant, setVariant] = useState('')
@@ -26,11 +24,6 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
 
 
     useEffect(() => {
-        // console.log(detailElement);
-
-
-
-
         if (from !== 'pendingProductList') {
 
             if (allPendings !== undefined && detailElement.length !== 0) {
@@ -82,19 +75,20 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
             : [];
 
         const nuevoProducto = detailElement.map(product => {
+            const actualizado = getAllProducts.find(
+                p => Number(p.product_id) === Number(product.product_id)
+            );
             const pendiente = pendientes.find(
                 p => Number(p.product_id) === Number(product.product_id)
             );
 
             return {
                 ...product,
-                product_count: pendiente
-                    ? pendiente.pending_order_quantity
-                    : 0,
+                ...actualizado,   // precio y stock al día
+                product_count: pendiente ? pendiente.pending_order_quantity : 0,
                 pending: Boolean(pendiente),
             };
         });
-
         setShowProducts(orderByName(nuevoProducto));
     };
 
@@ -110,7 +104,7 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
         }
 
         const product = getAllProducts.find(
-            p => p.product_id === Number(id_product)
+            p => Number(p.product_id) === Number(id_product)
         );
 
         if (!product) {
@@ -273,7 +267,7 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
 
             // 1. Crear un nuevo array sin el producto eliminado
             const newPendingArray = allPendings.filter(
-                product => product.product_id !== Number(productId)
+                product => Number(product.product_id) !== Number(productId)
             );
 
             // 2. Actualizar el estado de todos los pendientes
@@ -304,7 +298,6 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
             }
 
             // setPendingBadge(false);
-            setInputCount("");
 
             setShowProducts(prev =>
                 prev.map(product =>
@@ -393,7 +386,9 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
                             addToOrder={addToOrder}
                             variant={variant}
                             setVariant={setVariant}
-                            from={from} />
+                            from={from}
+                            rol={loginUser.user_rol}
+                        />
                     </section>
                 ))
                 }

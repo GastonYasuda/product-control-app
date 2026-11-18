@@ -13,7 +13,6 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings
 
     const [showProducts, setShowProducts] = useState([])
     const [inputCount, setInputCount] = useState('0')
-    const [modalShow, setModalShow] = useState(false)
 
 
     const [variant, setVariant] = useState('')
