@@ -19,10 +19,6 @@ const SearchBar = () => {
         navigate(`/searchResults/${searchProductInput}`);
         //buscar en TODOS LOS PRODUCTOS, coincidencias de nombre, codigo, proveedor...
 
-
-        // const productCoincidence = getAllProducts.filter((product) => product.name.toLowerCase().includes(searchProductInput.toLowerCase()))
-        // setSearchProductArray(productCoincidence)
-        // console.log(productCoincidence);
     }
 
     return (

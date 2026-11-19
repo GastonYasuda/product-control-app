@@ -40,6 +40,8 @@ const SearchResults = () => {
         setAllPendings(pending_orders)
         //  console.log(getAllProducts);
 
+        console.log('idSearchResults', idSearchResults);
+
 
         const productCoincidence = getAllProducts.filter((p) => p.product_name.toLowerCase().includes(idSearchResults.toLowerCase()))
         setSearchProductArray(productCoincidence)
@@ -73,7 +75,7 @@ const SearchResults = () => {
 
 
 
-    }, [getAllProducts])
+    }, [getAllProducts, idSearchResults])
 
     const getUserPending = async () => {
         try {
