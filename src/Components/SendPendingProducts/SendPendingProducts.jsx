@@ -133,13 +133,13 @@ const SendPendingProducts = () => {
                     getUserOrders(loginUser)
 
 
-                    console.log(userOrder);
+                    //   console.log(userOrder);
 
                     const updatedUser = {
                         ...loginUser,
                         pending_orders: [],
                     };
-                    console.log(updatedUser);
+                    // console.log(updatedUser);
 
 
                     localStorage.setItem("userPass", JSON.stringify(updatedUser));

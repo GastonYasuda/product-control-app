@@ -21,8 +21,6 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
     const [variant, setVariant] = useState('')
 
 
-
-
     useEffect(() => {
         if (from !== 'pendingProductList') {
 
@@ -37,7 +35,6 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
             funcionParaOrder(allPendings)
 
         }
-
 
     }, [allPendings, getAllProducts, detailElement])
 
@@ -57,7 +54,7 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
         }).filter(Boolean);
 
 
-        setShowProducts(newProductsArray)
+        setShowProducts(orderByName(newProductsArray))
     }
 
 
@@ -299,7 +296,7 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
 
             // setPendingBadge(false);
 
-            setShowProducts(prev =>
+            const newShowArrayProducts = prev =>
                 prev.map(product =>
                     Number(product.product_id) === Number(productId)
                         ? {
@@ -309,7 +306,8 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
                         }
                         : product
                 )
-            );
+
+            setShowProducts(newShowArrayProducts);
 
             showTostify(
                 "success",

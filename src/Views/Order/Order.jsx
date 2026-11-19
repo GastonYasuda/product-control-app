@@ -56,12 +56,12 @@ const Order = () => {
                     <h4 className='mt-5 text-start ps-3'>
                         {count} {count === 1 ? 'Producto Pendiente' : 'Productos Pendientes'}
                     </h4>
+
                     <section className='orderMainComponent'>
                         <DetailElementComponent
                             from={'pendingProductList'}
                             allPendings={allPendings}
                             setAllPendings={setAllPendings}
-                        // detailElement={detailElement}
                         />
                     </section>
                 </>

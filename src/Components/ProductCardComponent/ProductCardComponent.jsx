@@ -9,6 +9,7 @@ import { toast, Slide, ToastContainer } from 'react-toastify';
 const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings, setAllPendings }) => {
 
     const { getAllProducts } = useContext(DataProductApi)
+    const { orderByName } = useContext(ProductApi)
 
 
     const [showProducts, setShowProducts] = useState([])
@@ -58,9 +59,9 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings
                 ? { ...de, product_count: pendiente.pending_order_quantity, pending: true }
                 : { ...de, product_count: 0, pending: false };
         });
-        // console.log(nuevoProducto);
+        console.log(nuevoProducto);
 
-        setShowProducts(nuevoProducto);
+        setShowProducts(orderByName(nuevoProducto));
         // console.log(orderByName(nuevoProducto));
         // console.log(nuevoProducto);
     };
@@ -236,7 +237,8 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings
 
             setInputCount("");
 
-            setShowProducts(prev =>
+
+            const newShowArrayProducts = prev =>
                 prev.map(product =>
                     Number(product.product_id) === Number(productId)
                         ? {
@@ -246,7 +248,8 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings
                         }
                         : product
                 )
-            );
+
+            setShowProducts(newShowArrayProducts);
 
             showTostify(
                 "success",

@@ -91,12 +91,6 @@ const ProductControlApi = ({ children }) => {
         return clean.charAt(0).toLocaleUpperCase('es') + clean.slice(1).toLocaleLowerCase('es');
     };
 
-
-    // showTostify("success", "Producto guardado correctamente");
-    // showTostify("error", "Ocurrió un error");
-    // showTostify("warning", "Revisá los datos");
-    // showTostify("info", "Pedido actualizado");
-
     return (
         <ProductApi.Provider value={{ getUsersData, loginUser, setLoginUser, orderByName, aplicateSweetAlert, formatDate, statuses, capital }}>
             {children}

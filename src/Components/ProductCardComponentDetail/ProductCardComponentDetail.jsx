@@ -79,23 +79,6 @@ const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, variant,
                                 onChange={(e) => setInputCount(e.target.value)}
                             />
 
-
-                            {rol === 'deposito' &&
-                                <section className='mt-3'>
-                                    <Button variant="primary" className='w-100' onClick={() => { handleShow() }}>
-                                        Actualizar
-                                    </Button>
-
-                                    <UpdatePriceStockModal
-                                        show={show}
-                                        onHide={handleClose}
-                                        product={product}
-                                        updateStockPrice={updateStockPrice}
-                                    />
-
-                                </section>
-                            }
-
                             <section className='d-flex mt-3'>
                                 <Button type="button" variant='secondary' className='w-50 me-2' onClick={() => { deleteOrder(product.product_id, product.product_name) }}>
                                     <span className="material-symbols-outlined">
@@ -109,6 +92,26 @@ const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, variant,
                                     </span>
                                 </Button>
                             </section>
+
+
+                            {rol === 'deposito' &&
+                                <section className='mt-3'>
+                                    <Button variant="dark" className='w-100 opacity-50' onClick={() => { handleShow() }}>
+                                        Actualizar
+                                    </Button>
+
+                                    <UpdatePriceStockModal
+                                        show={show}
+                                        onHide={handleClose}
+                                        product={product}
+                                        updateStockPrice={updateStockPrice}
+                                    />
+
+                                </section>
+                            }
+
+
+
                         </Form>
                     </div>
                 </Card.Body>
