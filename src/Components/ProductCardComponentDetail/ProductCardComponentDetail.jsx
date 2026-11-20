@@ -23,6 +23,8 @@ const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, variant,
 
     const isVertical = ['category', 'supplier', 'productCard'].includes(from);
     useEffect(() => {
+        console.log(product);
+
         setVariant(isVertical ? 'vertical' : 'horizontal');
     }, [from]);
 
@@ -43,18 +45,21 @@ const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, variant,
         aplicateSweetAlert('Actualizado correctamente', '', 'success');
     };
     return (
-        <Col >
-            <Card className={`w-100 h-100 d-flex cardComponent--${variant}`}>
+        <Col>
+            <Card className={`w-100 h-100 d-flex cardComponent--${variant} position-relative`}>
                 {product.pending && <span className='position-absolute top-0 end-0 badge bg-warning p-2 mt-1 me-1'>Pendiente</span>}
 
+                {product.product_stock === 0 && <h1 className='mt-3 z-3 w-100 bg-info text-light position-absolute'>SIN STOCK</h1>}
+
+
                 <Link to={`/product/${product.product_id}`}>
-                    <div className='w-100 m-auto homeCardImage'>
+                    <div className={`${product.product_stock === 0 ? "opacity-50" : ""} w-100 m-auto homeCardImage`}>
                         <img src={product.product_img} className='w-100 h-100 object-fit-contain' alt={`${product.product_img} img`} />
                     </div>
                 </Link>
 
                 <Card.Body className='d-flex flex-column justify-content-between'>
-                    <div className='text-start d-flex flex-column'>
+                    <div className={`${product.product_stock === 0 ? "opacity-50" : ""} text-start d-flex flex-column`}>
                         <div>
                             <h6>{product.product_name}</h6>
 
@@ -64,14 +69,14 @@ const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, variant,
                     </div>
 
                     <div>
-                        <div className='w-100 d-flex flex-column justify-content-between'>
+                        <div className={`${product.product_stock === 0 ? "opacity-50" : ""} w-100 d-flex flex-column justify-content-between`}>
                             <span className='text-start'>Cod: {product.product_sku}</span>
                             <section className='d-flex justify-content-between'>
                                 <span className='fw-semibold'>${product.product_price}</span>
                                 <span>Stock: {product.product_stock}</span>
                             </section>
                         </div>
-                        <Form className='d-flex flex-column mt-2'>
+                        <Form className={`${product.product_stock === 0 ? "opacity-50" : ""} w-100 d-flex flex-column justify-content-between d-flex flex-column mt-2`}>
                             <Form.Control
                                 type="number"
                                 placeholder={product.product_count}
