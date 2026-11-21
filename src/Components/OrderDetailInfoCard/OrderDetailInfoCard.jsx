@@ -3,8 +3,7 @@ import './orderDetailInfoCard.css'
 
 const OrderDetailInfoCard = ({ orderArray, selectOrder, setOrderUser, userRol, setAllChecked }) => {
 
-    // console.log(orderArray.length);
-    // console.log(orderArray);
+
     useEffect(() => {
 
         const test = orderArray.filter(oa => oa.product_checked === true)

@@ -159,7 +159,7 @@ const SendPendingProducts = () => {
 
         <Button type='button' variant='info' className='position-absolute top-0 end-0 me-2 mt-5' onClick={() => { handlePendingProducts() }}>
             <span className="material-symbols-outlined text-light">
-                shopping_cart_checkout
+                move_item
             </span>
         </Button>
 

@@ -54,7 +54,6 @@ const SuppierDetail = () => {
 
             } else {
                 throw new Error("Error al intentar obtener productos");
-
             }
         }
         catch (error) {

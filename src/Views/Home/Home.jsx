@@ -11,29 +11,6 @@ const Home = () => {
 
     const { loginUser } = useContext(ProductApi)
 
-    // const getUserOrder = async (userId) => {
-    //     try {
-    //         const response = await fetch(`http://localhost:3000/users/${userId}/orders`)
-    //         if (response.ok) {
-    //             const data = await response.json()
-    //             console.log(data);
-
-    //         } else {
-    //             throw new Error("Error al intentar obtener productos");
-    //         }
-    //     }
-    //     catch (error) {
-    //         console.error(error)
-    //     }
-    // }
-
-
-    // getUserOrder(loginUser.user_id)
-
-
-
-
-
     return (
         <div className='mt-5'>
 
@@ -52,11 +29,7 @@ const Home = () => {
                     {loginUser.user_rol === 'salon' ? <SalonMainInfo /> : <DepoMainInfo />}
 
                 </>
-
             }
-            {/* <div className="d-none d-lg-block">
-                <NavBarDesktop />
-            </div> */}
 
             <div className="d-block d-lg-none">
                 <NavBarMobile />

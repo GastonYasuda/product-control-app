@@ -6,14 +6,11 @@ const FilterComponent = ({ setFilter, showFilter }) => {
 
     const { statuses } = useContext(ProductApi);
 
-
-
     const statusClass = (name) =>
         name === 'Entregado' ? 'bg-secondary'
             : name === 'Preparado' ? 'bg-success'
                 : name === 'En Preparación' ? 'bg-info'
                     : 'bg-primary'
-
 
     return (
         <Dropdown className='navBar_container_item mt-3'>

@@ -11,6 +11,8 @@ const OrderDetail = () => {
     const { loginUser } = useContext(ProductApi)
 
     const { idOrderDetail } = useParams()
+    console.log(idOrderDetail);
+
 
 
     return (

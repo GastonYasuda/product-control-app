@@ -62,11 +62,6 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
     const mergeDetailElementAllPending = (allPendingProducts) => {
         console.log(detailElement);
 
-        // if (!Array.isArray(detailElement)) {
-        //     console.error("detailElement no es un array:", detailElement);
-        //     return;
-        // }
-
         const pendientes = Array.isArray(allPendingProducts)
             ? allPendingProducts
             : [];
@@ -185,9 +180,6 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
         localStorage.setItem("userPass", JSON.stringify(updatedUser));
 
     };
-
-
-
 
 
     const savePending = async (body, productName) => {

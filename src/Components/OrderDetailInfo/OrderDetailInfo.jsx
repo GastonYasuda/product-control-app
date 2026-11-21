@@ -14,23 +14,39 @@ const statusClass = (name) =>
 
 const OrderDetailInfo = ({ idOrderDetail }) => {
     const { loginUser, formatDate, statuses } = useContext(ProductApi);
-    const { getAllProducts, getAllProductsFromDB } = useContext(DataProductApi)
+    const { getAllProductsFromDB } = useContext(DataProductApi)
     const userRol = loginUser.user_rol;
 
     const [orderUser, setOrderUser] = useState(null);
     const [allChecked, setAllChecked] = useState(false)
 
 
-
-
     useEffect(() => {
-        if (idOrderDetail) getOneOrder(idOrderDetail);
+
+        getOneOrder(idOrderDetail);
+
     }, [idOrderDetail]);
 
+
     useEffect(() => {
-        if (allChecked && orderUser?.status_name === 'En Preparación') {
-            handleChangeOrderStatus({ status_id: 2, status_name: 'Preparado' });
-        }
+        if (!allChecked || orderUser?.status_name !== 'En Preparación') return;
+
+        Swal.fire({
+            title: "Todos los productos tildados.",
+            text: '¿Desea cambiar el estado de la orden de "En Preparación" a "Preparado"?',
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#17a2b8",
+            cancelButtonColor: "#868e96",
+            confirmButtonText: "Aceptar",
+        }).then(result => {
+            if (result.isConfirmed) {
+                handleChangeOrderStatus(
+                    { status_id: 2, status_name: 'Preparado' },
+                    { skipConfirm: true }   // ya confirmó acá, no preguntar de nuevo
+                );
+            }
+        });
     }, [allChecked]);
 
 
@@ -73,11 +89,15 @@ const OrderDetailInfo = ({ idOrderDetail }) => {
     };
 
     const getOneOrder = async (orderId) => {
+        console.log(orderId);
+
         try {
             const response = await fetch(`http://localhost:3000/orders/${orderId}`);
             if (!response.ok) throw new Error(`Error al intentar obtener orden con id ${orderId}`);
             const data = await response.json();
             setOrderUser(data);
+
+
         } catch (error) {
             console.error(error);
         }
@@ -103,90 +123,93 @@ const OrderDetailInfo = ({ idOrderDetail }) => {
         }
     };
 
-    const handleChangeOrderStatus = async (status) => {
+    const handleChangeOrderStatus = async (status, { skipConfirm = false } = {}) => {
         const currentStatus = orderUser.status_name;
         if (status.status_name === currentStatus) return;
 
         const products = orderUser.ordered_products || [];
         const allCheck = products.every(p => p.product_checked);
 
-        const result = await Swal.fire({
-            title: allCheck ? "¿Desea cambiar el estado de la orden?" : "Productos sin tildar",
-            text: allCheck
-                ? `"${currentStatus}" a "${status.status_name}"`
-                : "¿Desea cambiar el estado igual?",
-            icon: allCheck ? "question" : "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#17a2b8",
-            cancelButtonColor: "#868e96",
-            confirmButtonText: allCheck ? "Cambiar" : "Aceptar",
-        }).then((result) => {
-            if (result.isConfirmed) Swal.fire("Estado actualizado con éxito!", "", "success");
-        });
-
-        if (!result.isConfirmed) return;// cancelar = no hace nada
+        if (!skipConfirm) {
+            const result = await Swal.fire({
+                title: allCheck ? "¿Desea cambiar el estado de la orden?" : "Productos sin tildar",
+                text: allCheck
+                    ? `"${currentStatus}" a "${status.status_name}"`
+                    : "Hay productos sin tildar. ¿Desea cambiar el estado igual?",
+                icon: allCheck ? "question" : "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#17a2b8",
+                cancelButtonColor: "#868e96",
+                confirmButtonText: "Aceptar",
+            });
+            if (!result.isConfirmed) return;   // cancelar = no hace nada
+        }
 
         try {
-            // descontar stock SOLO en la transición a Preparado
             if (status.status_name === 'Preparado' && currentStatus === 'En Preparación') {
-                await updateProductStock();
+                await updateProductStock();     // si falla, no se cambia el estado
             }
             await updateStatus(status);
+            Swal.fire("Estado actualizado con éxito!", "", "success");
         } catch (error) {
             console.error(error);
             Swal.fire("Error", error.message, "error");
         }
     };
 
-    if (!orderUser) return <p className='mt-5 text-center'>Cargando...</p>;
-
-
     return (
-        <div className='mt-5 mb-5 text-start px-3'>
-            <section className='d-flex align-items-center mb-4'>
-                <h6 className='flex-fill mb-0'>Pedido #{orderUser.order_id}</h6>
-                <h6 className='flex-fill mb-0'>{formatDate(orderUser.order_date)}</h6>
+        <>
+            {orderUser !== null &&
 
-                {userRol === 'deposito' ? (
-                    <Dropdown className='navBar_container_item mt-3'>
-                        <Dropdown.Toggle
-                            variant="success"
-                            id="dropdown-basic"
-                            className={`d-flex align-items-center ${statusClass(orderUser.status_name)}`}
-                        >
-                            {orderUser.status_name}
-                            <span className="material-symbols-outlined mt-1 ps-1">stat_minus_1</span>
-                        </Dropdown.Toggle>
+                <div className='mt-5 mb-5 text-start px-3'>
+                    <section className='d-flex align-items-center mb-4'>
+                        <h6 className='flex-fill mb-0'>Pedido #{orderUser.order_id}</h6>
+                        <h6 className='flex-fill mb-0'>{formatDate(orderUser.order_date)}</h6>
 
-                        <Dropdown.Menu className='mt-5 rounded'>
-                            {statuses.map((s) => (
-                                <Dropdown.Item
-                                    key={s.status_id}
-                                    className='dropdown-menu-txt pt-2'
-                                    onClick={() => handleChangeOrderStatus(s)}
+                        {userRol === 'deposito' ? (
+                            <Dropdown className='navBar_container_item mt-3'>
+                                <Dropdown.Toggle
+                                    variant="success"
+                                    id="dropdown-basic"
+                                    className={`d-flex align-items-center ${statusClass(orderUser.status_name)}`}
+
                                 >
-                                    {s.status_name}
-                                </Dropdown.Item>
-                            ))}
-                        </Dropdown.Menu>
-                    </Dropdown>
-                ) : (
-                    <span className={`${statusClass(orderUser.status_name)} text-white rounded py-2 text-center lh-1 flex-fill`}>
-                        {orderUser.status_name}
-                    </span>
-                )}
-            </section>
+                                    {orderUser.status_name}
+                                    <span className="material-symbols-outlined mt-1 ps-1">stat_minus_1</span>
+                                </Dropdown.Toggle>
 
-            <OrderDetailInfoCard
-                orderArray={orderUser.ordered_products || []}
-                selectOrder={orderUser}
-                setOrderUser={setOrderUser}
-                userRol={userRol}
-                setAllChecked={setAllChecked}
-            />
+                                <Dropdown.Menu className='mt-5 rounded'>
+                                    {statuses.map((s) => (
+                                        <Dropdown.Item
+                                            key={s.status_id}
+                                            className='dropdown-menu-txt pt-2'
+                                            onClick={() => handleChangeOrderStatus(s)}
+                                        >
+                                            {s.status_name}
+                                        </Dropdown.Item>
+                                    ))}
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        ) : (
+                            <span className={`${statusClass(orderUser.status_name)} text-white rounded py-2 text-center lh-1 flex-fill`}>
+                                {orderUser.status_name}
+                            </span>
+                        )}
+                    </section>
 
-        </div>
+                    <OrderDetailInfoCard
+                        orderArray={orderUser.ordered_products || []}
+                        selectOrder={orderUser}
+                        setOrderUser={setOrderUser}
+                        userRol={userRol}
+                        setAllChecked={setAllChecked}
+                    />
+
+                </div>
+            }
+        </>
     );
+
 };
 
 export default OrderDetailInfo;
