@@ -161,7 +161,7 @@ const OrderDetailInfo = ({ idOrderDetail }) => {
         <>
             {orderUser !== null &&
 
-                <div className='mt-5 mb-5 text-start px-3'>
+                <div className='mt-3 text-start px-3' style={{ marginBottom: '6em' }}>
                     <section className='d-flex align-items-center mb-4'>
                         <h6 className='flex-fill mb-0'>Pedido #{orderUser.order_id}</h6>
                         <h6 className='flex-fill mb-0'>{formatDate(orderUser.order_date)}</h6>
