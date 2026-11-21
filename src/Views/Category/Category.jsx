@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
 import SearchBar from '../../Components/SearchBar/SearchBar'
-import NavBar from '../../Components/NavBar/NavBar'
 import MainCard from '../../Components/MainCard/MainCard'
 import Greeting from '../../Components/Greeting/Greeting'
 import { ProductApi } from '../../Context/ProductControlApi'
+import NavBarMobile from '../../Components/NavBarMobile/NavBarMobile'
 
 
 const Category = () => {
@@ -31,7 +31,7 @@ const Category = () => {
 
             <MainCard cardName={"category"} />
 
-            <NavBar />
+            <NavBarMobile />
         </div>
     )
 }

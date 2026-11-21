@@ -2,9 +2,9 @@ import React, { useContext } from 'react'
 import { ProductApi } from '../../Context/ProductControlApi'
 import Greeting from '../../Components/Greeting/Greeting'
 import SearchBar from '../../Components/SearchBar/SearchBar'
-import NavBar from '../../Components/NavBar/NavBar'
 import { useParams } from 'react-router-dom'
 import OrderDetailInfo from '../../Components/OrderDetailInfo/OrderDetailInfo'
+import NavBarMobile from '../../Components/NavBarMobile/NavBarMobile'
 
 const OrderDetail = () => {
 
@@ -29,7 +29,7 @@ const OrderDetail = () => {
 
             <OrderDetailInfo idOrderDetail={idOrderDetail} />
 
-            <NavBar />
+            <NavBarMobile />
         </div>
     )
 }

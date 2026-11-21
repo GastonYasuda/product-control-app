@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from 'react'
 import './order.css'
 import SearchBar from '../../Components/SearchBar/SearchBar'
-import NavBar from '../../Components/NavBar/NavBar'
 import Greeting from '../../Components/Greeting/Greeting'
 import { ProductApi } from '../../Context/ProductControlApi'
 import DetailElementComponent from '../../Components/DetailElementComponent/DetailElementComponent'
 import noProductImg from '../../assets/noProducts.png'
+import NavBarMobile from '../../Components/NavBarMobile/NavBarMobile'
 
 const Order = () => {
     const { loginUser } = useContext(ProductApi)
@@ -73,7 +73,7 @@ const Order = () => {
                     </h4>
                 </section>
             }
-            <NavBar />
+            <NavBarMobile />
         </div>
     )
 }

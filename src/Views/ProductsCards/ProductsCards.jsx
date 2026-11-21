@@ -5,9 +5,9 @@ import { DataProductApi } from '../../Context/DataBaseProductApi';
 import Spinner from 'react-bootstrap/Spinner';
 import Greeting from '../../Components/Greeting/Greeting';
 import SearchBar from '../../Components/SearchBar/SearchBar';
-import NavBar from '../../Components/NavBar/NavBar';
 import { ProductApi } from '../../Context/ProductControlApi';
 import ProductCardComponent from '../../Components/ProductCardComponent/ProductCardComponent';
+import NavBarMobile from '../../Components/NavBarMobile/NavBarMobile';
 
 
 const ProductsCards = () => {
@@ -84,7 +84,7 @@ const ProductsCards = () => {
                     />
             }
 
-            <NavBar />
+            <NavBarMobile />
 
         </div >
 

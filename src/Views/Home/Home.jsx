@@ -1,6 +1,5 @@
 import SearchBar from '../../Components/SearchBar/SearchBar';
 import Greeting from '../../Components/Greeting/Greeting';
-import NavBarDesktop from '../../Components/NavBarDesktop/NavBarDesktop';
 import NavBarMobile from '../../Components/NavBarMobile/NavBarMobile';
 import SalonMainInfo from '../../Components/SalonMainInfo/SalonMainInfo';
 import { useContext, useEffect, useState } from 'react';

@@ -3,12 +3,12 @@ import { Button, Form } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import './productDetail.css'
 import SearchBar from '../../Components/SearchBar/SearchBar';
-import NavBar from '../../Components/NavBar/NavBar';
 import { DataProductApi } from '../../Context/DataBaseProductApi';
 import Greeting from '../../Components/Greeting/Greeting';
 import { ProductApi } from '../../Context/ProductControlApi';
 import Swal from 'sweetalert2'
 import { toast, Slide, ToastContainer } from 'react-toastify';
+import NavBarMobile from '../../Components/NavBarMobile/NavBarMobile';
 
 
 const ProductDetail = () => {
@@ -384,7 +384,7 @@ const ProductDetail = () => {
             }
 
 
-            <NavBar />
+            <NavBarMobile />
             <ToastContainer />
         </div >
     )

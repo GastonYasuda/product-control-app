@@ -1,10 +1,10 @@
 import { useParams } from 'react-router-dom'
 import SearchBar from '../../Components/SearchBar/SearchBar'
-import NavBar from '../../Components/NavBar/NavBar'
 import DetailElementComponent from '../../Components/DetailElementComponent/DetailElementComponent'
 import { useContext, useEffect, useState } from 'react'
 import Greeting from '../../Components/Greeting/Greeting'
 import { ProductApi } from '../../Context/ProductControlApi'
+import NavBarMobile from '../../Components/NavBarMobile/NavBarMobile'
 
 const CategoryDetails = () => {
     const { loginUser, orderByName } = useContext(ProductApi)
@@ -81,7 +81,7 @@ const CategoryDetails = () => {
                 setAllPendings={setAllPendings}
                 detailElement={detailElement} />
 
-            <NavBar />
+            <NavBarMobile />
 
         </div >
     )

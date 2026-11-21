@@ -6,9 +6,7 @@ import NavBarMobile from '../NavBarMobile/NavBarMobile'
 const NavBar = () => {
     return (
         <>
-            <div className="d-none d-lg-block">
-                <NavBarDesktop />
-            </div>
+
 
             <div className="d-block d-lg-none">
                 <NavBarMobile />

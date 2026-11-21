@@ -6,7 +6,7 @@ import { ProductApi } from '../../Context/ProductControlApi'
 import Greeting from '../../Components/Greeting/Greeting'
 import SearchBar from '../../Components/SearchBar/SearchBar'
 import { Spinner } from 'react-bootstrap'
-import NavBar from '../../Components/NavBar/NavBar'
+import NavBarMobile from '../../Components/NavBarMobile/NavBarMobile'
 
 const SearchResults = () => {
     const { loginUser } = useContext(ProductApi)
@@ -128,7 +128,7 @@ const SearchResults = () => {
                     />
             }
 
-            <NavBar />
+            <NavBarMobile />
 
         </div>
     )
