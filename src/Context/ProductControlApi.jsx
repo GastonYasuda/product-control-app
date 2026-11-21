@@ -37,7 +37,7 @@ const ProductControlApi = ({ children }) => {
                     localStorage.setItem('userPass', JSON.stringify(validateUserPass))
                     setLoginUser(validateUserPass);
                 } else {
-                    aplicateSweetAlert("Usuario o Contraseña incorrecta!", "Ingrese nuevamente su usuario y contraseña", "warning")
+                    aplicateSweetAlert("Usuario o Contraseña Incorrecto!", "Ingrese nuevamente su usuario y contraseña", "warning")
                 }
 
             } else {
