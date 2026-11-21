@@ -9,6 +9,8 @@ const DataBaseProductApi = ({ children }) => {
     const [getAllProducts, setGetAllProducts] = useState([])
     const [userOrder, setUserOrder] = useState([])
 
+    const [allOrders, setAllorders] = useState([])
+
 
     useEffect(() => {
         getAllProductsFromDB()
@@ -62,6 +64,24 @@ const DataBaseProductApi = ({ children }) => {
         }
     }
 
+    const getAllOrders = async () => {
+        try {
+            const response = await fetch(`http://localhost:3000/orders`)
+            if (response.ok) {
+                const data = await response.json()
+                console.log(data);
+                setAllorders(data)
+
+            } else {
+                throw new Error("Error al intentar obtener productos");
+
+            }
+        }
+        catch (error) {
+            console.error(error)
+        }
+    }
+
 
 
     const getOneProductFromDB = () => { }
@@ -71,7 +91,7 @@ const DataBaseProductApi = ({ children }) => {
     const deleteOneElementFromDB = () => { }
 
     return (
-        <DataProductApi.Provider value={{ getAllProductsFromDB, getAllProducts, updateProductInList, getUserOrders, userOrder }}>
+        <DataProductApi.Provider value={{ getAllProductsFromDB, getAllProducts, updateProductInList, getUserOrders, userOrder, getAllOrders, allOrders }}>
             {children}
 
         </DataProductApi.Provider>

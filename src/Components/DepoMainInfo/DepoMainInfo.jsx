@@ -1,50 +1,21 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect } from 'react'
 import InfoCards from '../InfoCards/InfoCards'
 import RecentOrders from '../RecentOrders/RecentOrders'
+import { DataProductApi } from '../../Context/DataBaseProductApi'
 
 
 const DepoMainInfo = () => {
 
-    const [allOrders, setAllorders] = useState([])
+    const { getAllOrders, allOrders } = useContext(DataProductApi)
 
     useEffect(() => {
         getAllOrders()
     }, [])
 
 
-    const getAllOrders = async () => {
-        try {
-            const response = await fetch(`http://localhost:3000/orders`)
-            if (response.ok) {
-                const data = await response.json()
-                console.log(data);
-                setAllorders(data)
-
-            } else {
-                throw new Error("Error al intentar obtener productos");
-
-            }
-        }
-        catch (error) {
-            console.error(error)
-        }
-    }
-
-
     const onProcessCount = allOrders.filter(order => order.status_name === 'En Preparación')
     const preparedCount = allOrders.filter(order => order.status_name === 'Preparado')
     const deliveredCount = allOrders.filter(order => order.status_name === 'Entregado')
-
-
-    // useEffect(() => {
-    // console.log('onProcessCount', onProcessCount);
-    // console.log('preparedCount', preparedCount)
-    // console.log('preparedCount', preparedCount);
-
-    // }, [])
-
-
-
 
 
     const depoCards = [
@@ -63,18 +34,11 @@ const DepoMainInfo = () => {
         }
     ]
 
-
-
-
-
     return (
         <div>
             <InfoCards cardParams={depoCards} />
 
-            {/* <PendingOrders /> */}
             <RecentOrders preparedCount={preparedCount} deliveredCount={deliveredCount} onProcessCount={onProcessCount} />
-
-
         </div>
     )
 }
