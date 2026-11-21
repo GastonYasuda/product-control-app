@@ -9,7 +9,7 @@ import { DataProductApi } from '../../Context/DataBaseProductApi';
 
 
 
-const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, variant, setVariant, from, rol }) => {
+const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, from, rol }) => {
 
     const { aplicateSweetAlert } = useContext(ProductApi)
     const { updateProductInList } = useContext(DataProductApi)
@@ -21,12 +21,13 @@ const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, variant,
 
 
 
-    const isVertical = ['category', 'supplier', 'productCard'].includes(from);
-    useEffect(() => {
-        console.log(product);
+    // const isVertical = ['category', 'supplier', 'productCard'].includes(from);
 
-        setVariant(isVertical ? 'vertical' : 'horizontal');
-    }, [from]);
+    // useEffect(() => {
+    //     console.log(product);
+
+    //     setVariant(isVertical ? 'vertical' : 'horizontal');
+    // }, [from]);
 
     const updateStockPrice = async (id, newPrice, newStock) => {
         const response = await fetch(`http://localhost:3000/products/${id}`, {
@@ -45,8 +46,8 @@ const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, variant,
         aplicateSweetAlert('Actualizado correctamente', '', 'success');
     };
     return (
-        <Col>
-            <Card className={`w-100 h-100 d-flex cardComponent--${variant} position-relative`}>
+        <Col style={{ minHeight: '100%', display: 'flex', justifyContent: 'space-between' }}>
+            <Card className={`w-100 position-relative`}>
                 {product.pending && <span className='position-absolute top-0 end-0 badge bg-warning p-2 mt-1 me-1'>Pendiente</span>}
 
                 {product.product_stock === 0 && <h1 className='mt-3 z-3 w-100 bg-info text-light position-absolute'>SIN STOCK</h1>}
@@ -61,16 +62,15 @@ const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, variant,
                 <Card.Body className='d-flex flex-column justify-content-between'>
                     <div className={`${product.product_stock === 0 ? "opacity-50" : ""} text-start d-flex flex-column`}>
                         <div>
-                            <h6>{product.product_name}</h6>
+                            <h6>{product.product_name} ({product.product_sku})</h6>
 
-                            <p>{product.category.category_name}</p>
-                            <p>{product.supplier.supplier_name}</p>
+                            <p>{product.category.category_name} - {product.supplier.supplier_name}</p>
                         </div>
                     </div>
 
                     <div>
                         <div className={`${product.product_stock === 0 ? "opacity-50" : ""} w-100 d-flex flex-column justify-content-between`}>
-                            <span className='text-start'>Cod: {product.product_sku}</span>
+                            {/* <span className='text-start'>Cod: {product.product_sku}</span> */}
                             <section className='d-flex justify-content-between'>
                                 <span className='fw-semibold'>${product.product_price}</span>
                                 <span>Stock: {product.product_stock}</span>

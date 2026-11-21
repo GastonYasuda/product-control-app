@@ -13,10 +13,8 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings
 
 
     const [showProducts, setShowProducts] = useState([])
-    const [inputCount, setInputCount] = useState('0')
 
 
-    const [variant, setVariant] = useState('')
 
     useEffect(() => {
         // const pending = pending_orders ?? []
@@ -235,7 +233,7 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings
                 :
                 mergeDetailElementAllPending(searchProductArray)
 
-            setInputCount("");
+
 
 
             const newShowArrayProducts = prev =>
@@ -293,8 +291,6 @@ const ProductCardComponent = ({ searchProductArray, from, loginUser, allPendings
                                 key={product.product_id}
                                 deleteOrder={deleteOrder}
                                 addToOrder={addToOrder}
-                                variant={variant}
-                                setVariant={setVariant}
                                 from={from}
                                 rol={loginUser.user_rol}
                             />

@@ -18,9 +18,6 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
     // const [pendingBadge, setPendingBadge] = useState(false)
 
 
-    const [variant, setVariant] = useState('')
-
-
     useEffect(() => {
         if (from !== 'pendingProductList') {
 
@@ -374,8 +371,6 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
                             product={product}
                             deleteOrder={deleteOrder}
                             addToOrder={addToOrder}
-                            variant={variant}
-                            setVariant={setVariant}
                             from={from}
                             rol={loginUser.user_rol}
                         />

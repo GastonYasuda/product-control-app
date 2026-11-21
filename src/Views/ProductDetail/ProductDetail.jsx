@@ -189,6 +189,9 @@ const ProductDetail = () => {
         setInputCount('');
     };
 
+    console.log(showProduct);
+
+
 
 
     const savePending = async (body, productName) => {
@@ -305,8 +308,6 @@ const ProductDetail = () => {
         });
     }
 
-    const sinStock = Number(showProduct?.product_stock) === 0;
-
     return (
         <div className='mainCardComponent mt-3'>
             <section className='fixed-top headerComponent'>
@@ -323,72 +324,63 @@ const ProductDetail = () => {
 
             {showProduct &&
 
-                <div>
-                    {/* <section className={`${showProduct.product_stock === 0 ? "opacity-25" : ""}`}> */}
-                    <section>
-                        {/* 
-                        {sinStock &&
-                            <section className='w-100 z-3 mt-5 mx-auto bg-danger position-absolute'>
-                                <h1 className=''>SIN STOCK</h1>
-                            </section>
-                        } */}
+                <section>
 
-                        <div className='productDetailComponent mx-auto d-flex flex-column position-relative rounded' >
-                            <h4 className={`${showProduct.product_stock === 0 ? "opacity-50" : ""} pt-3`}>
-                                {showProduct.product_name}
-                            </h4>
+                    <div className='productDetailComponent mx-auto d-flex flex-column position-relative rounded' >
+                        <h4 className={`${showProduct.product_stock === 0 ? "opacity-50" : ""} pt-3`}>
+                            {showProduct.product_name}
+                        </h4>
 
-                            <div className='d-flex productDetailComponent_body mb-3'>
+                        <div className='d-flex productDetailComponent_body mb-3'>
 
 
-                                <div className={`${showProduct.product_stock === 0 ? "opacity-50" : ""} productDetailComponent_body_image m-auto`}>
-                                    <img src={showProduct.product_img} className='h-100 object-fit-contain' alt={`${showProduct.product_name} img`} />
-                                </div>
-
-                                {showProduct.pending && <span className='position-absolute top-0 end-0 badge bg-warning p-2 mt-1 me-1'>Pendiente</span>}
-
-                                {showProduct.product_stock === 0 && <h1 className='w-100 bg-warning text-danger position-absolute'>SIN STOCK</h1>}
-
-
-                                <div className={`${showProduct.product_stock === 0 ? "opacity-50" : ""} m-auto p-3`} >
-
-                                    <div className="w-100 d-flex flex-column align-items-start">
-
-                                        <h6>{showProduct.supplier_name}</h6>
-                                        <p>Codigo: {showProduct.product_sku}</p>
-                                        <div className='w-100 d-flex justify-content-between'>
-                                            <p>$ {showProduct.product_price}</p>
-                                            <p>Stock: {showProduct.product_stock}</p>
-                                        </div>
-                                    </div>
-
-                                    <Form className='d-flex flex-column mt-2'>
-                                        <Form.Control
-                                            type="number"
-                                            placeholder={showProduct.product_count}
-                                            value={inputCount}
-                                            onChange={(e) => setInputCount(e.target.value)}
-                                        />
-                                        <section className='d-flex mt-3'>
-                                            <Button type="button" variant='secondary' className='w-50 me-2' onClick={() => { deleteOrder(showProduct.product_id, showProduct.product_name) }}>
-                                                <span className="material-symbols-outlined">
-                                                    remove_shopping_cart
-                                                </span>
-                                            </Button>
-
-                                            <Button variant="info" className='w-50' onClick={() => { addToOrder(showProduct.product_id, inputCount); setInputCount(''); }}>
-                                                <span className="material-symbols-outlined text-light">
-                                                    add_shopping_cart
-                                                </span>
-                                            </Button>
-                                        </section>
-                                    </Form>
-                                </div>
+                            <div className={`${showProduct.product_stock === 0 ? "opacity-50" : ""} productDetailComponent_body_image m-auto`}>
+                                <img src={showProduct.product_img} className='h-100 object-fit-contain' alt={`${showProduct.product_name} img`} />
                             </div>
 
-                        </div >
-                    </section>
-                </div >
+                            {showProduct.pending && <span className='position-absolute top-0 end-0 badge bg-warning p-2 mt-1 me-1'>Pendiente</span>}
+
+                            {showProduct.product_stock === 0 && <h1 className='w-100 bg-warning text-danger position-absolute'>SIN STOCK</h1>}
+
+
+                            <div className={`${showProduct.product_stock === 0 ? "opacity-50" : ""} m-auto p-3`} >
+
+                                <div className="w-100 d-flex flex-column align-items-start">
+
+                                    <h6>{showProduct.category.category_name} - {showProduct.supplier.supplier_name}</h6>
+                                    <p>Cod: {showProduct.product_sku}</p>
+                                    <div className='w-100 d-flex justify-content-between'>
+                                        <p>$ {showProduct.product_price}</p>
+                                        <p>Stock: {showProduct.product_stock}</p>
+                                    </div>
+                                </div>
+
+                                <Form className='d-flex flex-column mt-2'>
+                                    <Form.Control
+                                        type="number"
+                                        placeholder={showProduct.product_count}
+                                        value={inputCount}
+                                        onChange={(e) => setInputCount(e.target.value)}
+                                    />
+                                    <section className='d-flex mt-3'>
+                                        <Button type="button" variant='secondary' className='w-50 me-2' onClick={() => { deleteOrder(showProduct.product_id, showProduct.product_name) }}>
+                                            <span className="material-symbols-outlined">
+                                                remove_shopping_cart
+                                            </span>
+                                        </Button>
+
+                                        <Button variant="info" className='w-50' onClick={() => { addToOrder(showProduct.product_id, inputCount); setInputCount(''); }}>
+                                            <span className="material-symbols-outlined text-light">
+                                                add_shopping_cart
+                                            </span>
+                                        </Button>
+                                    </section>
+                                </Form>
+                            </div>
+                        </div>
+
+                    </div >
+                </section>
             }
 
 
