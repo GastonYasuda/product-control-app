@@ -37,7 +37,7 @@ const ProductControlApi = ({ children }) => {
                     localStorage.setItem('userPass', JSON.stringify(validateUserPass))
                     setLoginUser(validateUserPass);
                 } else {
-                    aplicateSweetAlert("Usuario o Contraseña Incorrecto!", "Ingrese nuevamente su usuario y contraseña", "warning")
+                    Swal.fire("Usuario o Contraseña Incorrecto!", "Ingrese nuevamente sus datos", "warning")
                 }
 
             } else {
@@ -56,14 +56,6 @@ const ProductControlApi = ({ children }) => {
         return [...productArray].sort((a, b) =>
             a.product_name.localeCompare(b.product_name)
         );
-    }
-
-    const aplicateSweetAlert = (title, text, icon) => {
-        Swal.fire({
-            title: title,
-            text: text,
-            icon: icon
-        });
     }
 
     const formatDate = (iso) =>
@@ -92,7 +84,7 @@ const ProductControlApi = ({ children }) => {
     };
 
     return (
-        <ProductApi.Provider value={{ getUsersData, loginUser, setLoginUser, orderByName, aplicateSweetAlert, formatDate, statuses, capital }}>
+        <ProductApi.Provider value={{ getUsersData, loginUser, setLoginUser, orderByName, formatDate, statuses, capital }}>
             {children}
         </ProductApi.Provider>
     )

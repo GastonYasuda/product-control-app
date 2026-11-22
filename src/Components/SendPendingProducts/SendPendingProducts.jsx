@@ -8,7 +8,7 @@ import { DataProductApi } from '../../Context/DataBaseProductApi'
 
 const SendPendingProducts = () => {
 
-    const { loginUser, aplicateSweetAlert } = useContext(ProductApi)
+    const { loginUser } = useContext(ProductApi)
     const { getUserOrders, userOrder } = useContext(DataProductApi)
 
     const [getPendingOrder, setGetPendingOrder] = useState([])
@@ -149,7 +149,7 @@ const SendPendingProducts = () => {
 
             });
         } else {
-            aplicateSweetAlert("No hay productos pendientes", "", "warning")
+            Swal.fire("No hay productos pendientes", "", "warning")
         }
 
     }

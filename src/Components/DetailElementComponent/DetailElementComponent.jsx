@@ -10,7 +10,7 @@ import Swal from 'sweetalert2'
 const DetailElementComponent = ({ from, allPendings, setAllPendings, detailElement }) => {
 
     const { getAllProducts } = useContext(DataProductApi)
-    const { orderByName, loginUser, setLoginUser, aplicateSweetAlert } = useContext(ProductApi)
+    const { orderByName, loginUser, setLoginUser } = useContext(ProductApi)
 
 
 

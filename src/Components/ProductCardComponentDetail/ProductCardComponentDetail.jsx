@@ -2,16 +2,15 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Button, Card, Col, Row } from 'react-bootstrap'
 import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom'
-
 import UpdatePriceStockModal from '../UpdatePriceStockModal/UpdatePriceStockModal';
-import { ProductApi } from '../../Context/ProductControlApi';
 import { DataProductApi } from '../../Context/DataBaseProductApi';
+import Swal from 'sweetalert2'
+
 
 
 
 const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, from, rol }) => {
 
-    const { aplicateSweetAlert } = useContext(ProductApi)
     const { updateProductInList } = useContext(DataProductApi)
     const [inputCount, setInputCount] = useState('')
 
@@ -43,7 +42,7 @@ const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, from, ro
 
         // Actualiza el estado → React vuelve a renderizar la tarjeta
         updateProductInList(id, { product_price: newPrice, product_stock: newStock });
-        aplicateSweetAlert('Actualizado correctamente', '', 'success');
+        Swal.fire('Actualizado correctamente', '', 'success');
     };
     return (
         <Col style={{ minHeight: '100%', display: 'flex', justifyContent: 'space-between' }}>
