@@ -20,7 +20,7 @@ const CategoryDetails = () => {
 
     const getUserPending = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/users/${loginUser.user_id}/pending`)
+            const response = await fetch(`https://product-control-back.onrender.com/users/${loginUser.user_id}/pending`)
             if (response.ok) {
                 const data = await response.json()
                 console.log('lo q tengo ahora', data);
@@ -41,7 +41,7 @@ const CategoryDetails = () => {
     const getProductsByItem = async (itemId) => {
 
         try {
-            const response = await fetch(`http://localhost:3000/category/${itemId}`)
+            const response = await fetch(`https://product-control-back.onrender.com/category/${itemId}`)
             if (response.ok) {
                 const data = await response.json()
                 console.log('prod de la cat', data);

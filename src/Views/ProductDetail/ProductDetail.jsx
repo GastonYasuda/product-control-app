@@ -85,7 +85,7 @@ const ProductDetail = () => {
 
     const getUserPending = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/users/${loginUser.user_id}/pending`)
+            const response = await fetch(`https://product-control-back.onrender.com/users/${loginUser.user_id}/pending`)
             if (response.ok) {
                 const data = await response.json()
                 console.log(data);
@@ -197,7 +197,7 @@ const ProductDetail = () => {
     const savePending = async (body, productName) => {
         try {
             const response = await fetch(
-                `http://localhost:3000/users/${loginUser.user_id}/pending`,
+                `https://product-control-back.onrender.com/users/${loginUser.user_id}/pending`,
                 {
                     method: "PUT",
                     headers: {
@@ -238,7 +238,7 @@ const ProductDetail = () => {
     const deleteOrder = async (productId, productName) => {
         try {
             const response = await fetch(
-                `http://localhost:3000/users/${loginUser.user_id}/delete-pending/${productId}`,
+                `https://product-control-back.onrender.com/users/${loginUser.user_id}/delete-pending/${productId}`,
                 {
                     method: "DELETE",
                     headers: {

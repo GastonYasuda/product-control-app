@@ -25,7 +25,7 @@ const SuppierDetail = () => {
 
 
         try {
-            const response = await fetch(`http://localhost:3000/users/${loginUser.user_id}/pending`)
+            const response = await fetch(`https://product-control-back.onrender.com/users/${loginUser.user_id}/pending`)
             if (response.ok) {
                 const data = await response.json()
                 //   console.log('lo q tengo ahora', data);
@@ -45,7 +45,7 @@ const SuppierDetail = () => {
     const getProductsByItem = async (itemId) => {
 
         try {
-            const response = await fetch(`http://localhost:3000/supplier/${itemId}`)
+            const response = await fetch(`https://product-control-back.onrender.com/supplier/${itemId}`)
             if (response.ok) {
                 const data = await response.json()
                 console.log('prod de la supplier', data);

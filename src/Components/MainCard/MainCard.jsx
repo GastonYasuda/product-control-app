@@ -53,7 +53,7 @@ const MainCard = ({ cardName }) => {
 
 
     const getAllCategorySupplier = async (card_name) => {
-        const response = await fetch(`http://localhost:3000/${card_name}`)
+        const response = await fetch(`https://product-control-back.onrender.com/${card_name}`)
         if (response.ok) {
             const data = await response.json()
             setElementsArray(data)

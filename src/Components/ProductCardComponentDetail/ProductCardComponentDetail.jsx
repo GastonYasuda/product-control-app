@@ -29,7 +29,7 @@ const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, from, ro
     // }, [from]);
 
     const updateStockPrice = async (id, newPrice, newStock) => {
-        const response = await fetch(`http://localhost:3000/products/${id}`, {
+        const response = await fetch(`https://product-control-back.onrender.com/products/${id}`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ product_price: newPrice, product_stock: newStock }),

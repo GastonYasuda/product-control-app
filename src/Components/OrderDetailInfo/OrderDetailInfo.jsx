@@ -52,7 +52,7 @@ const OrderDetailInfo = ({ idOrderDetail }) => {
 
     const updateProductStock = async () => {
         // 1. Traer el stock REAL de la base, no el del context
-        const res = await fetch('http://localhost:3000/products');
+        const res = await fetch('https://product-control-back.onrender.com/products');
         if (!res.ok) throw new Error('No se pudo leer el stock actual');
         const currentProducts = await res.json();
 
@@ -77,7 +77,7 @@ const OrderDetailInfo = ({ idOrderDetail }) => {
 
 
     const patchNewStock = async ({ product_id, product_stock }) => {
-        const response = await fetch(`http://localhost:3000/products/${product_id}`, {
+        const response = await fetch(`https://product-control-back.onrender.com/products/${product_id}`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ product_stock }),
@@ -92,7 +92,7 @@ const OrderDetailInfo = ({ idOrderDetail }) => {
         console.log(orderId);
 
         try {
-            const response = await fetch(`http://localhost:3000/orders/${orderId}`);
+            const response = await fetch(`https://product-control-back.onrender.com/orders/${orderId}`);
             if (!response.ok) throw new Error(`Error al intentar obtener orden con id ${orderId}`);
             const data = await response.json();
             setOrderUser(data);
@@ -107,7 +107,7 @@ const OrderDetailInfo = ({ idOrderDetail }) => {
 
     const updateStatus = async (status) => {
         try {
-            const response = await fetch(`http://localhost:3000/orders/${orderUser.order_id}/status`, {
+            const response = await fetch(`https://product-control-back.onrender.com/orders/${orderUser.order_id}/status`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ order_status: status.status_id }),

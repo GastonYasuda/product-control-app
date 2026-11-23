@@ -34,7 +34,7 @@ const OrderDetailInfoCard = ({ orderArray, selectOrder, setOrderUser, userRol, s
 
         //guardo en el back solo el producto que cambio
         try {
-            const response = await fetch(`http://localhost:3000/orders/${selectOrder.order_id}`, {
+            const response = await fetch(`https://product-control-back.onrender.com/orders/${selectOrder.order_id}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

@@ -18,7 +18,7 @@ const DataBaseProductApi = ({ children }) => {
 
     const getAllProductsFromDB = async () => {
         try {
-            const response = await fetch('http://localhost:3000/products')
+            const response = await fetch('https://product-control-back.onrender.com/products')
             if (response.ok) {
                 const data = await response.json()
                 //  setGetAllProducts([...getAllProducts, ...data])
@@ -47,7 +47,7 @@ const DataBaseProductApi = ({ children }) => {
         console.log(loginUser);
 
         try {
-            const response = await fetch(`http://localhost:3000/users/${loginUser.user_id}/orders`)
+            const response = await fetch(`https://product-control-back.onrender.com/users/${loginUser.user_id}/orders`)
             if (response.ok) {
                 const data = await response.json()
                 // console.log(data);
@@ -66,7 +66,7 @@ const DataBaseProductApi = ({ children }) => {
 
     const getAllOrders = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/orders`)
+            const response = await fetch(`https://product-control-back.onrender.com/orders`)
             if (response.ok) {
                 const data = await response.json()
                 console.log(data);

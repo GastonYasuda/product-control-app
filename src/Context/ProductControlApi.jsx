@@ -26,7 +26,7 @@ const ProductControlApi = ({ children }) => {
     const getUsersData = async (user, password) => {
 
         try {
-            const response = await fetch('http://localhost:3000/users')
+            const response = await fetch('https://product-control-back.onrender.com/users')
             if (response.ok) {
                 const data = await response.json()
                 //    console.log(data);
@@ -68,7 +68,7 @@ const ProductControlApi = ({ children }) => {
 
     const getStatuses = async () => {
         try {
-            const response = await fetch("http://localhost:3000/status");
+            const response = await fetch("https://product-control-back.onrender.com/status");
             if (!response.ok) throw new Error("Error al obtener estados");
             setStatuses(await response.json());
         } catch (error) {
