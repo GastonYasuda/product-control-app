@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, Spinner } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import './productDetail.css'
 import SearchBar from '../../Components/SearchBar/SearchBar';
@@ -18,7 +18,9 @@ const ProductDetail = () => {
     const { idProduct } = useParams()
     const [showProduct, setShowProduct] = useState()
     const [allPendings, setAllPendings] = useState()
-    const [inputCount, setInputCount] = useState('0')
+    const [inputCount, setInputCount] = useState('')
+    const [saving, setSaving] = useState(false)
+
 
 
     useEffect(() => {
@@ -42,12 +44,11 @@ const ProductDetail = () => {
 
         // Buscar el producto en el catálogo
         const selectedProduct = getAllProducts.find(
-            p => p.product_id === productId
+            p => Number(p.product_id) === Number(productId)
         );
 
         if (!selectedProduct) {
             setShowProduct(undefined);
-            setPendingBadge(false);
             setInputCount('');
             return;
         }
@@ -67,9 +68,7 @@ const ProductDetail = () => {
 
             // setPendingBadge(true);
 
-            setInputCount(
-                String(pendingProduct.pending_order_quantity)
-            );
+            setInputCount('');
 
         } else {
             setShowProduct({
@@ -82,6 +81,13 @@ const ProductDetail = () => {
             setInputCount('');
         }
     }, [getAllProducts, idProduct, loginUser]);
+
+    const handleAdd = async () => {
+        setSaving(true);
+        const ok = await addToOrder(showProduct.product_id, inputCount);
+        setSaving(false);
+        if (ok) setInputCount('');   // solo limpia si se guardó bien
+    };
 
     const getUserPending = async () => {
         try {
@@ -111,16 +117,16 @@ const ProductDetail = () => {
         // 1. Validar la cantidad
         if (!Number.isInteger(quantity) || quantity <= 0) {
             Swal.fire("Atención", "Ingresá una cantidad válida", "warning");
-            return;
+            return false;
         }
 
         const product = getAllProducts.find(
-            p => p.product_id === Number(id_product)
+            p => Number(p.product_id) === Number(id_product)
         );
 
         if (!product) {
             Swal.fire("Error", "No se encontró el producto", "error");
-            return;
+            return false;
         }
 
         if (quantity > product.product_stock) {
@@ -129,7 +135,7 @@ const ProductDetail = () => {
                 `Solo hay ${product.product_stock} unidades en stock`,
                 "warning"
             );
-            return;
+            return false;
         }
 
         // 3. Comprobar si ya existe en pendientes
@@ -147,7 +153,7 @@ const ProductDetail = () => {
         );
 
         // Si el backend falla, no actualizamos los datos locales
-        if (!saved) return;
+        if (!saved) return false;
 
         // 5. Crear un array sin duplicados y con la cantidad actualizada
         const updatedPendings = exists
@@ -186,12 +192,8 @@ const ProductDetail = () => {
 
         localStorage.setItem("userPass", JSON.stringify(updatedUser));
 
-        setInputCount('');
+        return true
     };
-
-    console.log(showProduct);
-
-
 
 
     const savePending = async (body, productName) => {
@@ -322,66 +324,77 @@ const ProductDetail = () => {
             </section>
 
 
-            {showProduct &&
 
-                <section>
+            <>
+                {showProduct &&
+                    <>
+                        {
+                            !showProduct ?
+                                <Spinner animation="grow" variant="success" className='loadingSpinner' />
+                                :
+                                <section>
 
-                    <div className='productDetailComponent mx-auto d-flex flex-column position-relative rounded' >
-                        <h4 className={`${showProduct.product_stock === 0 ? "opacity-50" : ""} pt-3`}>
-                            {showProduct.product_name}
-                        </h4>
+                                    <div className='productDetailComponent mx-auto d-flex flex-column position-relative rounded' >
+                                        <h4 className={`${showProduct.product_stock === 0 ? "opacity-50" : ""} pt-3`}>
+                                            {showProduct.product_name}
+                                        </h4>
 
-                        <div className='d-flex productDetailComponent_body mb-3'>
-
-
-                            <div className={`${showProduct.product_stock === 0 ? "opacity-50" : ""} productDetailComponent_body_image m-auto`}>
-                                <img src={showProduct.product_img} className='h-100 object-fit-contain' alt={`${showProduct.product_name} img`} />
-                            </div>
-
-                            {showProduct.pending && <span className='position-absolute top-0 end-0 badge bg-warning p-2 mt-1 me-1'>Pendiente</span>}
-
-                            {showProduct.product_stock === 0 && <h1 className='w-100 bg-warning text-danger position-absolute'>SIN STOCK</h1>}
+                                        <div className='d-flex productDetailComponent_body mb-3'>
 
 
-                            <div className={`${showProduct.product_stock === 0 ? "opacity-50" : ""} m-auto p-3`} >
+                                            <div className={`${showProduct.product_stock === 0 ? "opacity-50" : ""} productDetailComponent_body_image m-auto`}>
+                                                <img src={showProduct.product_img} className='h-100 object-fit-contain' alt={`${showProduct.product_name} img`} />
+                                            </div>
 
-                                <div className="w-100 d-flex flex-column align-items-start">
+                                            {showProduct.pending && <span className='position-absolute top-0 end-0 badge bg-warning p-2 mt-1 me-1'>Pendiente</span>}
 
-                                    <h6>{showProduct.category.category_name} - {showProduct.supplier.supplier_name}</h6>
-                                    <p>Cod: {showProduct.product_sku}</p>
-                                    <div className='w-100 d-flex justify-content-between'>
-                                        <p>$ {showProduct.product_price}</p>
-                                        <p>Stock: {showProduct.product_stock}</p>
-                                    </div>
-                                </div>
+                                            {showProduct.product_stock === 0 && <h1 className='w-100 bg-warning text-danger position-absolute'>SIN STOCK</h1>}
 
-                                <Form className='d-flex flex-column mt-2'>
-                                    <Form.Control
-                                        type="number"
-                                        placeholder={showProduct.product_count}
-                                        value={inputCount}
-                                        onChange={(e) => setInputCount(e.target.value)}
-                                    />
-                                    <section className='d-flex mt-3'>
-                                        <Button type="button" variant='secondary' className='w-50 me-2' onClick={() => { deleteOrder(showProduct.product_id, showProduct.product_name) }}>
-                                            <span className="material-symbols-outlined">
-                                                remove_shopping_cart
-                                            </span>
-                                        </Button>
 
-                                        <Button variant="info" className='w-50' onClick={() => { addToOrder(showProduct.product_id, inputCount); setInputCount(''); }}>
-                                            <span className="material-symbols-outlined text-light">
-                                                add_shopping_cart
-                                            </span>
-                                        </Button>
-                                    </section>
-                                </Form>
-                            </div>
-                        </div>
+                                            <div className={`${showProduct.product_stock === 0 ? "opacity-50" : ""} m-auto p-3`} >
 
-                    </div >
-                </section>
-            }
+                                                <div className="w-100 d-flex flex-column align-items-start">
+
+                                                    <h6>{showProduct.category.category_name} - {showProduct.supplier.supplier_name}</h6>
+                                                    <p>Cod: {showProduct.product_sku}</p>
+                                                    <div className='w-100 d-flex justify-content-between'>
+                                                        <p>$ {showProduct.product_price}</p>
+                                                        <p>Stock: {showProduct.product_stock}</p>
+                                                    </div>
+                                                </div>
+
+                                                <Form className={`${showProduct.product_stock === 0 ? "opacity-50" : ""} w-100 d-flex flex-column justify-content-between d-flex flex-column mt-2`}>
+                                                    <Form.Control
+                                                        type="number"
+                                                        placeholder={showProduct.product_count}
+                                                        value={inputCount}
+                                                        onChange={(e) => setInputCount(e.target.value)}
+                                                    />
+
+                                                    <section className='d-flex mt-3'>
+                                                        <Button type="button" variant='secondary' className='w-50 me-2' onClick={() => { deleteOrder(showProduct.product_id, showProduct.product_name) }}>
+                                                            <span className="material-symbols-outlined">
+                                                                remove_shopping_cart
+                                                            </span>
+                                                        </Button>
+
+                                                        <Button variant="info" className='w-50 me-2' onClick={handleAdd} disabled={saving}>
+                                                            <span className="material-symbols-outlined text-light">
+                                                                add_shopping_cart
+                                                            </span>
+                                                        </Button>
+                                                    </section>
+                                                </Form>
+                                            </div>
+                                        </div>
+
+                                    </div >
+                                </section>
+                        }
+                    </>
+                }
+            </>
+
 
 
             <NavBarMobile />
