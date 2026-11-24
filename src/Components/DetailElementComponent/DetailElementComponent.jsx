@@ -10,7 +10,7 @@ import Swal from 'sweetalert2'
 const DetailElementComponent = ({ from, allPendings, setAllPendings, detailElement }) => {
 
     const { getAllProducts } = useContext(DataProductApi)
-    const { orderByName, loginUser } = useContext(ProductApi)
+    const { orderByName, loginUser, setLoginUser } = useContext(ProductApi)
 
 
 
@@ -19,6 +19,8 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
 
 
     useEffect(() => {
+
+        console.log('eee');
 
         if (from !== 'pendingProductList') {
 
@@ -124,45 +126,44 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
         );
 
         // Si el backend falla, no actualizamos los datos locales
-        if (!saved) return false;
-        setAllPendings(updatedPendings);
+        if (!saved) return;
 
         // 5. Crear un array sin duplicados y con la cantidad actualizada
-        // const updatedPendings = exists
-        //     ? allPendings.map(p =>
-        //         Number(p.product_id) === Number(id_product)
-        //             ? {
-        //                 ...p,
-        //                 pending_order_quantity: quantity,
-        //             }
-        //             : p
-        //     )
-        //     : [
-        //         ...allPendings,
-        //         {
-        //             // pending_order_user: loginUser.user_id,
-        //             product_id: Number(id_product),
-        //             pending_order_quantity: quantity,
-        //         },
-        //     ];
+        const updatedPendings = exists
+            ? allPendings.map(p =>
+                Number(p.product_id) === Number(id_product)
+                    ? {
+                        ...p,
+                        pending_order_quantity: quantity,
+                    }
+                    : p
+            )
+            : [
+                ...allPendings,
+                {
+                    // pending_order_user: loginUser.user_id,
+                    product_id: Number(id_product),
+                    pending_order_quantity: quantity,
+                },
+            ];
 
-        // // 6. Actualizar los estados de React
-        // setAllPendings(updatedPendings);
+        // 6. Actualizar los estados de React
+        setAllPendings(updatedPendings);
 
-        // const newArrayAdded = {
-        //     ...product,
-        //     product_count: quantity,
-        //     pending: true,
-        // }
-        // console.log(newArrayAdded);
+        const newArrayAdded = {
+            ...product,
+            product_count: quantity,
+            pending: true,
+        }
+        console.log(newArrayAdded);
 
-        // //   setShowProducts(newArrayAdded);
+        //   setShowProducts(newArrayAdded);
 
-        // // 7. Actualizar localStorage
-        // const updatedUser = {
-        //     ...loginUser,
-        //     pending_orders: updatedPendings,
-        // };
+        // 7. Actualizar localStorage
+        const updatedUser = {
+            ...loginUser,
+            pending_orders: updatedPendings,
+        };
         //console.log(updatedPendings);
 
 
