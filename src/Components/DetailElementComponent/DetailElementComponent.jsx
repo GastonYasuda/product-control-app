@@ -10,7 +10,7 @@ import Swal from 'sweetalert2'
 const DetailElementComponent = ({ from, allPendings, setAllPendings, detailElement }) => {
 
     const { getAllProducts } = useContext(DataProductApi)
-    const { orderByName, loginUser, setLoginUser } = useContext(ProductApi)
+    const { orderByName, loginUser } = useContext(ProductApi)
 
 
 
@@ -19,6 +19,7 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
 
 
     useEffect(() => {
+
         if (from !== 'pendingProductList') {
 
             if (allPendings !== undefined && detailElement.length !== 0) {
@@ -27,10 +28,8 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
 
             }
 
-        } else if (from === 'pendingProductList') {
-
-            funcionParaOrder(allPendings)
-
+        } else if (Array.isArray(allPendings)) {
+            funcionParaOrder(allPendings);
         }
 
     }, [allPendings, getAllProducts, detailElement])
@@ -125,63 +124,67 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
         );
 
         // Si el backend falla, no actualizamos los datos locales
-        if (!saved) return;
-
-        // 5. Crear un array sin duplicados y con la cantidad actualizada
-        const updatedPendings = exists
-            ? allPendings.map(p =>
-                Number(p.product_id) === Number(id_product)
-                    ? {
-                        ...p,
-                        pending_order_quantity: quantity,
-                    }
-                    : p
-            )
-            : [
-                ...allPendings,
-                {
-                    // pending_order_user: loginUser.user_id,
-                    product_id: Number(id_product),
-                    pending_order_quantity: quantity,
-                },
-            ];
-
-        // 6. Actualizar los estados de React
-        // setAllPendings(updatedPendings);
-
-        const newArrayAdded = {
-            ...product,
-            product_count: quantity,
-            pending: true,
-        }
-        console.log(newArrayAdded);
-
-        //   setShowProducts(newArrayAdded);
-
-        // 7. Actualizar localStorage
-        const updatedUser = {
-            ...loginUser,
-            pending_orders: updatedPendings,
-        };
-        //console.log(updatedPendings);
+        if (!saved) return false;
         setAllPendings(updatedPendings);
 
-        if (from !== 'pendingProductList') {
+        // 5. Crear un array sin duplicados y con la cantidad actualizada
+        // const updatedPendings = exists
+        //     ? allPendings.map(p =>
+        //         Number(p.product_id) === Number(id_product)
+        //             ? {
+        //                 ...p,
+        //                 pending_order_quantity: quantity,
+        //             }
+        //             : p
+        //     )
+        //     : [
+        //         ...allPendings,
+        //         {
+        //             // pending_order_user: loginUser.user_id,
+        //             product_id: Number(id_product),
+        //             pending_order_quantity: quantity,
+        //         },
+        //     ];
 
-            mergeDetailElementAllPending(updatedPendings);
-        } else {
-            console.log(updatedPendings);
+        // // 6. Actualizar los estados de React
+        // setAllPendings(updatedPendings);
 
-            funcionParaOrder(updatedPendings)
-        }
+        // const newArrayAdded = {
+        //     ...product,
+        //     product_count: quantity,
+        //     pending: true,
+        // }
+        // console.log(newArrayAdded);
+
+        // //   setShowProducts(newArrayAdded);
+
+        // // 7. Actualizar localStorage
+        // const updatedUser = {
+        //     ...loginUser,
+        //     pending_orders: updatedPendings,
+        // };
+        //console.log(updatedPendings);
+
+
+        // if (from !== 'pendingProductList') {
+
+        //     mergeDetailElementAllPending(updatedPendings);
+        // } else {
+        //     console.log(updatedPendings);
+
+        //     funcionParaOrder(updatedPendings)
+        // }
+
+
+
         localStorage.setItem("userPass", JSON.stringify(updatedUser));
 
     };
 
 
     const savePending = async (body, productName) => {
-        console.log(loginUser.user_id);
-        console.log(productName);
+        // console.log(loginUser.user_id);
+        // console.log(productName);
 
 
         try {
@@ -265,13 +268,13 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
 
 
 
-            if (from !== 'pendingProductList') {
+            // if (from !== 'pendingProductList') {
 
-                mergeDetailElementAllPending(newPendingArray);
-            } else {
+            //     mergeDetailElementAllPending(newPendingArray);
+            // } else {
 
-                funcionParaOrder(newPendingArray)
-            }
+            //     funcionParaOrder(newPendingArray)
+            // }
 
             // setPendingBadge(false);
 

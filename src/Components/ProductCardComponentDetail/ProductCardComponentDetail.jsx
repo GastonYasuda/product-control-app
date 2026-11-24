@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { Button, Card, Col, Row } from 'react-bootstrap'
+import React, { useContext, useState } from 'react'
+import { Button, Card, Col, Spinner } from 'react-bootstrap'
 import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom'
 import UpdatePriceStockModal from '../UpdatePriceStockModal/UpdatePriceStockModal';
@@ -13,10 +13,21 @@ const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, rol }) =
 
     const { updateProductInList } = useContext(DataProductApi)
     const [inputCount, setInputCount] = useState('')
+    const [saving, setSaving] = useState(false)
+    const noStock = Number(product.product_stock) === 0;
+
+
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const handleAdd = async () => {
+        setSaving(true);
+        const ok = await addToOrder(product.product_id, inputCount);
+        setSaving(false);
+        if (ok) setInputCount('');   // solo limpia si se guardó bien
+    };
 
 
     const updateStockPrice = async (id, newPrice, newStock) => {
@@ -42,17 +53,16 @@ const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, rol }) =
             <Card className={`w-100 position-relative`}>
                 {product.pending && <span className='position-absolute top-0 end-0 badge bg-warning p-2 mt-1 me-1'>Pendiente</span>}
 
-                {product.product_stock === 0 && <h1 className='mt-3 z-3 w-100 bg-info text-light position-absolute'>SIN STOCK</h1>}
-
+                {noStock && <h1 className='mt-3 z-3 w-100 bg-info text-light position-absolute'>SIN STOCK</h1>}
 
                 <Link to={`/product/${product.product_id}`}>
-                    <div className={`${product.product_stock === 0 ? "opacity-50" : ""} w-100 m-auto homeCardImage`}>
+                    <div className={`${noStock ? "opacity-50" : ""} w-100 m-auto homeCardImage`}>
                         <img src={product.product_img} className='w-100 h-100 object-fit-contain' alt={`${product.product_img} img`} />
                     </div>
                 </Link>
 
                 <Card.Body className='d-flex flex-column justify-content-between'>
-                    <div className={`${product.product_stock === 0 ? "opacity-50" : ""} text-start d-flex flex-column`}>
+                    <div className={`${noStock ? "opacity-50" : ""} text-start d-flex flex-column`}>
                         <div>
                             <h6>{product.product_name} ({product.product_sku})</h6>
 
@@ -61,14 +71,14 @@ const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, rol }) =
                     </div>
 
                     <div>
-                        <div className={`${product.product_stock === 0 ? "opacity-50" : ""} w-100 d-flex flex-column justify-content-between`}>
+                        <div className={`${noStock ? "opacity-50" : ""} w-100 d-flex flex-column justify-content-between`}>
                             {/* <span className='text-start'>Cod: {product.product_sku}</span> */}
                             <section className='d-flex justify-content-between'>
                                 <span className='fw-semibold'>${product.product_price}</span>
                                 <span>Stock: {product.product_stock}</span>
                             </section>
                         </div>
-                        <Form className={`${product.product_stock === 0 ? "opacity-50" : ""} w-100 d-flex flex-column justify-content-between d-flex flex-column mt-2`}>
+                        <Form className={`${noStock ? "opacity-50" : ""} w-100 d-flex flex-column justify-content-between d-flex flex-column mt-2`}>
                             <Form.Control
                                 type="number"
                                 placeholder={product.product_count}
@@ -83,10 +93,10 @@ const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, rol }) =
                                     </span>
                                 </Button>
 
-                                <Button variant="info" className='w-50 me-2' onClick={() => { addToOrder(product.product_id, inputCount); setInputCount(''); }}>
-                                    <span className="material-symbols-outlined text-light">
-                                        add_shopping_cart
-                                    </span>
+                                <Button variant="info" className='w-50 me-2' onClick={handleAdd} disabled={saving}>
+                                    {saving
+                                        ? <Spinner animation="border" size="sm" variant="light" />
+                                        : <span className="material-symbols-outlined text-light">add_shopping_cart</span>}
                                 </Button>
                             </section>
 
