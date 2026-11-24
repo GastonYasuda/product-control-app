@@ -18,7 +18,7 @@ const Order = () => {
 
     useEffect(() => {
         getUserPending()
-    }, [allPendings])
+    }, [])
 
     //tengo que actualizar userPass con pending_orders vacio
 
