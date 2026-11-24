@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Row } from 'react-bootstrap'
+import { Row, Spinner } from 'react-bootstrap'
 import { DataProductApi } from '../../Context/DataBaseProductApi'
 import { ProductApi } from '../../Context/ProductControlApi'
 import ProductCardComponentDetail from '../ProductCardComponentDetail/ProductCardComponentDetail'
@@ -221,16 +221,6 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
         }
     };
 
-
-
-    // const savePending = (newPending) => {
-    //     const updatedUser = { ...loginUser, userPendingProd: newPending }
-    //     setPendingProducts(newPending)
-    //     setLoginUser(updatedUser)
-    //     localStorage.setItem('userPass', JSON.stringify(updatedUser))
-    // }
-
-
     const deleteOrder = async (productId, productName) => {
         console.log('productId', productId);
         console.log('productName', productName);
@@ -315,33 +305,6 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
     };
 
 
-    // const deleteOrder = (id) => {
-    //     const newPending = allPendings.filter(p => p.id !== id)
-
-    //     savePending(newPending)
-
-    //     setShowProducts(orderByName(
-    //         detailElement.map(p =>
-    //             newPending.find(pp => pp.id === p.id)
-    //             ?? getAllProducts.find(gp => gp.id === p.id)
-    //             ?? p
-    //         )
-    //     ))
-
-    //     const erasedProduct = allPendings.find(p => p.id === id)
-    //     toast.warn(`Quitaste ${erasedProduct.name} de pendientes`, {
-    //         position: "top-right",
-    //         autoClose: 2000,
-    //         hideProgressBar: false,
-    //         closeOnClick: false,
-    //         pauseOnHover: true,
-    //         draggable: true,
-    //         progress: undefined,
-    //         theme: "dark",
-    //         transition: Slide,
-    //     });
-    // }
-
     const showTostify = (icon, text) => {
         toast[icon](text, {
             position: "top-right",
@@ -356,29 +319,31 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
         });
     }
 
-
-
-
-    //copia
     return (
-
         <>
-            <Row xs={2} md={4} className="productsCardContainer g-4 mx-auto justify-content-center" >
+            {showProducts.length === 0 ?
+                <Spinner animation="grow" variant="success" className='loadingSpinner' />
+                :
 
-                {showProducts.map((product) => (
-                    <section key={product.product_id}>
-                        <ProductCardComponentDetail
-                            product={product}
-                            deleteOrder={deleteOrder}
-                            addToOrder={addToOrder}
-                            from={from}
-                            rol={loginUser.user_rol}
-                        />
-                    </section>
-                ))
-                }
-            </Row>
-            <ToastContainer />
+                <>
+                    <Row xs={2} md={4} className="productsCardContainer g-4 mx-auto justify-content-center" >
+
+                        {showProducts.map((product) => (
+                            <section key={product.product_id}>
+                                <ProductCardComponentDetail
+                                    product={product}
+                                    deleteOrder={deleteOrder}
+                                    addToOrder={addToOrder}
+                                    from={from}
+                                    rol={loginUser.user_rol}
+                                />
+                            </section>
+                        ))
+                        }
+                    </Row>
+                    <ToastContainer />
+                </>
+            }
         </>
 
     )

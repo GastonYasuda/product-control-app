@@ -83,13 +83,6 @@ const DataBaseProductApi = ({ children }) => {
     }
 
 
-
-    const getOneProductFromDB = () => { }
-    const updateProductFromDB = () => { }
-    const updateOneElementFromDB = () => { }
-    const insertOneProductFromDB = () => { }
-    const deleteOneElementFromDB = () => { }
-
     return (
         <DataProductApi.Provider value={{ getAllProductsFromDB, getAllProducts, updateProductInList, getUserOrders, userOrder, getAllOrders, allOrders }}>
             {children}

@@ -3,6 +3,7 @@ import InfoCards from '../InfoCards/InfoCards'
 import RecentOrders from '../RecentOrders/RecentOrders'
 import { ProductApi } from '../../Context/ProductControlApi'
 import { DataProductApi } from '../../Context/DataBaseProductApi'
+import { Spinner } from 'react-bootstrap'
 
 const MainInfo = () => {
     const { loginUser } = useContext(ProductApi)
@@ -13,26 +14,6 @@ const MainInfo = () => {
     useEffect(() => {
         getUserOrders(loginUser)
     }, [])
-
-    // const getUserOrders = async () => {
-    //     try {
-    //         const response = await fetch(`https://product-control-back.onrender.com/users/${loginUser.user_id}/orders`)
-    //         if (response.ok) {
-    //             const data = await response.json()
-    //             console.log(data);
-    //             setUserOrder(data)
-
-
-    //         } else {
-    //             throw new Error("Error al intentar obtener productos");
-
-    //         }
-    //     }
-    //     catch (error) {
-    //         console.error(error)
-    //     }
-    // }
-
 
 
 
@@ -61,11 +42,18 @@ const MainInfo = () => {
 
 
 
+
     return (
         <div className="mt-5">
-            <InfoCards cardParams={salonCards} />
+            {userOrder.length === 0 ?
+                <Spinner animation="grow" variant="success" className='loadingSpinner' />
+                :
+                <>
+                    <InfoCards cardParams={salonCards} />
 
-            <RecentOrders preparedCount={preparedCount} deliveredCount={deliveredCount} onProcessCount={onProcessCount} />
+                    <RecentOrders preparedCount={preparedCount} deliveredCount={deliveredCount} onProcessCount={onProcessCount} />
+                </>
+            }
         </div>
     )
 }

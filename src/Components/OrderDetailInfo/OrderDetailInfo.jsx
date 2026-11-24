@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import OrderDetailInfoCard from '../OrderDetailInfoCard/OrderDetailInfoCard';
-import { Dropdown } from 'react-bootstrap';
+import { Dropdown, Spinner } from 'react-bootstrap';
 import Swal from 'sweetalert2'
 import { ProductApi } from '../../Context/ProductControlApi';
 import { DataProductApi } from '../../Context/DataBaseProductApi';
@@ -159,8 +159,7 @@ const OrderDetailInfo = ({ idOrderDetail }) => {
 
     return (
         <>
-            {orderUser !== null &&
-
+            {orderUser !== null ?
                 <div className='mt-3 text-start px-3' style={{ marginBottom: '6em' }}>
                     <section className='d-flex align-items-center mb-4'>
                         <h6 className='flex-fill mb-0'>Pedido #{orderUser.order_id}</h6>
@@ -206,6 +205,8 @@ const OrderDetailInfo = ({ idOrderDetail }) => {
                     />
 
                 </div>
+                :
+                <Spinner animation="grow" variant="success" className='loadingSpinner' />
             }
         </>
     );

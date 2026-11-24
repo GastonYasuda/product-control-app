@@ -6,13 +6,12 @@ import { useParams } from 'react-router-dom'
 import OrderDetailInfo from '../../Components/OrderDetailInfo/OrderDetailInfo'
 import NavBarMobile from '../../Components/NavBarMobile/NavBarMobile'
 
+
 const OrderDetail = () => {
 
     const { loginUser } = useContext(ProductApi)
 
     const { idOrderDetail } = useParams()
-    console.log(idOrderDetail);
-
 
 
     return (
@@ -27,7 +26,10 @@ const OrderDetail = () => {
                 </div>
             </section>
 
+
             <OrderDetailInfo idOrderDetail={idOrderDetail} />
+
+
 
             <NavBarMobile />
         </div>

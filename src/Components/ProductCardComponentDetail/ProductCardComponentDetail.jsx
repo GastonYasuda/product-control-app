@@ -9,7 +9,7 @@ import Swal from 'sweetalert2'
 
 
 
-const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, from, rol }) => {
+const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, rol }) => {
 
     const { updateProductInList } = useContext(DataProductApi)
     const [inputCount, setInputCount] = useState('')
@@ -18,15 +18,6 @@ const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, from, ro
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-
-
-    // const isVertical = ['category', 'supplier', 'productCard'].includes(from);
-
-    // useEffect(() => {
-    //     console.log(product);
-
-    //     setVariant(isVertical ? 'vertical' : 'horizontal');
-    // }, [from]);
 
     const updateStockPrice = async (id, newPrice, newStock) => {
         const response = await fetch(`https://product-control-back.onrender.com/products/${id}`, {
@@ -44,6 +35,8 @@ const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, from, ro
         updateProductInList(id, { product_price: newPrice, product_stock: newStock });
         Swal.fire('Actualizado correctamente', '', 'success');
     };
+
+
     return (
         <Col style={{ minHeight: '100%', display: 'flex', justifyContent: 'space-between' }}>
             <Card className={`w-100 position-relative`}>

@@ -2,6 +2,7 @@ import { useContext, useEffect } from 'react'
 import InfoCards from '../InfoCards/InfoCards'
 import RecentOrders from '../RecentOrders/RecentOrders'
 import { DataProductApi } from '../../Context/DataBaseProductApi'
+import { Spinner } from 'react-bootstrap'
 
 
 const DepoMainInfo = () => {
@@ -34,12 +35,21 @@ const DepoMainInfo = () => {
         }
     ]
 
-    return (
-        <div>
-            <InfoCards cardParams={depoCards} />
 
-            <RecentOrders preparedCount={preparedCount} deliveredCount={deliveredCount} onProcessCount={onProcessCount} />
-        </div>
+
+    return (
+        <>
+            {
+                allOrders.length === 0 ?
+                    <Spinner animation="grow" variant="success" className='loadingSpinner' />
+                    :
+                    <>
+                        <InfoCards cardParams={depoCards} />
+
+                        <RecentOrders preparedCount={preparedCount} deliveredCount={deliveredCount} onProcessCount={onProcessCount} />
+                    </>
+            }
+        </>
     )
 }
 
