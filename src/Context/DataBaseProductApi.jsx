@@ -14,7 +14,7 @@ const DataBaseProductApi = ({ children }) => {
 
     useEffect(() => {
         getAllProductsFromDB()
-    }, [userOrder])
+    }, [])
 
     const getAllProductsFromDB = async () => {
         try {
@@ -44,7 +44,6 @@ const DataBaseProductApi = ({ children }) => {
     };
 
     const getUserOrders = async (loginUser) => {
-        console.log(loginUser);
 
         try {
             const response = await fetch(`https://product-control-back.onrender.com/users/${loginUser.user_id}/orders`)

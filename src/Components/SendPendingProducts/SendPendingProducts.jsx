@@ -17,9 +17,9 @@ const SendPendingProducts = () => {
 
     useEffect(() => {
         getUserPending()
-        console.log(userOrder);
+        // console.log(userOrder);
 
-    }, [userOrder])
+    }, [])
 
 
     const getUserPending = async () => {
