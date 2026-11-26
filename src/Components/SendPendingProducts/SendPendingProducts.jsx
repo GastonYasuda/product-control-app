@@ -9,16 +9,14 @@ import { DataProductApi } from '../../Context/DataBaseProductApi'
 const SendPendingProducts = () => {
 
     const { loginUser } = useContext(ProductApi)
-    const { getUserOrders, userOrder } = useContext(DataProductApi)
+    const { getUserOrders } = useContext(DataProductApi)
 
     const [getPendingOrder, setGetPendingOrder] = useState([])
 
-    //lo mando a localStorage, mas adelante tiene que enviarse a la DB
 
     useEffect(() => {
         getUserPending()
         // console.log(userOrder);
-
     }, [])
 
 
@@ -30,10 +28,8 @@ const SendPendingProducts = () => {
                 console.log('lo q tengo ahora', data);
                 setGetPendingOrder(data)
 
-
             } else {
                 throw new Error("Error al intentar obtener usuario");
-
             }
         }
         catch (error) {
@@ -75,18 +71,15 @@ const SendPendingProducts = () => {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(body),
-
             }
         );
+        console.log('hola');
+
         if (!response.ok) {
             const err = await response.json().catch(() => ({}));
             throw new Error(err.error || `HTTP ${response.status}`);
         }
-
     }
-
-
-
 
 
     const handlePendingProducts = () => {
@@ -110,7 +103,6 @@ const SendPendingProducts = () => {
                         icon: "success",
                         confirmButtonColor: "#17a2b8",
                     });
-
 
                     const nuevoArray = getPendingOrder.map(product => ({
                         product_id: product.product_id,

@@ -13,8 +13,7 @@ const Greeting = ({ userName, userRol }) => {
             <h5>Hola {capital(userName)} 👋</h5>
             <p>{capital(userRol)}</p>
 
-            {idPending === 'pending' && <SendPendingProducts />
-            }
+            {idPending === 'pending' && <SendPendingProducts />}
         </div>
     )
 }

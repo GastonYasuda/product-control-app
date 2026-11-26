@@ -8,9 +8,8 @@ import CategoryDetails from './Views/CategoryDetails/CategoryDetails'
 import Supplier from './Views/Supplier/Supplier'
 import SupplierDetail from './Views/SupplierDetail/SupplierDetail'
 import ProductsCards from './Views/ProductsCards/ProductsCards'
-import { useContext, useEffect, useState } from 'react'
+import { useState } from 'react'
 import SearchResults from './Views/SearchResults/SearchResults'
-import { ProductApi } from './Context/ProductControlApi'
 import OrderDetail from './Views/OrderDetail/OrderDetail'
 
 function App() {
@@ -38,7 +37,6 @@ function App() {
         <Route path='/orderDetail/:idOrderDetail' element={<OrderDetail />} />
 
         <Route path='*' element={<h3>Error!<br /> La pagina no existe! </h3>} />
-
 
       </Routes>
     </BrowserRouter >

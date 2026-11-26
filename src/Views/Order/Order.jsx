@@ -6,7 +6,6 @@ import { ProductApi } from '../../Context/ProductControlApi'
 import DetailElementComponent from '../../Components/DetailElementComponent/DetailElementComponent'
 import noProductImg from '../../assets/noProducts.png'
 import NavBarMobile from '../../Components/NavBarMobile/NavBarMobile'
-import { Spinner } from 'react-bootstrap'
 
 const Order = () => {
     const { loginUser } = useContext(ProductApi)
@@ -52,33 +51,27 @@ const Order = () => {
                 </div>
             </section>
 
-            {allPendings.length === 0 ?
-                <Spinner animation="grow" variant="success" className='loadingSpinner' />
-                :
+            {count > 0 ?
                 <>
-                    {count > 0 ?
-                        <>
-                            <h4 className='mt-5 text-start ps-3'>
-                                {count} {count === 1 ? 'Producto Pendiente' : 'Productos Pendientes'}
-                            </h4>
+                    <h4 className='mt-5 text-start ps-3'>
+                        {count} {count === 1 ? 'Producto Pendiente' : 'Productos Pendientes'}
+                    </h4>
 
-                            <section className='orderMainComponent'>
-                                <DetailElementComponent
-                                    from={'pendingProductList'}
-                                    allPendings={allPendings}
-                                    setAllPendings={setAllPendings}
-                                />
-                            </section>
-                        </>
-                        :
-                        <section className='pt-5'>
-                            <img src={noProductImg} className="pt-5 w-50 h-auto" alt="no products image" />
-                            <h4 className='mt-3'>
-                                No hay productos pendientes
-                            </h4>
-                        </section>
-                    }
+                    <section className='orderMainComponent'>
+                        <DetailElementComponent
+                            from={'pendingProductList'}
+                            allPendings={allPendings}
+                            setAllPendings={setAllPendings}
+                        />
+                    </section>
                 </>
+                :
+                <section className='pt-5'>
+                    <img src={noProductImg} className="pt-5 w-50 h-auto" alt="no products image" />
+                    <h4 className='mt-3'>
+                        No hay productos pendientes
+                    </h4>
+                </section>
             }
 
             <NavBarMobile />
