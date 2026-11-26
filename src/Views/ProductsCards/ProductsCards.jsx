@@ -11,8 +11,8 @@ import NavBarMobile from '../../Components/NavBarMobile/NavBarMobile';
 
 
 const ProductsCards = () => {
-    const { getAllProductsFromDB, getAllProducts } = useContext(DataProductApi)
-    const { loginUser, orderByName } = useContext(ProductApi)
+    const { getAllProducts } = useContext(DataProductApi)
+    const { loginUser } = useContext(ProductApi)
 
     const [loading, setLoading] = useState(false)
     const [allPendings, setAllPendings] = useState([]);
@@ -29,9 +29,6 @@ const ProductsCards = () => {
             setLoading(false)
         }
 
-        // console.log(getAllProducts);
-
-
     }, [getAllProducts])
 
 
@@ -43,17 +40,14 @@ const ProductsCards = () => {
                 const data = await response.json()
                 setAllPendings(data)
 
-
             } else {
                 throw new Error("Error al intentar obtener usuario");
-
             }
         }
         catch (error) {
             console.error(error)
         }
     }
-
 
 
     return (
@@ -80,7 +74,6 @@ const ProductsCards = () => {
                         loginUser={loginUser}
                         allPendings={allPendings}
                         setAllPendings={setAllPendings}
-                    // getAllProducts={orderByName(getAllProducts)}
                     />
             }
 

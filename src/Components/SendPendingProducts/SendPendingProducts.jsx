@@ -9,7 +9,7 @@ import { DataProductApi } from '../../Context/DataBaseProductApi'
 const SendPendingProducts = () => {
 
     const { loginUser } = useContext(ProductApi)
-    const { getUserOrders } = useContext(DataProductApi)
+    // const { getUserOrders } = useContext(DataProductApi)
 
     const [getPendingOrder, setGetPendingOrder] = useState([])
 
@@ -57,7 +57,6 @@ const SendPendingProducts = () => {
 
         } catch (error) {
             console.error("Error al eliminar pendientes:", error);
-
         }
     }
 
@@ -73,7 +72,6 @@ const SendPendingProducts = () => {
                 body: JSON.stringify(body),
             }
         );
-        console.log('hola');
 
         if (!response.ok) {
             const err = await response.json().catch(() => ({}));
@@ -109,36 +107,24 @@ const SendPendingProducts = () => {
                         quantity: Number(product.pending_order_quantity)
                     }));
 
-                    console.log('getPendingOrder', getPendingOrder);
 
                     const pendingProductsToSend = {
                         "products": nuevoArray
                     }
-                    console.log('nuevoArray', nuevoArray);
 
-                    console.log(pendingProductsToSend);
                     sendOrder(loginUser.user_id, pendingProductsToSend)
 
                     deletePendingOrderDB()
 
-                    // 7. Actualizar localStorage
-                    getUserOrders(loginUser)
-
-
-                    //   console.log(userOrder);
+                    //   getUserOrders(loginUser) //actualizo userOrder
 
                     const updatedUser = {
                         ...loginUser,
                         pending_orders: [],
                     };
-                    // console.log(updatedUser);
-
 
                     localStorage.setItem("userPass", JSON.stringify(updatedUser));
-
-
                 }
-
             });
         } else {
             Swal.fire("No hay productos pendientes", "", "warning")

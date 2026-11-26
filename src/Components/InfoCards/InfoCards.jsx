@@ -1,5 +1,3 @@
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
 import './infoCard.css';
 
 const InfoCards = ({ cardParams }) => {

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import './searchBar.css'
@@ -10,19 +10,13 @@ const SearchBar = () => {
 
     const [searchProductInput, setSearchProductInput] = useState()
 
-
-    // const [searchProductArray, setSearchProductArray] = useState([])
-
     const handleSearch = () => {
-        console.log('vamos a buscar => ', searchProductInput);
+        // console.log('vamos a buscar => ', searchProductInput);
 
         navigate(`/searchResults/${searchProductInput}`);
-        //buscar en TODOS LOS PRODUCTOS, coincidencias de nombre, codigo, proveedor...
-
     }
 
     return (
-
         <div className="searchBarContainer">
 
             <InputGroup className="searchBarContainer_input ">

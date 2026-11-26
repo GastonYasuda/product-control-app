@@ -9,14 +9,9 @@ const MainInfo = () => {
     const { loginUser } = useContext(ProductApi)
     const { getUserOrders, userOrder } = useContext(DataProductApi)
 
-
-
     useEffect(() => {
         getUserOrders(loginUser)
     }, [])
-
-
-
 
     const onProcessCount = userOrder.filter(order => order.status_name === 'En Preparación')
     const preparedCount = userOrder.filter(order => order.status_name === 'Preparado')
@@ -37,10 +32,6 @@ const MainInfo = () => {
             'count': deliveredCount.length,
         }
     ]
-
-
-
-
 
 
     return (

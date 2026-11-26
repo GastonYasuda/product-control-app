@@ -7,16 +7,19 @@ const RecentOrderDetail = ({ orderData }) => {
     const { formatDate, loginUser } = useContext(ProductApi)
     const userRol = loginUser.user_rol
 
+    const statusClass = () =>
+        orderData.status_name === 'Entregado' ? 'bg-secondary'
+            : orderData.status_name === 'Preparado' ? 'bg-success'
+                : orderData.status_name === 'En Preparación' ? 'bg-info'
+                    : 'bg-primary'
+
     return (
         <Link to={`/orderDetail/${orderData.order_id}`} className='text-reset card m-3 py-2'>
             <div className='h-100 d-flex rounded bg-light justify-content-end align-items-center'>
+
                 <span className='flex-fill orderDataId'>#{orderData.order_id}</span>
-                <span className={`${orderData.status_name === 'Entregado'
-                    ? 'bg-secondary'
-                    : orderData.status_name === 'Preparado'
-                        ? 'bg-success'
-                        : 'bg-info'
-                    } text-white rounded py-2 w-25 lh-1 flex-fill`}>
+
+                <span className={`${statusClass()} text-white rounded py-2 w-25 lh-1 flex-fill`}>
                     {orderData.status_name}
                 </span>
 
@@ -26,12 +29,11 @@ const RecentOrderDetail = ({ orderData }) => {
                     <span className='flex-fill'>{orderData.user_name}</span>
                 }
 
-
                 <span className="material-symbols-outlined">
                     keyboard_arrow_right
                 </span>
             </div>
-        </Link>
+        </Link >
     )
 }
 

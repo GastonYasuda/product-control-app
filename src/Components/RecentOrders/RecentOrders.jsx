@@ -7,11 +7,7 @@ import FilterComponent from '../FilterComponent/FilterComponent';
 
 const RecentOrders = ({ preparedCount, deliveredCount, onProcessCount }) => {
 
-    // console.log(onProcessCount);
-    // console.log(preparedCount);
     const [showFilter, setFilter] = useState('Todos')
-
-
 
     return (
         <div className='mt-3 recentOrdersStyle'>

@@ -6,17 +6,27 @@ import { ProductApi } from '../../Context/ProductControlApi'
 import DetailElementComponent from '../../Components/DetailElementComponent/DetailElementComponent'
 import noProductImg from '../../assets/noProducts.png'
 import NavBarMobile from '../../Components/NavBarMobile/NavBarMobile'
+import { Spinner } from 'react-bootstrap'
 
 const Order = () => {
     const { loginUser } = useContext(ProductApi)
-    // const pendingProducts = loginUser?.userPendingProd ?? []
 
-    // const [detailElement, setDetailElement] = useState([])
     const [allPendings, setAllPendings] = useState([]);
+    const [loading, setLoading] = useState(false)
+
     const count = allPendings.length
 
     useEffect(() => {
         getUserPending()
+
+
+        const orderTimer = setTimeout(() => {
+            setLoading(true); // Pasa a false después de 2 segundos
+        }, 2000);
+
+        // Limpieza recomendada en React
+        return () => clearTimeout(orderTimer);
+
     }, [])
 
     //tengo que actualizar userPass con pending_orders vacio
@@ -51,27 +61,33 @@ const Order = () => {
                 </div>
             </section>
 
-            {count > 0 ?
-                <>
-                    <h4 className='mt-5 text-start ps-3'>
-                        {count} {count === 1 ? 'Producto Pendiente' : 'Productos Pendientes'}
-                    </h4>
-
-                    <section className='orderMainComponent'>
-                        <DetailElementComponent
-                            from={'pendingProductList'}
-                            allPendings={allPendings}
-                            setAllPendings={setAllPendings}
-                        />
-                    </section>
-                </>
+            {!loading ?
+                <Spinner animation="grow" variant="success" className='loadingSpinner' />
                 :
-                <section className='pt-5'>
-                    <img src={noProductImg} className="pt-5 w-50 h-auto" alt="no products image" />
-                    <h4 className='mt-3'>
-                        No hay productos pendientes
-                    </h4>
-                </section>
+                <>
+                    {allPendings.length !== 0 && count > 0 ?
+                        <>
+                            <h4 className='mt-5 text-start ps-3'>
+                                {count} {count === 1 ? 'Producto Pendiente' : 'Productos Pendientes'}
+                            </h4>
+
+                            <section className='orderMainComponent'>
+                                <DetailElementComponent
+                                    from={'pendingProductList'}
+                                    allPendings={allPendings}
+                                    setAllPendings={setAllPendings}
+                                />
+                            </section>
+                        </>
+                        :
+                        <section className='pt-5'>
+                            <img src={noProductImg} className="pt-5 w-50 h-auto" alt="no products image" />
+                            <h4 className='mt-3'>
+                                No hay productos pendientes
+                            </h4>
+                        </section>
+                    }
+                </>
             }
 
             <NavBarMobile />
