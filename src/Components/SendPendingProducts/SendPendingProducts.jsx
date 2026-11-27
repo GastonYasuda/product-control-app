@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap'
 import { ProductApi } from '../../Context/ProductControlApi'
 import Swal from 'sweetalert2'
 import { DataProductApi } from '../../Context/DataBaseProductApi'
+import { useNavigate } from 'react-router-dom'
 
 
 
@@ -12,6 +13,8 @@ const SendPendingProducts = () => {
     // const { getUserOrders } = useContext(DataProductApi)
 
     const [getPendingOrder, setGetPendingOrder] = useState([])
+    const navigate = useNavigate()
+
 
 
     useEffect(() => {
@@ -76,6 +79,9 @@ const SendPendingProducts = () => {
         if (!response.ok) {
             const err = await response.json().catch(() => ({}));
             throw new Error(err.error || `HTTP ${response.status}`);
+        } else {
+            navigate('/home');
+
         }
     }
 
