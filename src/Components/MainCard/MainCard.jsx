@@ -25,10 +25,7 @@ const MainCard = ({ cardName }) => {
                     ).values()
                 ];
 
-
                 setElementsArray(uniqueCategory);
-
-
 
             } else if (cardName === 'supplier') {
                 const uniqueSuplier = [
@@ -42,10 +39,8 @@ const MainCard = ({ cardName }) => {
                         ])
                     ).values()
                 ];
-
                 setElementsArray(uniqueSuplier);
             }
-
         }
 
     }, [])
@@ -61,8 +56,6 @@ const MainCard = ({ cardName }) => {
 
         }
     }
-
-
 
 
     return (

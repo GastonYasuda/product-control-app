@@ -10,34 +10,32 @@ import Swal from 'sweetalert2'
 const DetailElementComponent = ({ from, allPendings, setAllPendings, detailElement }) => {
 
     const { getAllProducts } = useContext(DataProductApi)
-    const { orderByName, loginUser, setLoginUser } = useContext(ProductApi)
-
-
+    const { orderByName, loginUser } = useContext(ProductApi)
 
     const [showProducts, setShowProducts] = useState([])
-    // const [pendingBadge, setPendingBadge] = useState(false)
 
 
     useEffect(() => {
-
-        console.log('eee');
 
         if (from !== 'pendingProductList') {
 
             if (allPendings !== undefined && detailElement.length !== 0) {
 
                 mergeDetailElementAllPending(allPendings)
-
             }
 
         } else if (Array.isArray(allPendings)) {
+
             funcionParaOrder(allPendings);
         }
 
     }, [allPendings, getAllProducts, detailElement])
 
+
     const funcionParaOrder = (arrayAdd) => {
+
         const newProductsArray = arrayAdd.map(pending => {
+
             const product = getAllProducts.find(
                 p => Number(p.product_id) === Number(pending.product_id)
             );
@@ -49,6 +47,7 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
                 product_count: pending.pending_order_quantity,
                 pending: true
             };
+
         }).filter(Boolean);
 
 
@@ -87,7 +86,6 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
     const addToOrder = async (id_product, count) => {
         const quantity = Number(count);
 
-        // 1. Validar la cantidad
         if (!Number.isInteger(quantity) || quantity <= 0) {
             Swal.fire("Atención", "Ingresá una cantidad válida", "warning");
             return;
@@ -111,12 +109,10 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
             return;
         }
 
-        // 3. Comprobar si ya existe en pendientes
         const exists = allPendings.some(
             p => Number(p.product_id) === Number(id_product)
         );
 
-        // 4. Enviar al backend
         const saved = await savePending(
             {
                 product_id: Number(id_product),
@@ -128,7 +124,6 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
         // Si el backend falla, no actualizamos los datos locales
         if (!saved) return;
 
-        // 5. Crear un array sin duplicados y con la cantidad actualizada
         const updatedPendings = exists
             ? allPendings.map(p =>
                 Number(p.product_id) === Number(id_product)
@@ -141,13 +136,11 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
             : [
                 ...allPendings,
                 {
-                    // pending_order_user: loginUser.user_id,
                     product_id: Number(id_product),
                     pending_order_quantity: quantity,
                 },
             ];
 
-        // 6. Actualizar los estados de React
         setAllPendings(updatedPendings);
 
         const newArrayAdded = {
@@ -157,36 +150,17 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
         }
         console.log(newArrayAdded);
 
-        //   setShowProducts(newArrayAdded);
 
-        // 7. Actualizar localStorage
         const updatedUser = {
             ...loginUser,
             pending_orders: updatedPendings,
         };
-        //console.log(updatedPendings);
-
-
-        // if (from !== 'pendingProductList') {
-
-        //     mergeDetailElementAllPending(updatedPendings);
-        // } else {
-        //     console.log(updatedPendings);
-
-        //     funcionParaOrder(updatedPendings)
-        // }
-
-
 
         localStorage.setItem("userPass", JSON.stringify(updatedUser));
-
     };
 
 
     const savePending = async (body, productName) => {
-        // console.log(loginUser.user_id);
-        // console.log(productName);
-
 
         try {
             const response = await fetch(
@@ -226,8 +200,6 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
     };
 
     const deleteOrder = async (productId, productName) => {
-        console.log('productId', productId);
-        console.log('productName', productName);
 
         try {
             const response = await fetch(
@@ -245,18 +217,12 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
                 throw new Error(err.error || `HTTP ${response.status}`);
             }
 
-            // 1. Crear un nuevo array sin el producto eliminado
             const newPendingArray = allPendings.filter(
                 product => Number(product.product_id) !== Number(productId)
             );
 
-            // 2. Actualizar el estado de todos los pendientes
-            //   setAllPendings(newPendingArray);
             console.log(newPendingArray);//hasta aca ok
 
-
-
-            // 4. Actualizar localStorage
             const newUserArray = {
                 ...loginUser,
                 pending_orders: newPendingArray,
@@ -264,20 +230,7 @@ const DetailElementComponent = ({ from, allPendings, setAllPendings, detailEleme
 
             localStorage.setItem("userPass", JSON.stringify(newUserArray));
 
-            // 5. Actualizar la interfaz
             setAllPendings(newPendingArray);
-
-
-
-            // if (from !== 'pendingProductList') {
-
-            //     mergeDetailElementAllPending(newPendingArray);
-            // } else {
-
-            //     funcionParaOrder(newPendingArray)
-            // }
-
-            // setPendingBadge(false);
 
             const newShowArrayProducts = prev =>
                 prev.map(product =>

@@ -28,14 +28,12 @@ const CategoryDetails = () => {
 
             } else {
                 throw new Error("Error al intentar obtener usuario");
-
             }
         }
         catch (error) {
             console.error(error)
         }
     }
-
 
 
     const getProductsByItem = async (itemId) => {
@@ -45,20 +43,18 @@ const CategoryDetails = () => {
             if (response.ok) {
                 const data = await response.json()
                 console.log('prod de la cat', data);
+
                 setDetailElement(orderByName(data))
-                // mergeProdFunc(data)
                 getUserPending()
+
             } else {
                 throw new Error("Error al intentar obtener productos");
-
             }
         }
         catch (error) {
             console.error(error)
         }
     }
-
-
 
     return (
         <div className='mt-5'>

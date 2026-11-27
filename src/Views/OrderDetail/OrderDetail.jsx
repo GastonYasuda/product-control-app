@@ -10,9 +10,7 @@ import NavBarMobile from '../../Components/NavBarMobile/NavBarMobile'
 const OrderDetail = () => {
 
     const { loginUser } = useContext(ProductApi)
-
     const { idOrderDetail } = useParams()
-
 
     return (
         <div className='mt-5'>
@@ -26,10 +24,7 @@ const OrderDetail = () => {
                 </div>
             </section>
 
-
             <OrderDetailInfo idOrderDetail={idOrderDetail} />
-
-
 
             <NavBarMobile />
         </div>

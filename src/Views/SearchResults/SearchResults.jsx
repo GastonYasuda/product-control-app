@@ -21,11 +21,8 @@ const SearchResults = () => {
 
 
     useEffect(() => {
-        // console.log(idSearchResults);
-        //  console.log('getAllProducts', getAllProducts);
 
         getUserPending()
-
 
         if (getAllProducts.length === 0) {
             setLoading(true)
@@ -34,21 +31,14 @@ const SearchResults = () => {
             setLoading(false)
         }
 
-
         const { pending_orders } = loginUser
-        //  console.log(pending_orders);
         setAllPendings(pending_orders)
-        //  console.log(getAllProducts);
-
-        console.log('idSearchResults', idSearchResults);
-
 
         const productCoincidence = getAllProducts.filter((p) => p.product_name.toLowerCase().includes(idSearchResults.toLowerCase()))
         setSearchProductArray(productCoincidence)
         console.log(productCoincidence);
 
         if (pending_orders !== undefined) {
-            // console.log(userPendingProd);
 
             const getArray = pending_orders.flatMap(userProduct =>
                 productCoincidence.filter(product => product.id === userProduct.id)
@@ -58,8 +48,6 @@ const SearchResults = () => {
                         pending: userProduct.pending
                     }))
             )
-            //  console.log(getArray);
-
 
             const userPendingProductsMerged = getArray.length === 0 ? productCoincidence : getArray
 
@@ -68,14 +56,12 @@ const SearchResults = () => {
                     [...productCoincidence, ...userPendingProductsMerged].map(product => [product.product_id, product])
                 ).values()
             ];
-            //  console.log('resultadoBuscador', mergedProducts);
 
             setSearchProductArray(mergedProducts)
         }
 
-
-
     }, [getAllProducts, idSearchResults])
+
 
     const getUserPending = async () => {
         try {
@@ -84,18 +70,14 @@ const SearchResults = () => {
                 const data = await response.json()
                 setAllPendings(data)
 
-
             } else {
                 throw new Error("Error al intentar obtener usuario");
-
             }
         }
         catch (error) {
             console.error(error)
         }
     }
-
-
 
 
     return (
@@ -129,7 +111,6 @@ const SearchResults = () => {
             }
 
             <NavBarMobile />
-
         </div>
     )
 }

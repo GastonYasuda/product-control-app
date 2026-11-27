@@ -19,17 +19,14 @@ const Order = () => {
     useEffect(() => {
         getUserPending()
 
-
         const orderTimer = setTimeout(() => {
-            setLoading(true); // Pasa a false después de 2 segundos
+            setLoading(true);
         }, 2000);
 
-        // Limpieza recomendada en React
         return () => clearTimeout(orderTimer);
 
     }, [])
 
-    //tengo que actualizar userPass con pending_orders vacio
 
     const getUserPending = async () => {
         try {
@@ -48,7 +45,6 @@ const Order = () => {
             console.error(error)
         }
     }
-
 
     return (
         <div className='mt-5'>

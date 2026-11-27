@@ -23,7 +23,6 @@ const SuppierDetail = () => {
 
     const getUserPending = async () => {
 
-
         try {
             const response = await fetch(`https://product-control-back.onrender.com/users/${loginUser.user_id}/pending`)
             if (response.ok) {
@@ -31,16 +30,15 @@ const SuppierDetail = () => {
                 //   console.log('lo q tengo ahora', data);
                 setAllPendings(data)
 
-
             } else {
                 throw new Error("Error al intentar obtener usuario");
-
             }
         }
         catch (error) {
             console.error(error)
         }
     }
+
 
     const getProductsByItem = async (itemId) => {
 
@@ -50,7 +48,6 @@ const SuppierDetail = () => {
                 const data = await response.json()
                 console.log('prod de la supplier', data);
                 setDetailElement(orderByName(data))
-                // mergeProdFunc(data)
 
             } else {
                 throw new Error("Error al intentar obtener productos");
@@ -85,7 +82,6 @@ const SuppierDetail = () => {
                 detailElement={detailElement} />
 
             <NavBarMobile />
-
         </div >
     )
 }

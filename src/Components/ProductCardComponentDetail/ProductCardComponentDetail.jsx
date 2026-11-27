@@ -7,14 +7,11 @@ import { DataProductApi } from '../../Context/DataBaseProductApi';
 import Swal from 'sweetalert2'
 
 
-
-
 const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, rol }) => {
 
     const { updateProductInList } = useContext(DataProductApi)
     const [inputCount, setInputCount] = useState('')
     const [saving, setSaving] = useState(false)
-
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -22,13 +19,17 @@ const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, rol }) =
 
     const handleAdd = async () => {
         setSaving(true);
+
         const ok = await addToOrder(product.product_id, inputCount);
+
         setSaving(false);
-        if (ok) setInputCount('');   // solo limpia si se guardó bien
+
+        if (ok) setInputCount('');
     };
 
 
     const updateStockPrice = async (id, newPrice, newStock) => {
+
         const response = await fetch(`https://product-control-back.onrender.com/products/${id}`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
@@ -40,7 +41,6 @@ const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, rol }) =
             throw new Error(err.error || `HTTP ${response.status}`);
         }
 
-        // Actualiza el estado → React vuelve a renderizar la tarjeta
         updateProductInList(id, { product_price: newPrice, product_stock: newStock });
         Swal.fire('Actualizado correctamente', '', 'success');
     };
@@ -52,7 +52,6 @@ const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, rol }) =
                 {product.pending && <span className='position-absolute top-0 end-0 badge bg-warning p-2 mt-1 me-1'>Pendiente</span>}
 
                 {product.product_stock === 0 && <h1 className='mt-3 z-3 w-100 bg-info text-light position-absolute'>SIN STOCK</h1>}
-
 
                 <Link to={`/product/${product.product_id}`}>
                     <div className={`${product.product_stock === 0 ? "opacity-50" : ""} w-100 m-auto homeCardImage`}>
@@ -71,12 +70,12 @@ const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, rol }) =
 
                     <div>
                         <div className={`${product.product_stock === 0 ? "opacity-50" : ""} w-100 d-flex flex-column justify-content-between`}>
-                            {/* <span className='text-start'>Cod: {product.product_sku}</span> */}
                             <section className='d-flex justify-content-between'>
                                 <span className='fw-semibold'>${product.product_price}</span>
                                 <span>Stock: {product.product_stock}</span>
                             </section>
                         </div>
+
                         <Form className={`${product.product_stock === 0 ? "opacity-50" : ""} w-100 d-flex flex-column justify-content-between d-flex flex-column mt-2`}>
                             <Form.Control
                                 type="number"
@@ -112,13 +111,10 @@ const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, rol }) =
                                         product={product}
                                         updateStockPrice={updateStockPrice}
                                     />
-
                                 </section>
                             }
-
-
-
                         </Form>
+
                     </div>
                 </Card.Body>
             </Card>

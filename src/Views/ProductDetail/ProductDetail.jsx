@@ -27,7 +27,6 @@ const ProductDetail = () => {
         getUserPending()
         if (!getAllProducts.length || !idProduct) return;
 
-        // Recuperar el usuario actualizado de localStorage
         const storedUser = JSON.parse(
             localStorage.getItem("userPass") || "null"
         );
@@ -37,14 +36,11 @@ const ProductDetail = () => {
             loginUser?.pending_orders ??
             [];
 
-        const productId = Number(idProduct);
-
-        // Actualizar la lista completa de pendientes
         setAllPendings(pendingOrders);
 
-        // Buscar el producto en el catálogo
+
         const selectedProduct = getAllProducts.find(
-            p => Number(p.product_id) === Number(productId)
+            p => Number(p.product_id) === Number(idProduct)
         );
 
         if (!selectedProduct) {
@@ -53,20 +49,18 @@ const ProductDetail = () => {
             return;
         }
 
-        // Buscar si el producto está pendiente
+
         const pendingProduct = pendingOrders.find(
             p => Number(p.product_id) === productId
         );
 
         if (pendingProduct) {
-            // Combinar los datos del catálogo con los del pendiente
+
             setShowProduct({
                 ...selectedProduct,
                 product_count: pendingProduct.pending_order_quantity,
                 pending: true,
             });
-
-            // setPendingBadge(true);
 
             setInputCount('');
 
@@ -77,30 +71,32 @@ const ProductDetail = () => {
                 pending: false,
             });
 
-            // setPendingBadge(false);
             setInputCount('');
         }
     }, [getAllProducts, idProduct, loginUser]);
 
+
     const handleAdd = async () => {
+
         setSaving(true);
         const ok = await addToOrder(showProduct.product_id, inputCount);
         setSaving(false);
         if (ok) setInputCount('');   // solo limpia si se guardó bien
+
     };
 
+
     const getUserPending = async () => {
+
         try {
             const response = await fetch(`https://product-control-back.onrender.com/users/${loginUser.user_id}/pending`)
             if (response.ok) {
                 const data = await response.json()
-                console.log(data);
+                // console.log(data);
                 setAllPendings(data)
-
 
             } else {
                 throw new Error("Error al intentar obtener usuario");
-
             }
         }
         catch (error) {
@@ -109,12 +105,9 @@ const ProductDetail = () => {
     }
 
 
-
-
     const addToOrder = async (id_product, count) => {
         const quantity = Number(count);
 
-        // 1. Validar la cantidad
         if (!Number.isInteger(quantity) || quantity <= 0) {
             Swal.fire("Atención", "Ingresá una cantidad válida", "warning");
             return false;
@@ -138,12 +131,10 @@ const ProductDetail = () => {
             return false;
         }
 
-        // 3. Comprobar si ya existe en pendientes
         const exists = allPendings.some(
             p => Number(p.product_id) === Number(id_product)
         );
 
-        // 4. Enviar al backend
         const saved = await savePending(
             {
                 product_id: Number(id_product),
@@ -152,10 +143,9 @@ const ProductDetail = () => {
             product.product_name
         );
 
-        // Si el backend falla, no actualizamos los datos locales
+        //si falla el envio al back, corta
         if (!saved) return false;
 
-        // 5. Crear un array sin duplicados y con la cantidad actualizada
         const updatedPendings = exists
             ? allPendings.map(p =>
                 Number(p.product_id) === Number(id_product)
@@ -168,15 +158,13 @@ const ProductDetail = () => {
             : [
                 ...allPendings,
                 {
-
                     product_id: Number(id_product),
                     pending_order_quantity: quantity,
                 },
             ];
 
-        // 6. Actualizar los estados de React
+        //actualizo los estados de react
         setAllPendings(updatedPendings);
-
 
         setShowProduct({
             ...product,
@@ -184,7 +172,7 @@ const ProductDetail = () => {
             pending: true,
         });
 
-        // 7. Actualizar localStorage
+        //actualizo localStorage
         const updatedUser = {
             ...loginUser,
             pending_orders: updatedPendings,
@@ -254,16 +242,13 @@ const ProductDetail = () => {
                 throw new Error(err.error || `HTTP ${response.status}`);
             }
 
-            // 1. Crear un nuevo array sin el producto eliminado
             const newPendingArray = allPendings.filter(
                 product => product.product_id !== Number(productId)
             );
 
-            // 2. Actualizar el estado de todos los pendientes
             setAllPendings(newPendingArray);
 
 
-            // 4. Actualizar localStorage
             const newUserArray = {
                 ...loginUser,
                 pending_orders: newPendingArray,
@@ -271,8 +256,7 @@ const ProductDetail = () => {
 
             localStorage.setItem("userPass", JSON.stringify(newUserArray));
 
-            // 5. Actualizar la interfaz
-            // setPendingBadge(false);
+
             setInputCount('');
 
             setShowProduct(prev =>
@@ -323,79 +307,71 @@ const ProductDetail = () => {
                 </div>
             </section>
 
-
-
             <>
-                {showProduct &&
-                    <>
-                        {
-                            !showProduct ?
-                                <Spinner animation="grow" variant="success" className='loadingSpinner' />
-                                :
-                                <section>
+                {
+                    !showProduct ?
+                        <Spinner animation="grow" variant="success" className='loadingSpinner' />
+                        :
+                        <section>
 
-                                    <div className='productDetailComponent mx-auto d-flex flex-column position-relative rounded' >
-                                        <h4 className={`${showProduct.product_stock === 0 ? "opacity-50" : ""} pt-3`}>
-                                            {showProduct.product_name}
-                                        </h4>
+                            <div className='productDetailComponent mx-auto d-flex flex-column position-relative rounded' >
+                                <h4 className={`${showProduct.product_stock === 0 ? "opacity-50" : ""} pt-3`}>
+                                    {showProduct.product_name}
+                                </h4>
 
-                                        <div className='d-flex productDetailComponent_body mb-3'>
+                                <div className='d-flex productDetailComponent_body mb-3'>
 
 
-                                            <div className={`${showProduct.product_stock === 0 ? "opacity-50" : ""} productDetailComponent_body_image m-auto`}>
-                                                <img src={showProduct.product_img} className='h-100 object-fit-contain' alt={`${showProduct.product_name} img`} />
-                                            </div>
+                                    <div className={`${showProduct.product_stock === 0 ? "opacity-50" : ""} productDetailComponent_body_image m-auto`}>
+                                        <img src={showProduct.product_img} className='h-100 object-fit-contain' alt={`${showProduct.product_name} img`} />
+                                    </div>
 
-                                            {showProduct.pending && <span className='position-absolute top-0 end-0 badge bg-warning p-2 mt-1 me-1'>Pendiente</span>}
+                                    {showProduct.pending && <span className='position-absolute top-0 end-0 badge bg-warning p-2 mt-1 me-1'>Pendiente</span>}
 
-                                            {showProduct.product_stock === 0 && <h1 className='w-100 bg-warning text-danger position-absolute'>SIN STOCK</h1>}
+                                    {showProduct.product_stock === 0 && <h1 className='w-100 bg-warning text-danger position-absolute'>SIN STOCK</h1>}
 
 
-                                            <div className={`${showProduct.product_stock === 0 ? "opacity-50" : ""} m-auto p-3`} >
+                                    <div className={`${showProduct.product_stock === 0 ? "opacity-50" : ""} m-auto p-3`} >
 
-                                                <div className="w-100 d-flex flex-column align-items-start">
+                                        <div className="w-100 d-flex flex-column align-items-start">
 
-                                                    <h6>{showProduct.category.category_name} - {showProduct.supplier.supplier_name}</h6>
-                                                    <p>Cod: {showProduct.product_sku}</p>
-                                                    <div className='w-100 d-flex justify-content-between'>
-                                                        <p>$ {showProduct.product_price}</p>
-                                                        <p>Stock: {showProduct.product_stock}</p>
-                                                    </div>
-                                                </div>
-
-                                                <Form className={`${showProduct.product_stock === 0 ? "opacity-50" : ""} w-100 d-flex flex-column justify-content-between d-flex flex-column mt-2`}>
-                                                    <Form.Control
-                                                        type="number"
-                                                        placeholder={showProduct.product_count}
-                                                        value={inputCount}
-                                                        onChange={(e) => setInputCount(e.target.value)}
-                                                    />
-
-                                                    <section className='d-flex mt-3'>
-                                                        <Button type="button" variant='secondary' className='w-50 me-2' onClick={() => { deleteOrder(showProduct.product_id, showProduct.product_name) }}>
-                                                            <span className="material-symbols-outlined">
-                                                                remove_shopping_cart
-                                                            </span>
-                                                        </Button>
-
-                                                        <Button variant="info" className='w-50 me-2' onClick={handleAdd} disabled={saving}>
-                                                            <span className="material-symbols-outlined text-light">
-                                                                add_shopping_cart
-                                                            </span>
-                                                        </Button>
-                                                    </section>
-                                                </Form>
+                                            <h6>{showProduct.category.category_name} - {showProduct.supplier.supplier_name}</h6>
+                                            <p>Cod: {showProduct.product_sku}</p>
+                                            <div className='w-100 d-flex justify-content-between'>
+                                                <p>$ {showProduct.product_price}</p>
+                                                <p>Stock: {showProduct.product_stock}</p>
                                             </div>
                                         </div>
 
-                                    </div >
-                                </section>
-                        }
-                    </>
+                                        <Form className={`${showProduct.product_stock === 0 ? "opacity-50" : ""} w-100 d-flex flex-column justify-content-between d-flex flex-column mt-2`}>
+                                            <Form.Control
+                                                type="number"
+                                                placeholder={showProduct.product_count}
+                                                value={inputCount}
+                                                onChange={(e) => setInputCount(e.target.value)}
+                                            />
+
+                                            <section className='d-flex mt-3'>
+                                                <Button type="button" variant='secondary' className='w-50 me-2' onClick={() => { deleteOrder(showProduct.product_id, showProduct.product_name) }}>
+                                                    <span className="material-symbols-outlined">
+                                                        remove_shopping_cart
+                                                    </span>
+                                                </Button>
+
+                                                <Button variant="info" className='w-50 me-2' onClick={handleAdd} disabled={saving}>
+                                                    <span className="material-symbols-outlined text-light">
+                                                        add_shopping_cart
+                                                    </span>
+                                                </Button>
+                                            </section>
+                                        </Form>
+
+                                    </div>
+                                </div>
+                            </div >
+                        </section>
                 }
             </>
-
-
 
             <NavBarMobile />
             <ToastContainer />
