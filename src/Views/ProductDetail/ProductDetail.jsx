@@ -51,7 +51,7 @@ const ProductDetail = () => {
 
 
         const pendingProduct = pendingOrders.find(
-            p => Number(p.product_id) === productId
+            p => Number(p.product_id) === idProduct
         );
 
         if (pendingProduct) {

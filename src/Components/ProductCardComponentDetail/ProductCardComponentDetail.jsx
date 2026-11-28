@@ -11,18 +11,18 @@ const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, rol }) =
 
     const { updateProductInList } = useContext(DataProductApi)
     const [inputCount, setInputCount] = useState('')
-    const [saving, setSaving] = useState(false)
+    // const [saving, setSaving] = useState(false)
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
     const handleAdd = async () => {
-        setSaving(true);
+        // setSaving(true);
 
         const ok = await addToOrder(product.product_id, inputCount);
 
-        setSaving(false);
+        // setSaving(false);
 
         if (ok) setInputCount('');
     };
@@ -91,7 +91,9 @@ const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, rol }) =
                                     </span>
                                 </Button>
 
-                                <Button variant="info" className='w-50 me-2' onClick={handleAdd} disabled={saving}>
+                                <Button variant="info" className='w-50 me-2' onClick={handleAdd}
+                                // disabled={saving}
+                                >
                                     <span className="material-symbols-outlined text-light">
                                         add_shopping_cart
                                     </span>
