@@ -19,8 +19,6 @@ const ProductCardComponentDetail = ({ product, deleteOrder, addToOrder, rol }) =
     const handleAdd = async () => {
 
         const ok = await addToOrder(product.product_id, inputCount);
-
-
         if (ok) setInputCount('');
     };
 
